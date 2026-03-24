@@ -90,17 +90,27 @@
 
 
 ## The overview
-I am pleased to say that I have successfully trained an A.I. model to distinguish between two crystal types in images.  The trained model had all F1 <sup id="a1">[1](#f1)</sup> scores above 99.7% in about 50 epochs or less.
+I am a software developer doing an independent study into using machine learning to identify crystallization in images. I found an interesting dataset and a really good research paper on the topic, so I wrote code to train on the data, and presented the data, using the paper for guidance. I am posting the code and results here in the hope that others will also find it interesting.
 
-I am a software developer doing an independent study into using machine learning to identify crystallization in images.  I found an interesting dataset and a really good research paper on the topic, so I wrote code to train on the data, using the paper for guidance.  I am posting the code and results here in the hope that others will also find it interesting.  
+I found the crystal image dataset on Kaggle. I decided to work with it because there were enough images to train with, and the images are all high quality. Here is the hyperlink to the dataset: OpenCrystalData Crystal Impurity Detection.
 
-I found the crystal image dataset on Kaggle.  I decided to work with it because there were enough images to train with, and the images are all high quality.  Here is the hyperlink to the dataset:  [OpenCrystalData Crystal Impurity Detection](https://www.kaggle.com/datasets/opencrystaldata/cephalexin-reactive-crystallization?resource=download).  
+The dataset I found was collected using Mettler-Toledo, LLC, (MT) instrumentation. While this is not a research paper, where one would typically make an affiliation statement, I should mention that I worked at MT on their vision products for years. However, I am no longer affiliated with the Company and am not necessarily endorsing their products here, nor have I used any intellectual property owned by MT.
 
-The dataset I found was collected using Mettler-Toledo, LLC, (MT) instrumentation.  While this is not a research paper, where one would typically make an affiliation statement, I should mention that I worked at MT on their vision products for years.  However, I am no longer affiliated with the Company and am not necessarily endorsing their products here, nor have I used any intellectual property owned by MT.  
+I chose crystallization in images because I think it is an important area of A.I. Other corners of the A.I. world, like LLM’s, video creation, and robotics, have grabbed headlines these days, but I would argue that the detection and categorization of crystallization in images is just as important because it is used in food processing, drug discovery, quality control in manufacturing, etc. It would be good to have more developers and data scientists interested in this part of A.I.
 
-I chose crystallization in images because I think it is an important area of A.I.  Other corners of the A.I. world, like LLM’s, video creation, and robotics, have grabbed headlines these days, but I would argue that the detection and categorization of crystallization in images is just as important because it is used in food processing, drug discovery, quality control in manufacturing, etc.  It would be good to have more developers and data scientists interested in this part of A.I.  
+In the KatherineMossDeveloper GitHub website, there are two related projects, the Georgia Project and Midnight Train. 
 
-This study is about the crystallization dataset on Kaggle.  However, in this documentation, to make things easier, I will refer to the dataset as the “GA data,” and this project as the “Georgia Project,” since all of the authors were at the School of Chemical & Biomolecular Engineering, Georgia Institute of Technology, in Atlanta, GA, which happens to be my husband’s alma mater.  
+The Georgia Project was inspired by a research paper:  Salami, H., McDonald, M. A., Bommarius, A. S., Rousseau, R. W., & Grover, M. A. (2021). In Situ Imaging Combined with Deep Learning for Crystallization Process Monitoring: Application to Cephalexin Production. Organic Process Research & Development, 25, 1670–1679.
+
+The scientists who wrote the paper trained ResNet models with ImageNet weights on the OpenCrystalData dataset. The models were trained to do binary classification of images of crystals, designating them as either CEX (a.k.a., “cephalexin antibiotic,” a good thing) or PG (a.k.a. “phenylglycine,” a bad thing).  One purpose of the paper was to determine if an impurity, PG, shows up during cephalexin antibiotic production. This would allow scientists to stop the process early, saving time and resources. This is the task that the A.I. model addresses.
+
+The Georgia Project recreates their work, then it stores details in a database.  Midnight train, in turn, pulls these details from the database and creates graphs in order to study the dataset. 
+
+<a href="#">
+  <img src="../images/overview.png" alt="Overview" style="vertical-align: middle; width: 1022px; height: 387px;"/>
+</a><br>
+
+
 [back to top](#content)   
 
 ## The paper  
@@ -125,37 +135,6 @@ I have a Windows PC.  I have not tested this project in other environments.  For
 The `use_cpu` variable in GAmain.py is set to true by default, so if you do not have a lot of memory on your GPU, the training will still complete.  If you set this variable to false, you will be using your GPU, assuming you have one.  I do not have access to a variety of computers, so I could not test every scenario.  I only tested it on my own computer, which has a GPU with limited memory.  I have gotten out of memory errors occasionally during training on my GPU, so I created this variable to avoid them.  
 [back to top](#content)   
 
-## The model.  
-In the table below are the details offered by the published paper, then on the right are the choices that I elected to work with.   
-|                         |Salami et al. paper     |my work                |
-|-------------------------|------------------------|-----------------------|
-|framework                |MATLAB                  |PyCharm                |
-|model type               |ResNet-18, ResNet-50    |ResNet-101             |
-|optimization method      |SGDM	                   |Keras SGD (momentum .9)|
-|learning rate 			      |1 × 10−4		             |1 × 10−1	             |
-|training data            |3200−3600 in each class |(same)                 |
-|train/val./test %        |70/25/5%                |(same)                 |
-|minibatch size 		      |32−64                   |64                     |
-|validation frequency     |10−50                   |1                      |
-|added dropout layers     |(did not comment)       |2                      |
-|trainable ImageNet layers|(did not comment)       |made last 10% trainable|
-
-Here are the changes that made the metrics better and the training shorter. 
-
-1.  ResNet-101.  See `GAmodel.py.`  
-The paper used ResNet-18 and ResNet-50.  I thought it would be interesting if I used the more complex model architecture here.  
-
-2.  The learning rate 1E-1.  See `GAmain.py.`  
-I gradually increased the learning rate from 1E-4 to 1E-1.  The model learned faster, without losing its mind.  
-
-3.  Two Dropout layers, with drop out rates at .4 and .3 respectively.  See `GAmodel.py.`  
-I added these just to see what would happen.  That was a good idea. 
-
-4.  Trainable ImageNet layers.  See `GAmodel.py.`    
-I made 10% of the ImageNet layers trainable, not knowing if they would make a difference.  They did.  
-
-I also wrote code to split the data into training, validation, and test sets.  See section a. in “The Georgia code and deliverables.”  I added code that would stop the training based on the F1 scores.  See `GAcallbacks.py.`  
-[back to top](#content)  
 
 ## The data.  
 There are ~6,800 image files for each of the two classes of crystal images.  
