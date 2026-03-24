@@ -143,7 +143,7 @@ We know from the CAM overlay that the model was “looking” in the right areas
 <a href="#">
   <img src="../images/cammeerkat.png" alt="Overview" style="vertical-align: middle; width:  800px; height: 300px;"/>
 </a><br>
-Image credit: [Johannes Schusterbauer](https://johfischer.com/2022/01/27/class-activation-maps/).  
+Image credit: [Schusterbauer](https://johfischer.com/2022/01/27/class-activation-maps/).  
 
 I wanted to apply this technique to the OpenCrystalData dataset.  In my first attempts, I used the traditional “rainbow” color scheme, as seen above with the meer kat.  The OpenCrystalData dataset images with these CAM overlays were aesthetically pleasing, but too visually complex to tie the colorization back to crystal structures, or the classification, which were the goals -- assuming that these goals could be achieved.  Here is an example image of my first attempt. 
 
@@ -162,12 +162,14 @@ After several attempts, I decided to not use the typical rainbow color scheme, b
 
 [back to top](#content)   
 
-## The development environment.
-The paper does not mention whether the MATLAB work done is publicly available.  Therefore, I tried to recreate their work with my code, which is written in Python with TensorFlow (Python 3.8; TensorFlow 2.10.1; Keras 2.10.0).  I used PyCharm ver. 2023.2.4, Community Edition, as the IDE.   
+## accordion
+The D3.js accordion 
+Some years ago, I found an interactive visualization online in the The New York Times called “Front Row to Fashion”.  The technology was D3.js.  I was impressed that this ‘accordion’ style of visualization, on the one hand, showed partial images of clothing, and yet imparted new information about the collection.  Specifically, one could see the overall style of a designer, rather than focus on the individual pieces; i.e. one can see the forest, rather than the trees.  Here is an example using six of those collections.  
+<a href="#">
+  <img src="../images/d3frontrow.png" alt="CEX samples" style="vertical-align: middle; width: 623px; height: 134px;"/>
+</a><br>
+Image credit: [NYT](https://www.nytimes.com/newsgraphics/2014/02/14/fashion-week-editors-picks/index.html).  
 
-I have a Windows PC.  I have not tested this project in other environments.  For the GPU, I used a Quadro P1000, with 4 GB of memory, using CUDA version 12.2.  The paper said that the researchers used a Intel Core i7 3 GHz unit.
-
-The `use_cpu` variable in GAmain.py is set to true by default, so if you do not have a lot of memory on your GPU, the training will still complete.  If you set this variable to false, you will be using your GPU, assuming you have one.  I do not have access to a variety of computers, so I could not test every scenario.  I only tested it on my own computer, which has a GPU with limited memory.  I have gotten out of memory errors occasionally during training on my GPU, so I created this variable to avoid them.  
 [back to top](#content)   
 
 
