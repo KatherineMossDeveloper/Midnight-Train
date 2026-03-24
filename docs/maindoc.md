@@ -200,10 +200,12 @@ As mentioned elsewhere, the Georgia Project produced many pieces of information 
 Image credit: [CNN](https://www.grammarly.com/blog/ai/what-is-a-convolutional-neural-network/).  
 [back to top](#content)  
 
-## How to recreate the results.  
+## Feature vector database
+Feature vectors + Weaviate database 
+Storing such a vector, with many dimensions, is not a typical storage consideration for a relational database.  A typical SQL database does not have a vector datatype.   This led me to vector databases.  My plan was that such a database would allow me to bridge the gap between the Georgia Project, which produced data, and the Midnight Train Project, which presents data.  Hence, the pun about “Midnight Train to Georgia.” 
 
-
-
+For more on Weaviate, visit [Weaviate](https://weaviate.io/).  
+For more on the song, visit [Midnight Train to Georgia](https://en.wikipedia.org/wiki/Midnight_Train_to_Georgia).  
 [back to top](#content)  
 
 ## The license.  
@@ -215,107 +217,5 @@ For more details about this project, feel free to reach out to me at katherinemo
 My time zone is EST in the U.S.
 
 [back to top](#content)  
-
-
-#### Footnotes
-> <sup id="f1">1</sup> The F1-score is an overall score of how well a model is learning.  It is the harmonic mean of precision and recall for each class.  A simple average, also known as an “arithmetic mean,” would be too crude a measure because it would simply “take an average” of the two numbers.  For example, if precision were 90% and recall were 20%, then the average would be 55, so you might think the model is working somewhat.
->
->                                        (90 + 20) / 2 = 55
->
-> In reality, the imbalance between the two numbers is a problem, a problem not reflected if you calculated an arithmetic mean, which gives you 55 as the answer.  In contrast, using the same numbers, the harmonic mean would be ~32%, a better reflection of the trouble that the model is in.  Below is the formula for the harmonic mean.
->
->           F1=  (2 x precision x recall) / (precision + recall) = (2 x 90 x 20) / (90 + 20) ≅ 32
->
-> For more about F1, visit [F1 on Wikipedia](https://en.wikipedia.org/wiki/F-score).  
-> [⏎](#a1)  
-
-> <sup id="f2">2</sup> Callbacks can be thought of as hooks into the model while it is training.  A typical callback is a class with an event function, like on_epoch_end.   Just like it sounds, when the model comes to the end of each epoch, it will call all callback classes, so that each class can do things, like collect metrics, write to the screen, make a decision about stopping the training, etc.  It gives the developer more information and control during training.
->
-> Technically, in Keras, callbacks are classes because they inherit from the “Callback” mothership.  Therefore, you would instantiate a callback class, hand it to the model, which would then call the instantiation, not the class itself.
-> 
-> For more about callbacks, visit [callbacks on Keras.io](https://keras.io/api/callbacks/).  
-> [⏎](#a2)
-
-> <sup id="f3">3</sup>  kmeans clustering is an algorithm that can show us how data is grouped.  It does this ‘unsupervised,’ meaning that the data is not labeled.  It is surprising to learn that kmeans was first proposed in 1957, and yet it is still an important part of a data scientist’s toybox.  There is more than one kind of kmeans algorithm, but the most popular one, and the one used in sklearn, is “Lloyd”.   For more on this, I recommend Johannes Wohlenberg’s  great article on www.medium.com.  It has a cool animation that shows how kmeans centroids ‘find’ each group.   [kmeans on Medium](https://medium.com/data-science/three-versions-of-kmeans-cf939b65f4ea).  
-> [⏎](#a3)
-
-> <sup id="f4">4</sup>  The macro average is just what it sounds like, the average of precision, recall, or F1 scores for all classes, which for us is just PG and CEX.
->   
-> Macro Avg Precision = Average of the precision values of both classes.  
-> Macro Avg Recall = Average of the recall values of both classes.  
-> Macro Avg F1-Score = Average of the F1-scores of both classes.  
->
-> Here is an example from a training run.  
->
-> PG           - Precision: 0.9591, Recall: 0.9993, F1-Score: 0.9788  
-> CEX          - Precision: 0.9992, Recall: 0.9552, F1-Score: 0.9767  
-> macro avg    - Precision: 0.9791, Recall: 0.9773, F1-Score: 0.9777  
-> weighted avg - Precision: 0.9786, Recall: 0.9778, F1-Score: 0.9778  
->
-> In contrast, the weighted average takes into account the number of samples in each class.  For us, the number of samples is about the same, but for another dataset, these numbers could be unequal, so these numbers could tell us more in that case.  
-> 
-> For more, visit [weighted average on Wikipedia](https://en.wikipedia.org/wiki/Weighted_arithmetic_mean).  
-> [⏎](#a4)
-
-> <sup id="f5">5</sup> Training accuracy is a measure, during the training epochs, of how well the model is learning the training data.
-> 
-> Validation accuracy is a measure, during the training, of how well the model can perform on validation data, meaning data that it has not been trained on.
-> 
-> Testing accuracy is a measure, after training, of how well the model can do predictions, or inference, on a data test set that it was not trained on, often deemed an “independent” dataset that is related to the other two sets, but not collected with it.
-> 
-> For more, visit [validation vs test vs training accuracy](https://www.geeksforgeeks.org/training-vs-testing-vs-validation-sets/).  
-> [⏎](#a5)
-
-> <sup id="f6">6</sup> A Confusion matrix is a commonly used deliverable in machine learning.  Rather than just looking at accuracy numbers, for example, this matrix
-> can simply show you how many errors there were, and in which category.
->
-> Since this project has been a binary classification effort, and the metrics were very good, the confusion matrix is simple, as seen below.  The X axis (the horizontal axis) is what the model decided, or predicted.  The Y axis (the vertical axis) is the “label,” or “truth.”  The squares are colorized.  The higher the number, the deeper the shade of blue. 
->
-> ![Results](../images/results_confusion.png)  
-> -The dark blue square on the upper left shows us the number of times, 343, that the model was shown PG crystals and recognized them.  
-> -The dark blue square on the lower right shows us the number of times, 341, that the model was shown CEX crystals and recognized them.  
-> -The other two squares show the number of errors.  
-> 
-> It is called a “confusion” matrix because it can show where a model was confused.  Since the numbers here are good, I could have named it the “Clarity Matrix.”
-> 
-> For more, visit [confusion matrix on Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix).  
-> [⏎](#a6)
- 
-<sup id="f7">7</sup> 
-Weaviate is an open-source vector database, available on GitHub.  I downloaded the GitHub zip file, installed it, then ran it in a Docker container on my Win 10 pc.  I found the setup fairly straightforward.  The code in python to control the database bears no resemblance to SQL code, but I still found that writing the WeaviateDatabase class was not bad.  
-
-Generally, to use my code, you can start the database, then create a client object in weaviate_connect. Once connected, delete and create a schema in weaviate_delete_and_create_schema.  Later in the code, add 'records' to the database, one at a time, using weaviate_add_record.  Each record contains identifying information, plus a vector.  The database kindly handles the creation of an 'index' that calculates the proximity of one vector to the others in the same collection or 'table' automatically.  Then call the query function, weaviate_find_neighbors, to ask for the nearest vectors to a given vector.  
-
-Weaviate seemed pretty accommodating, in that it did not expect me to set up a table with a data type that handles vectors, nor did it expect me to study its many similarity search algorithms and explicitly ask for my favorite.  It felt like the engineers at Weaviate know that developers are hoping to set up and use the database with minimum work, at least at the outset of a project.  
-  
-Here is the structure of GA_weaviatedatabase.py, which contains connections and CRUD functions.  
-
- class WeaviateDatabase
-     def weaviate_connect(self)  weaviate-client version 3.24.2.
-     def weaviate_available()
-     def weaviate_delete_and_create_schema()
-     def weaviate_truncate(self)
-     def weaviate_add_record(self, filename, image_vector)
-     def weaviate_find_neighbors(self, image_vector, limit)
-     def weaviate_row_count(self)
-     def weaviate_fetch_record()
-
-
-For more on Weaviate, visit [Weaviate](https://weaviate.io/).  
-For more on Weaviate on GitHub, visit [Weaviate on GitHub](https://github.com/weaviate/weaviate).  
-[⏎](#a7)  
-
-<sup id="f8">8</sup> 
-Allow me to explain force-directed graphs (FDG) by comparing them with a 2D scatter plot.   
-
-A scatter plot presents exact, fixed points in space. The space is cartesian, meaning that the X and Y coordinates line up with each point. The value of each point is understood by its position relative to these axes.  
-
-A force-directed graph presents points, or nodes, in space that are not fixed. The space is not cartesian. The axes do not define the points. The value of each point is understood by its position relative to other points that it is connected to, by lines, or edges. The clusters remain generally cohesive because of the combination of attractive and repulsive values that simulation physical forces in the FDG algorithms, like balls floating in a pool.  
-
-Since an FDG is less exacting that a scatter plot, you might ask what the value is. I would argue that since the points are unmoored, they are presented as an animation that the user can change in order to see more. The user can see not just the major relationships, but also the more tenuous ones, based on, for example, the thickness of the edges. The animation also is beautiful and engaging.  Aesthetics matter.  
-
-For more on D3Blocks on GitHub, visit [D3Blocks](https://github.com/d3blocks/d3blocks).  
-For more on force-directed graphs, visit [Force directed graph drawing](https://en.wikipedia.org/wiki/Force-directed_graph_drawing).  
-[⏎](#a8)  
 
 
