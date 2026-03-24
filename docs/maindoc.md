@@ -133,7 +133,7 @@ For more on the creator of D3.js, visit [Mick Bostock](https://bost.ocks.org/mik
 
 [back to top](#content)   
 
-## cam overlays
+## CAM overlays
 This method, known usually by it initials “CAM,” is a way to show where a trained A.I. model gave the most weight to the features in an image when classifying the image.  Here is a nice clear example from the Johannes Schusterbauer blog, using an image of a meer kat as an example.  The model was tasked with classifying the image as being of a meer kat or not.  
 
 The image on the left is the original photo.  The image on the right is the CAM overlay, which shows the weights applied by the A.I. model as colors over the original image.  The red areas had the highest weights.  The purple areas had the lowest weights.  
@@ -155,7 +155,7 @@ CEX (6819).png with rainbow color scheme and showing all colorization (weight th
 After several attempts, I decided to not use the typical rainbow color scheme, but simplify the colorization down to one or two colors.  When choosing the colors, pink and purple seemed more pleasing, probably because they reminded me of H&E staining, however irrelevant that is.  I also set up a threshold, so that only the areas with the highest weights would have the overlay colors applied, rather than have the whole image covered with color.  Here is an example using the same image, CEX (6819).png.  The original is on the left.  The original with the pink and purple CAM overlay applied is on the right.  For more, see Appendix H:  The CAM overlay generation process. 
 
 <a href="#">
-  <img src="../images/cammidnightrain.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 300px;"/>
+  <img src="../images/cammidnighttrain.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 300px;"/>
 </a><br>
 (Image by author) 
 
