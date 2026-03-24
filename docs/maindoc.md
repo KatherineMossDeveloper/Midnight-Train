@@ -208,6 +208,55 @@ For more on Weaviate, visit [Weaviate](https://weaviate.io/).
 For more on the song, visit [Midnight Train to Georgia](https://en.wikipedia.org/wiki/Midnight_Train_to_Georgia).  
 [back to top](#content)  
 
+## PCA
+Principal component analysis algorithm
+People can see only three dimensions or less, so some algorithms were created to reduce the number of dimensions down to two or three.  Principle Component Analysis (PCA) is one of the “dimensionality reduction” algorithms.  Some details are lost reducing dimensions, but often new insights are gained.  
+
+As mentioned above, the model creates a feature vector for each image.  The feature vector has many, many dimensions.  PCA is used in Midnight Train to reduce the feature vectors for the images down to two dimensions.  Since PCA gives us an X and a Y coordinate for each image, they can be plotted in a 2D graph.  Similar images, depicted as circles, in the OpenCrystalData dataset are found near each other when the PCA coordinates are plotted, which implies that PCA is a good algorithm to use here.  
+For more on PCA, visit [ScienceInsights](https://scienceinsights.org/what-is-principal-component-analysis-how-it-works/).  
+It has a cool animation that shows how Kmeans centroids ‘find’ each group.  
+[back to top](#content).
+
+## Kmeans
+Kmeans clustering is an algorithm that can show us how data is grouped. It does this ‘unsupervised,’ meaning that the data is not labeled, as belonging to one group or another.  The author of the algorithm designates the number of groups to ‘find.’  The algorithm creates center points, or centroids, and then scatters them randomly.  Then it computes the distance between every centroid and the plotted points.  
+With each iteration of the algorithm, the centroids move to their respective final positions.  The plotted points closest to a given centroid ‘belongs’ to that centroid’s group.  
+
+For more on Kmeans, visit [Wohlenberg](https://medium.com/data-science/three-versions-of-k-means-cf939b65f4ea).  
+[back to top](#content)  
+
+## PCA Kmeans
+Screen tool:  PCA + Kmeans scatter plot of feature vectors
+Putting these ideas together with our images, we move from multi-dimensional feature vectors to two dimensional, plottable, points with PCA.  Then Kmeans clustering marks each image as being part of a group.  After assigning a color to each Kmeans group, we have a visualization of how the images are related – or not.  As noted previously, human judgment is required to determine how many groups there should be.  After experimenting, I settled on 4. 
+<a href="#">
+  <img src="../images/kmeanspcascatterplot.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 600px;"/>
+</a><br>
+The Kmeans/PCA scatter plot.   (image by author)
+[back to top](#content)  
+
+## force directed graph
+I became acquainted with force directed graphs (FDG) when looking through the D3.js library.  It is an animated graph that shows relationships between objects.  Below is a screenshot of an FDG from the D3.js website.  Every circle is an actor.  Every line represents a scene where the actors were on the stage at the same time in Les Misérables.”  The colorization, according to the D3.js website, “represents arbitrary clusters”.  In Midnight Train the colorization is determined by Kmeans clustering algorithm.  I assume that is what they did here to apply these colors. 
+<a href="#">
+  <img src="../images/forecedirectedgraphlesmis.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 600px;"/>
+</a><br>
+For more on this, visit [D3](https://observablehq.com/@d3/force-directed-graph-component).  
+
+Allow me to explain force-directed graphs (FDG) by comparing them with a 2D scatter plot.
+
+A scatter plot presents exact, fixed points in space. The space is cartesian, meaning that each point lines up with values on the the X and Y axes. The value of each point is understood by its position relative to these axes and all the other points.
+
+In contrast, a force-directed graph presents points, or nodes, in space that are not fixed. The space is not cartesian. There are no axes. The value of each point is understood by its position relative to other points that it is connected to, by lines, or edges. The clusters remain generally cohesive, and generally visible, because their positions are calculated with values representing two physical forces, attraction and repulsion.
+
+Since an FDG is less exacting than a scatter plot, you might ask why one would use it. I would argue that since the points are unmoored, they are presented as an animation that the user can change in order to see more. The user can see not just the major relationships, but also the more tenuous ones, based on, for example, the thickness of the lines connecting the points. The animation is also beautiful and engaging.  Aesthetics matter.  
+For more on this, visit [Wikipedia](https://en.wikipedia.org/wiki/Force-directed_graph_drawing).  
+[back to top](#content)  
+
+
+## 
+
+[back to top](#content)  
+
+
+
 ## The license.  
 This project is licensed under the MIT License.  See the license.txt file for details [here](../LICENSE).  
 [back to top](#content)  
