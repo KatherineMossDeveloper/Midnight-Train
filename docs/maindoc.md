@@ -39,22 +39,22 @@
 </a><br>
 
 <a href="#hnsw">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> HNSW nearest enighbor algorithm 
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> HNSW nearest neighbor algorithm 
 </a><br>
 <a href="#force-directed-graph-kmeans">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  Force directed graphs + HNSW + Kmeans
 </a><br>
 <a href="#histograms-entropy">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  Histograms
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Histograms and Entropy
+</a><br>
+<a href="#histogram-notes">
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  Histogram
 </a><br>
 <a href="#entropy-kmeans">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  entropy scatter plots + Kmeans
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  Entropy scatter plots + Kmeans
 </a><br>
 <a href="#react-tailwind">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  React + Tailwind
-</a><br>
-<a href="#pca-kmeans">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  PCA + Kmeans scatter plot of feature vectors 
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/>  React + Tailwind
 </a><br>
 
 <a href="#pseudo-3d">
