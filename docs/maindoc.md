@@ -109,18 +109,25 @@ The Georgia Project recreates their work, then it stores details in a database. 
 <a href="#">
   <img src="../images/overview.png" alt="Overview" style="vertical-align: middle; width: 1022px; height: 387px;"/>
 </a><br>
+Overview of the Georgia Project and Midnight Train.  (image by author)
 
+The goals for Midnight Train are to explore visualization with React in general and D3.js in particular.  I also wanted to see how the output from a trained model would benefit from support from a vector database.  
 
 [back to top](#content)   
 
-## The paper  
-The dataset references the research paper,  
+## D3
+D3.js is a free and open-source JavaScript visualization library that presents data in ways that are attractive, unusual, and often animated.  Midnight train has a number of interactive screen components that either use the D3.js library or are inspired by the D3.js visualization.  These include a force directed graph, scatter plot animation, a histogram, and an “accordion” view of images.  
 
-Salami, H., McDonald, M. A., Bommarius, A. S., Rousseau, R. W., & Grover, M. A. (2021). [In Situ Imaging Combined with Deep Learning for Crystallization Process Monitoring: Application to Cephalexin Production](https://doi.org/10.1021/acs.oprd.1c00136). *Organic Process Research & Development, 25*(7), 1670–1679. 
+By the way, I ran across the D3.js library years ago, so I am surprised to see that its popularity is escalating, as this graph of daily downloads suggests.  
 
-This paper will be referred to here as “the paper.”  Its hyperlink points to an abstract of the paper, along with a supplemental file.   The full paper is only available behind paywalls.  I purchased a copy in order to continue my study, so I ethically cannot share my copy with others here.  
+<a href="#">
+  <img src="../images/d3downloads.png" alt="Overview" style="vertical-align: middle; width: 1257px; height: 458px;"/>
+</a><br>
+(Image credit:  Mike Bostock) 
+For more on D3.js, visit D3 by Observable, visit [D3](https://d3js.org/).  
+For more on D3 on GitHub, visit [D3](https://github.com/d3/d3?tab=readme-ov-file).  
+For more on the creator of D3.js, visit [Mick Bostock](https://bost.ocks.org/mike/).  
 
-What I can say, without going against the spirit of the paywall agreement, is that the scientists who wrote the paper trained ResNet models with ImageNet weights on the GA data.  They used both ResNet-18 and ResNet-50.  They used MATLAB 2020b Deep Learning Toolbox and deepNetworkDesigner app.  It was a binary classification of images of crystals, designating them as either CEX (a.k.a., “cephalexin antibiotic,” a good thing) or PG (a.k.a. “phenylglycine,” a bad thing). One purpose of the paper was to determine if an impurity, PG, shows up during cephalexin antibiotic production.  This would allow scientists to stop the process early, saving time and resources.  This is the task that the A.I. model addresses.  
 [back to top](#content)   
 
 ## The goals
