@@ -4,10 +4,10 @@
 <a href="#the-overview">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> The overview.
 </a><br>
-<a href="#D3">
+<a href="#d3">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> D3.js
 </a><br>
-<a href="#CAM overlays">
+<a href="#cam-overlays">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> CAM overlays
 </a><br>
 <a href="#accordion">
@@ -124,14 +124,41 @@ By the way, I ran across the D3.js library years ago, so I am surprised to see t
   <img src="../images/d3downloads.png" alt="Overview" style="vertical-align: middle; width: 1257px; height: 458px;"/>
 </a><br>
 (Image credit:  Mike Bostock) 
+
 For more on D3.js, visit D3 by Observable, visit [D3](https://d3js.org/).  
+
 For more on D3 on GitHub, visit [D3](https://github.com/d3/d3?tab=readme-ov-file).  
+
 For more on the creator of D3.js, visit [Mick Bostock](https://bost.ocks.org/mike/).  
 
 [back to top](#content)   
 
-## The goals
-I wanted to create useful code, weights, and documentation that use the paper’s guidance and its binary dataset of crystallization images.  The code and weights files that I produce might be useful to others because they are in popular technologies.  The code is in Python, TensorFlow, and Keras.  The weights files are in HDF5, the default in Tensorflow, and ONNX, the cross-platform format.  The details are posted in this project in Markdown language and PNG files.  
+## cam overlays
+This method, known usually by it initials “CAM,” is a way to show where a trained A.I. model gave the most weight to the features in an image when classifying the image.  Here is a nice clear example from the Johannes Schusterbauer blog, using an image of a meer kat as an example.  The model was tasked with classifying the image as being of a meer kat or not.  
+
+The image on the left is the original photo.  The image on the right is the CAM overlay, which shows the weights applied by the A.I. model as colors over the original image.  The red areas had the highest weights.  The purple areas had the lowest weights.  
+
+We know from the CAM overlay that the model was “looking” in the right areas when making a classification.  The red colors are over the animal, instead of mistakenly over the background, for example.  Going further, we know that it was looking more at the neck than the eyes when classifying this as an image of a meer kat.  
+
+<a href="#">
+  <img src="../images/cammeerkat.png" alt="Overview" style="vertical-align: middle; width:  800px; height: 300px;"/>
+</a><br>
+
+I wanted to apply this technique to the OpenCrystalData dataset.  In my first attempts, I used the traditional “rainbow” color scheme, as seen above with the meer kat.  The OpenCrystalData dataset images with these CAM overlays were aesthetically pleasing, but too visually complex to tie the colorization back to crystal structures, or the classification, which were the goals -- assuming that these goals could be achieved.  Here is an example image of my first attempt. 
+
+<a href="#">
+  <img src="../images/camcrystal.png" alt="Overview" style="vertical-align: middle; width:  300px; height: 300px;"/>
+</a><br>
+
+CEX (6819).png with rainbow color scheme and showing all colorization (weight threshold > 0) (Image by author) 
+
+After several attempts, I decided to not use the typical rainbow color scheme, but simplify the colorization down to one or two colors.  When choosing the colors, pink and purple seemed more pleasing, probably because they reminded me of H&E staining, however irrelevant that is.  I also set up a threshold, so that only the areas with the highest weights would have the overlay colors applied, rather than have the whole image covered with color.  Here is an example using the same image, CEX (6819).png.  The original is on the left.  The original with the pink and purple CAM overlay applied is on the right.  For more, see Appendix H:  The CAM overlay generation process. 
+
+<a href="#">
+  <img src="../images/cammidnightrain.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 300px;"/>
+</a><br>
+(Image by author) 
+
 [back to top](#content)   
 
 ## The development environment.
