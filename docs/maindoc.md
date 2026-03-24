@@ -166,274 +166,43 @@ After several attempts, I decided to not use the typical rainbow color scheme, b
 The D3.js accordion 
 Some years ago, I found an interactive visualization online in the The New York Times called “Front Row to Fashion”.  The technology was D3.js.  I was impressed that this ‘accordion’ style of visualization, on the one hand, showed partial images of clothing, and yet imparted new information about the collection.  Specifically, one could see the overall style of a designer, rather than focus on the individual pieces; i.e. one can see the forest, rather than the trees.  Here is an example using six of those collections.  
 <a href="#">
-  <img src="../images/d3frontrow.png" alt="CEX samples" style="vertical-align: middle; width: 623px; height: 134px;"/>
+  <img src="../images/d3frontrow.png" alt="CEX samples" style="vertical-align: middle; width: 923px; height: 400px;"/>
 </a><br>
 Image credit: [NYT](https://www.nytimes.com/newsgraphics/2014/02/14/fashion-week-editors-picks/index.html).  
-
 [back to top](#content)   
 
-
-## The data.  
-There are ~6,800 image files for each of the two classes of crystal images.  
-|             |PG                |CEX              |
-|-------------|------------------|-----------------|
-|Train 	      |4,762 image files |4,802 image files|
-|Validation 	|1,701 image files |1,715 image files|
-|Test		      |  341 image files |  343 image files|
-|Totals       |6,804 image files |6,860 image files|
-
-The paper remarks that the two image sets have “very distinct visual features.”  Here are some of the CEX images.  Below that are some PG images.  While the CEX images are distinctive, let me suggest here that the PG data varies a lot.  
+## cam accordion
+Screen tool:  CAM overlays + the D3.js accordion 
+So, how could scientific visualization benefit from this idea?  As a developer, I saw an opportunity here, so I put two accordion style visualizations in Midnight Train, as seen below.  The images are of the CAM overlays.  The top one is of CEX images, and the bottom is of PG images.  The pink and purple areas are where the model mostly “focused on” when doing classification of the images.  The accordions are animated.  A mouse hover opens each image fully.  Note that when you look at these partial images, the pink overlays are more uniform in the CEX images, and the background of the PG images is noisier.  We can see the forest. 
 <a href="#">
-  <img src="../images/samples_cex.png" alt="CEX samples" style="vertical-align: middle; width: 623px; height: 134px;"/>
+  <img src="../images/accordionsmidnighttrain.png" alt="CEX samples" style="vertical-align: middle; width: 500px; height: 600px;"/>
 </a><br>
-<a href="#">
-  <img src="../images/samples_pg.png" alt="PG samples" style="vertical-align: middle; width: 623px; height: 151px;"/>
-</a><br>
-Image by author.  
-
-The folder structure is as follows during training, validation, and testing.  PG images are put in the “1” folders, and CEX are put in the “0” folders.  The `GAsplitDataIntoTrainValidandTest.py` code will set up these folders, and the `GAmain.py` code file will refer to these locations during training.  You will, of course, need to modify the code to match the folder structure on your computer.  See the “How to recreate the results” section for more.  
-
-…\GAtrainBinary  
-    \0  
-    \1  
-…\GAvalidBinary  
-    \0  
-    \1  
-…\GAtestBinary  
-    \0  
-    \1  
+The accordion screen controls in Midnight Train (image by author). 
 [back to top](#content)  
 
-## The results.  
-The final code had all F1 scores above 99.7% in about 50 epochs or less.  The details of the training runs for this final version are in section D. below.  
+## cam slider
+Screen tool:  CAM Image slider
+The CAM image slider, as seen below, shows both the original image and CAM overlay image together.  Instead of being side-by-side, they both take up the space of one image, with a click and drag functionality.  The user can drag the bar to the right and left to study where the CAM overlay is placed.  
 
-To produce these numbers, I re-ran versions of the code so that I could understand exactly what delivered the best metrics and shortest runtimes for training.  I found that making 10% of the ImageNet layers trainable improved metrics.  I found that adding two Dropout layers improved metrics.  Finally, I found that both of them, together, produced a better model.  
-
-These results seem somewhat contradictory. When layers are trainable, more weights are getting updated. When dropouts are used, the effect of some weights are getting dropped because the activations that the weights contributed to are set to zero.  However, I can say that with this data, and this Resnet model, and these ImageNet weights, dropout layers and trainable ImageNet layers together made the model better. 
-
-Below are the training results column definitions and then the results in tables.  Each line in the tables below represents a training run (`GAmodel.py`) and test run (`GAanalysis.py`).  The best runs were with version D., which is the version of the code here in the GitHub project.  If you have any questions, or would like more details, write to me.  
-
-The training results column definitions. 
-
-|variable name     |definition                                                                |
-|------------------|--------------------------------------------------------------------------|
-|run name	         | the unique name given to the run.                                        |
-|run time	         | the time it took to train, then run GAanalysis.py code to get metrics.   | 
-|train acc	       | the training accuracy of the last epoch, reported in the output window.  | 
-|valid acc	       | the validation accuracy of the last epoch, reported in the output window.|   
-|test acc	         | the test accuracy, reported in GAFinalTestResults.txt file.              |   
-|acc delta	       | the validation accuracy minus the training accuracy.                     |   
-|test missed	     | the no. of misclassified images, reported in the confusion matrix.       |   
-|epochs		         | the number of epochs completed during the training.                      |   
-|learning rate	   | the learning rate used throughout the training.                          |   
-|dropout layers	   | the status of the dropout layers, shown in the GAmodel.py.               |   
-|trainable layers  | the status of the top 10% ImageNet layers, shown in the GAmodel.py.      |   
-
-Generally, in C. and D. training runs below, the dropout layers made the model run consistently longer.  In the B. training runs, where 10% of the ImageNet weights were being trained, I do not see an improvement over the A. runs.  However, in D., with both dropouts and 10% training of ImageNet weights, I see the best combination.   
-
-The training results.  
-A.	The version with no dropouts and no trainable ImageNet layers.  
- <img src="../images/results_a.png" alt="result group a." width="624" height="209">  
-
-B.	The version with no dropouts, but with trainable ImageNet layers.  
-<img src="../images/results_b.png" alt="result group b." width="624" height="209">  
-
-C.  The version with dropouts and with no trainable ImageNet layers.  
-<img src="../images/results_c.png" alt="result group c." width="624" height="209">  
-
-D.  The final published version with dropouts and trainable ImageNet layers:  the porridge that is just right.  
-<img src="../images/results_d.png" alt="result group d." width="624" height="209">  
-
-Here is a note on the formatting of floats.  For some of the runs, for example GArun_27, the GAfinal_confusion_matrix.png showed 1 error, which is in the ‘test missed’ column.  Meanwhile, the ‘test acc’ column shows a note about the results of the GAFinalTestResults.txt.  In these runs, the final class-wise breakdown showed 100% in all categories.  This is due to the formatting of floats.  I could have changed the code perhaps, which produces the final class-wise breakdown, so that 4 decimals, or so, were used, but I did not bother to do that.  Also, seeing 100% anywhere in metrics in the machine learning world is, of course, a mark of over-fitting.  I do not believe that is a problem here.  
+<a href="#">
+  <img src="../images/camslider.png" alt="CEX samples" style="vertical-align: middle; width: 500px; height: 400px;"/>
+</a><br>
+The CAM Image Slider (image by author)  
 [back to top](#content)  
 
-## The Georgia Project code and deliverables.  
-Sections a. through c. below are notes on the Python code files.  Sections d. through h. are the notes about the deliverables.  Let's start with a high-level look... 
-  
-<img src="../images/codeoverview.png" alt="code overview" width="600" height="525">  
+## feature vectors
+Feature vectors
+As mentioned elsewhere, the Georgia Project produced many pieces of information after training on the OpenCrystalData dataset.  This included metadata, of course, like the confidence percent that the model had when determining the classification of an image.  However, the most important data was perhaps not the meta data, but the feature vectors that the model created in order to make the classification.  Feature vectors contain numerical weights calculated by the model.  Different layers of the model create weights for larger and larger areas of a given image.  Here is a visualization of these weights when a model was creating feature vectors for images of human faces.  
 
-a.  The code to split up the data.  
-`GAsplitDataIntoTrainValidandTest.py`  
-This code splits the OpenCrystalData dataset that you downloaded and extracted into 70% training data, 25% validation data, and 5% test data, because that is the way that it is divided up in the paper.  The dataset extracts itself into a CEX folder and a PG folder.  With this code, these data will be moved to a '0' folder for CEX and a '1' folder for PG.  For example, 70% of the OpenCrystalData CEX folder images will be moved to a GAtrainBinary\0 folder. 
-
-b.  The training and analysis code.  
-Generally, this next section of code files further preprocesses the data, trains the ResNet-101 model, then reports results.  The model will load the Keras built-in ImageNet weights.  It will train with the hyperparameters in the paper, with exceptions mentioned in “The model” section.  The code is organized into files, or modules, which call each other, in roughly the order here.
-
-`GAmain.py`        
-This module sets up the folder system and basic variables for the model.  It will then call `GAmodel.py`. 
-
-`GAmodel.py`       
-This module creates a ResNet-101 model, loads ImageNet weights, trains, and then calls `GAanalyze.py` to reports results.  
-
-`GAcallbacks.py`  
-This module creates the callbacks <sup id="a2">[2](#f2)</sup>  that the model will need during training.  
-
-`GAutility.py`    
-This module organizes unrelated pieces of code in one place. 
-
-`GAdata.py`    
-This module creates the data objects for training, validation, and testing.  For training, it includes data augmentation.
-
-`GAanalysis.py`    
-Finally, this code is called after the training, at which time it creates the plots and other results from the training and testing.  
-
-c.  The inference code.  
-It is time to play.  After you trained the model, GA_visualize.py code will then instantiate the GA_dataprocessing.DataProcessor class. 
-
-The DataProcessor class will first instantiate the WeaviateDatabase class, in GA_weaviatedatabase.py, which contains connection and CRUD functions for the Weaviate vector database.  For anyone new to vector databases, it is a database that is built to contain vectors and sort them by their proximity to other vectors within the same collection <sup id="a7">[7](#f7)</sup>.  
-
-The DataProcessor class will then perform inference on any png file that you give it. As an example of an inference run, here is a collection of images, most of which are from the GA dataset, with a few wildcards thrown in.  (I was surprised to see that Tara, The Cat, is in fact phenylglycine.)  
-![InferenceExamples](../images/InferenceExample.png)  
-Above is an illustration of the output from the GAinference.predict_driver code, to emphasize the model designations.  
-
-Note that the weights file is in the same folder, as the code expects.  A weights file is created at the end of the training. The computer's date and time stamp are part of the name, so that previously created weights files are not overwritten.  Therefore, your weights files will have a different name than the one shown here, of course.  
-
-You can also download the GAweights file from the GitHub Georgia Project website.  There are two formats available.  The weights files are in HDF5, the default in Tensorflow, and ONNX, the cross-platform format.  Download the [HDF5 weights file](https://github.com/KatherineMossDeveloper/The-Georgia-Project/releases/download/v1.6.0/GAweights.h5) or the [ONNX weights file](https://github.com/KatherineMossDeveloper/The-Georgia-Project/releases/download/v1.6.0/GAweights.onnx) to the \inference folder where you downloaded the Georgia Project code on your PC.  
-
-|image               |prediction                           |
-|--------------------|-------------------------------------|
-|File: CEX (1).png   | Prediction: CEX, Confidence: 0.00%  |
-|File: CEX (2).png   | Prediction: CEX, Confidence: 0.00%  |
-|File: CEX (3).png   | Prediction: CEX, Confidence: 0.20%  |
-|File: OIP (5).png   | Prediction: CEX, Confidence: 94.59% |
-|File: PG (5282).png | Prediction: PG, Confidence: 100.00% |
-|File: PG (567).png  | Prediction: PG, Confidence: 100.00% |
-|File: PG (590).png  | Prediction: PG, Confidence: 100.00% |
-|File: PG (5946).png | Prediction: PG, Confidence: 76.98%  |
-|File: tara.png      | Prediction: PG, Confidence: 90.27%  |  
-
-Above is the output from the GAinference.predict_driver code.  
-
-The DataProcessor class will lastly perform kmeans processing, so that the vectors can be used in plots later.  For more on kmeans, see  <sup id="a3">[3](#f3)</sup> . 
-
-![kmeansExamples](../images/KmeansFourClusters.png)  
-Image by author using Python code.  
-
-Above is the output of the GAkmeans code using images from the kmeans folder in this project.  I then added the blue lines to illustrate the arcs of the PCA space.  I added representative images to give an example of the image type in each group.  Note where Tara is.  
-
-How the kmeans and PCA algorithms organize the images is dependent on which weights file is used.  You will get the same arrangement of images as above if you use the GAweights.h5, or GAweights.onnx, file from this project.  If you create your own weights file and use that one, it can organize the images in this plot somewhat differently. There is a bit of chaos involved. 
-
-Below is a scatter plot generated by GA_kmeansd3blocks.py using the D3Blocks library, which is an open-sourced project on GitHub.  This code creates the  For more, visit [D3Blocks](https://github.com/d3blocks/d3blocks).  
-
-![kmeansExamples](../images/Kmeans3k4clusters.png)  
-Image by author using Python code.  
-
-Above is the GA_kmeansmatplotlib.py code using all the validation images, both from folder '0' and '1'.  This time I took out the labels showing the image names, since there are around 3,000 images, so the labels overlap too much to read them.  Again, the purple cluster is CEX.  The others are PG.    
-
-<img src="../images/Kmeans3k4clusterCloseup.png" alt="kmeans" width="400" height="400">  
-Image by author using Python code.  
-
-Above is a plot generated in much the same way, but I put a black dot, period symbol, instead of an image name.  I then zoomed in on the 'elbow' of the plot.  Note that the phenyglycine images line up neatly along the ‘forearm’ which points to the left.  These images also seem more uniform.  So, when you consider the orderliness of their march up the forearm, plus their uniform appearance, perhaps they are newly-formed crystals.  On the other hand, the phenylglycine images, along the  ‘upper arm,’ get a bit scattered, as they evolve to the right.  This might be showing us crystal growth that is getting more disorganized over time.  However, I may be reading too much into this close-up view.  Perhaps someone can add some comments on this?   
-
-Lastly, the GA_visualize.py code will call the GA_similarityd3blocks.py code to create a D3blocks force-directed graph <sup id="a8">[8](#f8)</sup> of the vectors, as seen below.  To see a demonstration video of the force-directed graph animation, download the video of it and play it.  It's 15 seconds long.  You will see that the clusters are dragged around, so that they are arranged roughly in the pattern created in the kmeans, PCA scatter plots.
-The data lines up in about the same way despite the fact that they are in different spaces (Cartesian vs. force-directed graph) using different algorithms (kmeans, PCA vs. sklearn's cosine_similarity or, in the case of the Weaviate database, the default HNSW approximate nearest neighbor algorithm.)  
-
-Both GA_similarityd3blocks.py and GA_kmeansd3blocks.py call GA_dataprocessing.py add_note(), which adds a note explaining the plots.  This additional code is in HTML and added after the plot is created.  
-
-Here is a still image from the video. 
-<img src="../images/similarityd3blocks.png" alt="similarity" width="830" height="590">  
-
-▶️ [Download the video and play it.](https://raw.githubusercontent.com/KatherineMossDeveloper/The-Georgia-Project/main/images/similarityD3blocks.mp4)  
-
-The following notes are about the deliverables created at the end of the training run.  
-
-d.  The resulting weights files in the HDF5 format, native to TensorFlow, and in the ONNX format, for developers working in other environments, like ML.NET.  
-
-<pre style="font-family: 'Courier New', Courier, monospace;">
-   GAweights_2025-05-22_23-25-12.h5  
-   GAweights_2025-05-22_23-25-12.onnx  
-</pre>
-
-e.  During training, in the ouput window in PyCharm, there are class-wise text breakdowns of the test precision, recall, macro average<sup id="a4">[4](#f4)</sup>, weighted average<sup id="a4">[4](#f4)</sup>, and F1-scores.
-<pre style="font-family: 'Courier New', Courier, monospace;">
-   Epoch 3 - Class-Wise Metrics:
-   PG -  Precision: 0.9988, Recall: 0.9982, F1-Score: 0.9985
-   CEX - Precision: 0.9982, Recall: 0.9988, F1-Score: 0.9985
-   macro avg - Precision: 0.9985, Recall: 0.9985, F1-Score: 0.9985
-   weighted avg - Precision: 0.9985, Recall: 0.9985, F1-Score: 0.9985
-</pre>
-
-f.  After training, in the GAFinalTestResults.txt file, the model gives similar metrics during testing. The word “support” here tells us how many files the model used to determine the precision, recall, and F1 scores.   
-            
-|             |precision | recall | f1-score |  support|
-|-------------|----------|--------|----------|---------|
-|          PG |    0.99  |   1.00 |    1.00  |     341 |
-|         CEX |    1.00  |   0.99 |    1.00  |     343 |
-|    accuracy |          |        |    1.00  |     684 |
-|   macro avg |    1.00  |   1.00 |    1.00  |     684 |
-|weighted avg |    1.00  |   1.00 |    1.00  |     684 |  
-
-g.  GAmetrics_plot.png, the plot of training accuracy and validation accuracy<sup id="a5">[5](#f5)</sup>.  
-![Results](../images/results_accuracies.png)  
-
-h.  GAfinal_confusion_matrix.png, the confusion matrix<sup id="a6">[6](#f6)</sup>, the heatmap of the errors and correct inferences.   
-![Results](../images/results_confusion.png)  
-
+<a href="#">
+  <img src="../images/featurevectorsizes.png" alt="CEX samples" style="vertical-align: middle; width: 800px; height: 300px;"/>
+</a><br>
+Image credit: [CNN](https://www.grammarly.com/blog/ai/what-is-a-convolutional-neural-network/).  
 [back to top](#content)  
 
 ## How to recreate the results.  
-These instructions were written for my Windows PC.  The data zip file is over 1 GB, so you will need a drive with some free space on it to work with this data.  There are notes at the top of each code file about the minimum one needs to do in order to run the code.  Basically, just edit the folder strings to match your pc folder system. 
 
-Step 1. download the code.  
-   - Download the [source code ZIP file.](https://github.com/KatherineMossDeveloper/The-Georgia-Project/archive/refs/tags/v1.6.0.zip) or the [source code TAR file.](https://github.com/KatherineMossDeveloper/The-Georgia-Project/archive/refs/tags/v1.6.0.tar.gz) and extract it.  
-   - Set up a Python environment, if you don't already have one.  I used PyCharm, ver. 2023.2.4, Community Edition.  
-   - Install dependencies as needed.  I used Python 3.8, TensorFlow 2.10.1, and Keras 2.10.0.  
 
-Step 2. download the data.  
-   - Navigate to the Kaggle website using this hyperlink, create an account (which you can do for free), sign into the site, and press the “Download” button.
-   - Download [OpenCrystalData Crystal Impurity Detection](https://www.kaggle.com/datasets/opencrystaldata/cephalexin-reactive-crystallization?resource=download).
-   - Extract it.  Downloading, and especially extraction, can take a while, so go get another cup of coffee.  
-
-The data structure created during extraction for the cropped image files is like this…
-<pre style="font-family: 'Courier New', Courier, monospace;">
-   your_drive_letter_and_folder/archive/cropped/cropped/cex
-   your_drive_letter_and_folder/archive/cropped/cropped/pg
-</pre>
-
-Step 3. split up the data.  
-   - Open the `GAsplitDataIntoTrainValidandTest.py` code file in the Python IDE.
-   - Edit `folder_prefix` to the location where you extracted the data earlier.  The code will take that data and split it up in the `destination folders`.
-   - Read the “to do” list at the top of the file for more information.
-   - Run the `GAsplitDataIntoTrainValidandTest.py` code file.
-   
-At the end of the run, you should see messages that look something like this.  
-
-<pre style="font-family: 'Courier New', Courier, monospace;">
-   Moved 4802 files to X:\MLresearch\CrystalStudy\Project_GA\GitHubTestingData\GAtrainBinary\1
-   Moved 1715 files to X:\MLresearch\CrystalStudy\Project_GA\GitHubTestingData\GAvalidBinary\1
-   Moved 343 files to X:\MLresearch\CrystalStudy\Project_GA\GitHubTestingData\GAtestBinary\1
-   Moved 4762 files to X:\MLresearch\CrystalStudy\Project_GA\GitHubTestingData\GAtrainBinary\0
-   Moved 1701 files to X:\MLresearch\CrystalStudy\Project_GA\GitHubTestingData\GAvalidBinary\0
-   Moved 341 files to X:\MLresearch\CrystalStudy\Project_GA\GitHubTestingData\GAtestBinary\0
-   Data split into Train (70%), Validation (25%), and Test (5%)
-</pre>    
-
-Step 4. prepare for training.  
-   - Open the `GAmain.py` code file.  Edit `folder_prefix` to the location where you extracted the data earlier.  
-
-   - Setting up the study variables.  
-The `prefix` and `name` variables are put on plots, etc., after training, so you can edit them to identify a given run.  
-
-   - Setting up the deliverables folder.  The `deliverables_folder` variable is where the code will save the results and the weights files at the end of training.  This folder will be, by default, automatically created in the same folder where you saved the data.  You can, of course, change the folder location and/or name. 
-
-   - Setting up the CPU/GPU.  The `use_cpu` variable is set to true by default, so if you do not have a lot of memory on your GPU, the training will still complete.  If you set this variable to false, you will be using your GPU, assuming you have one.  I do not have access to a variety of computers, so I could not test every scenario.  I only tested it on my own computer, which has a GPU with limited memory.  I have gotten out of memory errors occasionally during training on my GPU, so I created this variable to avoid them.  
-
-   - Setting up debugging folders and data.  The `really_training` variable is set to true by default.  On the other hand, sometimes when debugging, it is nice to have a way to run a short “rehearsal” training.  If you want that, in the `GAmain.py` code, set the variable `really_training` to False.  Then edit the folders for debugging to point to an abbreviated version of the files.  To fill up the train, validation, and test image file folders for debugging, I copied about 10% of the files from the “real” training folders.  The epochs variable is set to 3, again so that the run is short.  Note that your training metrics will look bad when you run your debugging sub-set of the data because the model will not have time to train on the data, nor enough data to train with.  Debugging in this way is for testing things like a new result file, not model performance.  
-
-Step 5. train.  
-   - To train the model, start the `GAmain.py` file.  You can watch progress in the output window of PyCharm, if that is your IDE.  
-
-Step 6. view results.  
-   - All results files generated will be in your deliverables folder that you designated in the `GAmain.py` code file.  
-
-Step 7. play with it.  
-   - Lastly, there is a code file, `GA_visualize.py`, that will perform inference on any png file that you give it.  Edit `folder_prefix` to point to the location where you extracted the code earlier (not the data).  The code will then point to the \inference folder, which contains a few images from the project, plus a few stray images.  You could add your own png files there too.  
-
-The GA_visualize.py code will then perform kmeans, using PCA, with four centroids.  The code is set up to find the \kmeans directory in the location where you extracted the code earlier; i.e., the \inference folder is beside the \kmeans folder.  
-
-   - Setting up the weights file.  There are two options with the weights file.  You can use the weights file that you created in Step 5, or you can use the weights file from the Georgia Project on GitHub.  Click here to download the [HDF5 weights file](https://github.com/KatherineMossDeveloper/The-Georgia-Project/releases/download/v1.5.0/GAweights.h5) or the [ONNX weights file](https://github.com/KatherineMossDeveloper/The-Georgia-Project/releases/download/v1.5.0/GAweights.onnx). Either way, save it to the existing \inference folder in the code folder on your pc.  Note that there is a `weights_file` variable in the `GA_visualize.py` code.  By default, it is expecting the weights file to be called "GAweights.h5".  Edit that as needed.  
-
-   - Run `GA_visualize.py`  The labeling and confidence factors will appear in the output window.  
 
 [back to top](#content)  
 
