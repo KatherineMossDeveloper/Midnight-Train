@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ![Hero](public/images_github/HeroPolaroids.png)  
-=======
-![Hero](images/HeroPolaroids.png)  
->>>>>>> f3ca39ee34536cdc7eb7d93eddcd825b71797144
 
 ![Crystallization](https://img.shields.io/badge/domain-Crystallization-white)
 [![](https://img.shields.io/badge/Kaggle-Dataset-teal?logo=kaggle&logoColor=white)](https://www.kaggle.com/datasets/opencrystaldata/cephalexin-reactive-crystallization)
