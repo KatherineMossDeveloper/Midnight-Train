@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![Hero](public/images_github/HeroPolaroids.png)  
 
-## Getting Started
+![Crystallization](https://img.shields.io/badge/domain-Crystallization-white)
+[![](https://img.shields.io/badge/Kaggle-Dataset-teal?logo=kaggle&logoColor=white)](https://www.kaggle.com/datasets/opencrystaldata/cephalexin-reactive-crystallization)
+![MIT License](https://img.shields.io/badge/License-MIT-green)
+![PyCharm](https://img.shields.io/badge/PyCharm-2023.2.4-lightorange)
+![Binary Classification](https://img.shields.io/badge/task-Binary_Classification-yellowgreen)
+![ResNet](https://img.shields.io/badge/model-ResNet-yellow)
+[![Weaviate](https://img.shields.io/badge/Powered%20by-Weaviate-orange?logo=github)](https://github.com/weaviate/weaviate)
 
-First, run the development server:
+## Content. 
+[Quick start.](#quick-start) • 
+[Slow start.](#slow-start) • 
+[Contributions](#contributions) • 
+[Known issues](#known-issues) • 
+[Contact info](#contact-info)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Quick start. 
+Visit the website for this project...     
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Slow start.  
+This project was inspired by a research paper:  Salami, H., McDonald, M. A., Bommarius, A. S., Rousseau, R. W., & Grover, M. A. (2021). [In Situ Imaging Combined with Deep Learning for Crystallization Process Monitoring: Application to Cephalexin Production](https://doi.org/10.1021/acs.oprd.1c00136). *Organic Process Research & Development*, 25, 1670–1679. 
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The scientists who wrote the paper trained ResNet models with ImageNet weights on the OpenCrystalData dataset. The models were trained to do binary classification of images of crystals, designating them as either CEX (a.k.a., “cephalexin antibiotic,” a good thing) or PG (a.k.a. “phenylglycine,” a bad thing).  The Georgia Project recreates their work, then it stores details in a database.  Midnight train, in turn, pulls these details from the database and creates graphs in order to study the dataset. 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Here is Midnight Train's detailed documentation.  
+[Go to the main doc file](docs/maindoc.md)    
 
-## Learn More
+## Contributions.  
+If you found an issue or would like to make a suggestion for an improvement to the code or documentation, please click on the issue tab on the project page and leave me a note.  If you like this project, leave a star.  
 
-To learn more about Next.js, take a look at the following resources:
+## Known issues.  
+None.  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contact info.                                                                     
+For more details about this project, feel free to reach out to me at katherinemossdeveloper@gmail.com or my account on [LinkedIn](https://www.linkedin.com/pub/katherine-moss/3/b49/228) .  
+My time zone is EST in the U.S.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+[back to top](#content) 
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
