@@ -22,7 +22,7 @@
 <a href="#feature-vectors">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors
 </a><br>
-<a href="#Feature-vector-database">
+<a href="#Feature vector database">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors + Weaviate database
 </a><br>
 <a href="#pca">
@@ -58,7 +58,7 @@
 </a><br>
 
 ## Implementation notes.
-<a href="#quick-start">
+<a href="#Quick-start-instructions">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Quick start instructions
 </a><br>
 <a href="#pseudo-3d-images">
@@ -67,7 +67,7 @@
 <a href="#PCA-in-3D">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> PCA in 3D 
 </a><br>
-<a href="#entropy">
+<a href="#Entropy">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Entropy
 </a><br>
 <a href="#flow">
@@ -88,7 +88,7 @@
 <a href="#JSON-files">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> JSON files
 </a><br>
-<a href="#weaviate-notes">
+<a href="#Weaviate-database">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Weaviate database
 </a><br>
 
@@ -454,7 +454,7 @@ If there is interest in taking this further, there are several places to adjust 
 - edit the opacity percent when creating overlay  
 [back to top](#content)  
 
-## quick start
+## Quick start instructions
 TBD
 [back to top](#content)  
 
@@ -462,7 +462,7 @@ TBD
 One of the goals of the Midnight Train project is to explore the Weaviate database for A.I.  Since installing the database might not be of interest to everyone, I added an alternative data source, JSON files.  They are part of the Midnight Train project files, so they are a reliable backup to the database.  They are three file under lib/data:  fdg_links.json, fdg_nodes.json, and crystals.json. 
 [back to top](#content)  
 
-## weaviate notes
+## weaviate database
 Weaviate is an open-source vector database, available on GitHub. I downloaded the GitHub zip file, installed it, then ran it in a Docker container on my Win 10 pc. I found the setup fairly straightforward. The code in python to control the database bears no resemblance to SQL code, but I still found that writing the WeaviateDatabase class was fun.  Weaviate seemed pretty accommodating, in that it did not expect me to set up a table with a data type that handles vectors, nor did it expect me to study its many nearest neighbor search algorithms and explicitly ask for my favorite. It felt like the engineers at Weaviate know that developers are hoping to set up and use the database with minimum work, at least at the outset of a project.
 
 For those of you who have worked with SQL databases, and not vector databases, let me mention that the terminology is a bit different, as seen here.  The change in terminology makes me laugh. 
