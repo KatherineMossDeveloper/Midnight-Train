@@ -10,50 +10,50 @@
 <a href="#cam-overlays">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> CAM overlays
 </a><br>
-<a href="#accordion">
+<a href="#D3.js-accordion">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> The D3.js Accordion
 </a><br>
-<a href="#cam-accordion">
+<a href="#CAM-accordion">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  CAM overlays + the D3.js Accordion
 </a><br>
-<a href="#cam-slider">
+<a href="#CAM-slider">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  CAM image slider
 </a><br>  
-<a href="#feature-vectors">
+<a href="#Feature-vectors">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors
 </a><br>
 <a href="#Feature vector database">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors + Weaviate database
 </a><br>
-<a href="#pca">
+<a href="#PCA">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Principal component analysis
 </a><br>
-<a href="#kmeans">
+<a href="#Kmeans">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Kmeans
 </a><br>
-<a href="#pca-kmeans">
+<a href="#PCA-Kmeans">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  PCA + Kmeans scatter plot of feature vectors 
 </a><br>
-<a href="#force-directed-graph">
+<a href="#Force-directed-graph">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Force directed graphs
 </a><br>
 
-<a href="#hnsw">
+<a href="#HNSW">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> HNSW nearest neighbor algorithm 
 </a><br>
-<a href="#force-directed-graph-kmeans">
+<a href="#Force-directed-graph-kmeans">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  Force directed graphs + HNSW + Kmeans
 </a><br>
-<a href="#histograms-and-entropy">
+<a href="#Histograms-and-entropy">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Histograms and Entropy
 </a><br>
-<a href="#histogram-notes">
+<a href="#Histogram-notes">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  Histogram
 </a><br>
-<a href="#entropy-kmeans">
+<a href="#Entropy-kmeans">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  Entropy scatter plots + Kmeans
 </a><br>
-<a href="#react-tailwind">
+<a href="#React-tailwind">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/>  React + Tailwind
 </a><br>
 
@@ -166,8 +166,7 @@ After several attempts, I decided to not use the typical rainbow color scheme, b
 
 [back to top](#content)   
 
-## accordion
-The D3.js accordion 
+## D3.js accordion
 Some years ago, I found an interactive visualization online in the The New York Times called “Front Row to Fashion”.  The technology was D3.js.  I was impressed that this ‘accordion’ style of visualization, on the one hand, showed partial images of clothing, and yet imparted new information about the collection.  Specifically, one could see the overall style of a designer, rather than focus on the individual pieces; i.e. one can see the forest, rather than the trees.  Here is an example using six of those collections.  
 <a href="#">
   <img src="../images/d3frontrow.png" alt="CEX samples" style="vertical-align: middle; width: 923px; height: 400px;"/>
@@ -175,7 +174,7 @@ Some years ago, I found an interactive visualization online in the The New York 
 Image credit: [NYT](https://www.nytimes.com/newsgraphics/2014/02/14/fashion-week-editors-picks/index.html).  
 [back to top](#content)   
 
-## cam accordion
+## CAM accordion
 Screen tool:  CAM overlays + the D3.js accordion 
 So, how could scientific visualization benefit from this idea?  As a developer, I saw an opportunity here, so I put two accordion style visualizations in Midnight Train, as seen below.  The images are of the CAM overlays.  The top one is of CEX images, and the bottom is of PG images.  The pink and purple areas are where the model mostly “focused on” when doing classification of the images.  The accordions are animated.  A mouse hover opens each image fully.  Note that when you look at these partial images, the pink overlays are more uniform in the CEX images, and the background of the PG images is noisier.  We can see the forest. 
 <a href="#">
@@ -184,7 +183,7 @@ So, how could scientific visualization benefit from this idea?  As a developer, 
 The accordion screen controls in Midnight Train (image by author). 
 [back to top](#content)  
 
-## cam slider
+## CAM slider
 Screen tool:  CAM Image slider
 The CAM image slider, as seen below, shows both the original image and CAM overlay image together.  Instead of being side-by-side, they both take up the space of one image, with a click and drag functionality.  The user can drag the bar to the right and left to study where the CAM overlay is placed.  
 
@@ -194,8 +193,7 @@ The CAM image slider, as seen below, shows both the original image and CAM overl
 The CAM Image Slider (image by author)  
 [back to top](#content)  
 
-## feature vectors
-Feature vectors
+## Feature vectors
 As mentioned elsewhere, the Georgia Project produced many pieces of information after training on the OpenCrystalData dataset.  This included metadata, of course, like the confidence percent that the model had when determining the classification of an image.  However, the most important data was perhaps not the meta data, but the feature vectors that the model created in order to make the classification.  Feature vectors contain numerical weights calculated by the model.  Different layers of the model create weights for larger and larger areas of a given image.  Here is a visualization of these weights when a model was creating feature vectors for images of human faces.  
 
 <a href="#">
@@ -237,7 +235,7 @@ Putting these ideas together with our images, we move from multi-dimensional fea
 The Kmeans/PCA scatter plot.   (image by author)
 [back to top](#content)  
 
-## force directed graph
+## Force directed graph
 I became acquainted with force directed graphs (FDG) when looking through the D3.js library.  It is an animated graph that shows relationships between objects.  Below is a screenshot of an FDG from the D3.js website.  Every circle is an actor.  Every line represents a scene where the actors were on the stage at the same time in Les Misérables.”  The colorization, according to the D3.js website, “represents arbitrary clusters”.  In Midnight Train the colorization is determined by Kmeans clustering algorithm.  I assume that is what they did here to apply these colors. 
 <a href="#">
   <img src="../images/forcedirectedgraphlesmis.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 600px;"/>
@@ -259,7 +257,7 @@ HNSW nearest neighbor algorithm
 The images are represented in the Weaviate database partially by their feature vectors.  These vectors are stored in Weaviate by the Georgia project, then the Midnight Train application queries the database for vectors similar to a given vector using a nearest neighbor algorithm.  The algorithm used to gather nearest neighbor vectors for a given image is the default algorithm built into the Weaviate vector database.  It is HNSW, or Hierarchical Navigable Small World, which is an approximate similarity algorithm, not an exact one.  For more, see HNSW, in the implementation notes
 [back to top](#content)  
 
-## force directed graph kmeans
+## Force directed graph kmeans
 Screen tool:  Force Directed Graph + HNSW + Kmeans
 Here, too, I saw an opportunity.  The relationships animated by an FDG fit perfectly, I thought, with the need to better understand any possible connections between feature vectors generated by the A.I. model.  So, the Midnight Train code fetches the nearest neighbors by querying the Weaviate database’s default search algorithm, HNSW.  The Kmeans colorization is also stored in the database and applied to the FDG circles.  For example, here is a screenshot from Midnight Train, where the circles represent the image vectors, the lines between the circles represent their closest neighbors, and the colors represent their Kmeans groupings.  
 
@@ -270,7 +268,7 @@ Here, too, I saw an opportunity.  The relationships animated by an FDG fit perfe
 Midnight Train’s FDG sample image.  (image by author). 
 [back to top](#content)  
 
-## histograms and entropy
+## Histograms and entropy
 The images in the OpenCrystalData dataset are grayscale, meaning that the pixels all have values from 0  for black, through 255 for white, with every possible shade of gray in between.  To graph the use of these colors in an image, one can create a histogram, which is a 2D scatter plot.  On the X axis is the color range from 0 to 255. On the Y axis is the number of times each color was in the image.  Histograms can, in one plot, show the pixel color distribution within one image.  
 
 The probability for the image pixel color appearing is p(i) = h(i) / N.  
@@ -286,7 +284,7 @@ The probability calculated above are fractions of the sum of the pixels.  If the
 For more on the probability and Shannon entropy equations, visit [Shannon](https://jeanvitor.com/image-entropy-value-visualization/).  
 [back to top](#content)  
 
-## histogram notes
+## Histogram notes
 Midnight Train has a histogram showing the plot for the currently selected image.  Generally, images with histogram shapes that are broader and flatter have higher entropy.  Images with histogram shapes that are narrower, with a simple bell shape, tend to have lower entropy.  In Midnight Train, we have some good examples because the CEX curated images had both the highest and lowest entropy values.  The image CEX (1).png had the lowest entropy value, 5.90.  The image CEX (2).png had the highest entropy value, 7.60.  
 
 <a href="#">
@@ -301,7 +299,7 @@ Histogram for CEX (2).png.  (image by author)
 
 [back to top](#content)  
 
-## entropy
+## Entropy
 Screen Tool:  Entropy scatter plots + Kmeans 
 In Midnight Train, entropy is shown in a 2D scatter plot, where the entropy number per image is on the Y axis in the image below and the name of the image is in the X axis.  The images used in Midnight Train are a curated subset of the image collection.  Approximately four image ‘types’ emerge visually when you look at the total collection.  A handful of images from each type were chosen and used in Midnight Train.  Then the Kmeans group colors are added to the circles below, so that we can see to what extent the entropy per image lines up with the Kmeans groups.  For more, visit Entropy, in the implementation notes.  
 
@@ -343,7 +341,7 @@ While this was a fun romp, I did not think any of this should be put in Midnight
 After finishing most of Midnight Train, I decided to experiment with a 3D PCA plot.  I had already done it in 2D, as seen above.  When I experimented with doing 3D PCA with Kmeans, I found that approximately 25% of the images jumped to another Kmeans group.  In other words, some of the circles that represent the images defected to other Kmeans groups, thereby taking on a different Kmeans color.  While this was intriguing, I then had to face the prospect of two Kmeans color schemes:  one for 2D and one for 3D in the same app.  I was worried about the user interface experience becoming tiresome.  I want to shelve this idea for a later date.  
 [back to top](#content)  
 
-## entropy
+## Entropy
 The algorithm used in the Georgia Project to calculate the entropy per image is skimage.measure shannon_entropy.  It is widely used for image processing.  
 For more, visit [skiimage.measure](https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.shannon_entropy).  
 
@@ -373,7 +371,7 @@ for (const char in freqMap) {
 }
 [back to top](#content)  
 
-## flow
+## Flow
 General flow of the code.  
 page.tsx (pulls data from the database and passes it to the DataExplorerClient)
 	DataExplorerClient 
@@ -405,7 +403,7 @@ On the right is a Kmeans/PCA 2D scatter plot, which uses the deterministic sklea
 For more, visit [sklearn](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html).  
 [back to top](#content)  
 
-## image slider notes
+## Image slider notes
 The ImageSlider is a component that uses D3.js.  It subscribes to Midnight Train’s SelectionContext, so that it can update when the user selects a new image to study.  The CAM overlay counterpart images were generated by the Georgia Project and stored in the /images_testing/CEX/ folder or the /images_testing/PG/ folder, depending on the classification of the currently selected image.  
 This component uses D3.js to control the drag event, so that when users click on the handle of the slider bar, the CAM overlay image is clipped to the new position, and the slider bar and its handle are rendered at the same vertical position. 
 <a href="#">
@@ -415,7 +413,7 @@ This component uses D3.js to control the drag event, so that when users click on
 The CEX and PG CAM Overlays accordions.   (image by author)
 [back to top](#content)  
 
-## log
+## Log
 The log component allows for better debugging.  The components send messages to it and the LogPanel.tsx will display them.  When Midnight Train first launches, the log is not visible.  Click the button at the bottom of the UI to see it.  
 
 Click this button…
@@ -430,7 +428,7 @@ Click this button…
 (images by author)
 [back to top](#content)  
 
-## cam generation
+## CAM generation
 First, one needs to select a convolutional layer of the model to query.  Early layers usually depict small features of an image, while later layers depict bigger features.  Generally, later layers create larger CAM areas.  I tried several later layers and settled on one, "conv5_block2_out".
 
 Second, one needs to pick a color scheme and opacity level.  I chose pink and purple.  The opacity level is set at .5, so that half of the original image shows through the CAM image when creating the CAM overlay image.  The percentage to colorize is set to the top 16% by weight.  I came to these adjustments through trial and error, aiming to find a combination that created the most distinct CAM overlays. 
@@ -462,7 +460,7 @@ TBD
 One of the goals of the Midnight Train project is to explore the Weaviate database for A.I.  Since installing the database might not be of interest to everyone, I added an alternative data source, JSON files.  They are part of the Midnight Train project files, so they are a reliable backup to the database.  They are three file under lib/data:  fdg_links.json, fdg_nodes.json, and crystals.json. 
 [back to top](#content)  
 
-## weaviate database
+## Weaviate database
 Weaviate is an open-source vector database, available on GitHub. I downloaded the GitHub zip file, installed it, then ran it in a Docker container on my Win 10 pc. I found the setup fairly straightforward. The code in python to control the database bears no resemblance to SQL code, but I still found that writing the WeaviateDatabase class was fun.  Weaviate seemed pretty accommodating, in that it did not expect me to set up a table with a data type that handles vectors, nor did it expect me to study its many nearest neighbor search algorithms and explicitly ask for my favorite. It felt like the engineers at Weaviate know that developers are hoping to set up and use the database with minimum work, at least at the outset of a project.
 
 For those of you who have worked with SQL databases, and not vector databases, let me mention that the terminology is a bit different, as seen here.  The change in terminology makes me laugh. 
