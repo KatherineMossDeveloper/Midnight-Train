@@ -13,8 +13,8 @@
 <a href="#D3-accordion">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> D3 accordion
 </a><br>
-<a href="#CAM-accordion">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  CAM overlays + the D3.js Accordion
+<a href="#Screen-tool:-CAM-overlays-+-the-D3-accordion">
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  CAM overlays + the D3.js accordion
 </a><br>
 <a href="#CAM-slider">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  CAM image slider
