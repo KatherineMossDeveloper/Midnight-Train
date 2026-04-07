@@ -277,7 +277,7 @@ The probability calculated above are fractions of the sum of the pixels.  If the
 For more on the probability and Shannon entropy equations, visit [Shannon](https://jeanvitor.com/image-entropy-value-visualization/).  
 [back to top](#Overview)  
 
-## Screen-tool-Histogram
+## Screen tool Histogram
 Midnight Train has a histogram showing the plot for the currently selected image.  Generally, images with histogram shapes that are broader and flatter have higher entropy.  Images with histogram shapes that are narrower, with a simple bell shape, tend to have lower entropy.  In Midnight Train, we have some good examples because the CEX curated images had both the highest and lowest entropy values.  The image CEX (1).png had the lowest entropy value, 5.90.  The image CEX (2).png had the highest entropy value, 7.60.  
 
 <a href="#">
@@ -292,7 +292,7 @@ Histogram for CEX (2).png.  (image by author)
 
 [back to top](#Overview)  
 
-## Screen-tool-Entropy 
+## Screen tool Entropy 
 In Midnight Train, entropy is shown in a 2D scatter plot, where the entropy number per image is on the Y axis in the image below and the name of the image is in the X axis.  The images used in Midnight Train are a curated subset of the image collection.  Approximately four image ‘types’ emerge visually when you look at the total collection.  A handful of images from each type were chosen and used in Midnight Train.  Then the Kmeans group colors are added to the circles below, so that we can see to what extent the entropy per image lines up with the Kmeans groups.  For more, visit Entropy, in the implementation notes.  
 
 <a href="#">
