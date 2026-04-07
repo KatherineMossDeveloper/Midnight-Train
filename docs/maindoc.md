@@ -13,7 +13,7 @@
 <a href="#D3-accordion">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> D3 accordion
 </a><br>
-<a href="#Screen-tool-CAM-overlays-and-the-D3-accordion">
+<a href="#Screen-tool-CAM-overlays-D3-accordion">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  CAM overlays + the D3.js accordion
 </a><br>
 <a href="#CAM-slider">
@@ -174,8 +174,7 @@ Some years ago, I found an interactive visualization online in the The New York 
 Image credit: [NYT](https://www.nytimes.com/newsgraphics/2014/02/14/fashion-week-editors-picks/index.html).  
 [back to top](#content)   
 
-## CAM accordion
-Screen tool:  CAM overlays + the D3.js accordion 
+## Screen tool CAM overlays D3 accordion
 So, how could scientific visualization benefit from this idea?  As a developer, I saw an opportunity here, so I put two accordion style visualizations in Midnight Train, as seen below.  The images are of the CAM overlays.  The top one is of CEX images, and the bottom is of PG images.  The pink and purple areas are where the model mostly “focused on” when doing classification of the images.  The accordions are animated.  A mouse hover opens each image fully.  Note that when you look at these partial images, the pink overlays are more uniform in the CEX images, and the background of the PG images is noisier.  We can see the forest. 
 <a href="#">
   <img src="../images/accordionsmidnighttrain.png" alt="CEX samples" style="vertical-align: middle; width: 500px; height: 600px;"/>
