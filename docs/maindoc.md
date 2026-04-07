@@ -10,14 +10,14 @@
 <a href="#cam-overlays">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> CAM overlays
 </a><br>
-<a href="#D3.js-accordion">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> The D3.js Accordion
+<a href="#D3-accordion">
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> The D3 Accordion
 </a><br>
 <a href="#CAM-accordion">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  CAM overlays + the D3.js Accordion
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  CAM overlays + the D3.js Accordion
 </a><br>
 <a href="#CAM-slider">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  CAM image slider
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  CAM image slider
 </a><br>  
 <a href="#Feature-vectors">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors
