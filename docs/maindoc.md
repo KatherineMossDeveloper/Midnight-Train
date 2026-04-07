@@ -16,7 +16,7 @@
 <a href="#Screen-tool-CAM-overlays-D3-accordion">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  CAM overlays + the D3.js accordion
 </a><br>
-<a href="#CAM-slider">
+<a href="#Screen-tool-CAM-slider">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  CAM image slider
 </a><br>  
 <a href="#Feature-vectors">
@@ -182,8 +182,7 @@ So, how could scientific visualization benefit from this idea?  As a developer, 
 The accordion screen controls in Midnight Train (image by author). 
 [back to top](#content)  
 
-## CAM slider
-Screen tool:  CAM Image slider
+## Screen tool CAM slider
 The CAM image slider, as seen below, shows both the original image and CAM overlay image together.  Instead of being side-by-side, they both take up the space of one image, with a click and drag functionality.  The user can drag the bar to the right and left to study where the CAM overlay is placed.  
 
 <a href="#">
