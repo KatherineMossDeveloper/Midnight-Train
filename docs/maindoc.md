@@ -59,7 +59,7 @@
 
 ## Implementation notes.
 <a href="#pseudo-3d">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Pseudo 3D A.I. hallucination of structural relief
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Pseudo 3D
 </a><br>
 <a href="#pca-3d">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> PCA in 3D 
