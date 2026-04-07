@@ -22,7 +22,7 @@
 <a href="#Feature-vectors">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors
 </a><br>
-<a href="#Feature-vector-database">
+<a href="#Feature-vector-and-Weaviate-database">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors + Weaviate database
 </a><br>
 <a href="#PCA">
@@ -197,11 +197,10 @@ As mentioned elsewhere, the Georgia Project produced many pieces of information 
 <a href="#">
   <img src="../images/featurevectorsizes.png" alt="CEX samples" style="vertical-align: middle; width: 800px; height: 300px;"/>
 </a><br>
-Image credit: [CNN](https://www.grammarly.com/blog/ai/what-is-a-convolutional-neural-network/).  
+Image credit: [CNN](https://www.grammarly.com/blog/ai/what-is-a-neural-network/?msockid=3d0fdc000a4a6cba1658c90f0bfd6dbb#1).  
 [back to top](#content)  
 
-## Feature vector database
-Feature vectors + Weaviate database 
+## Feature vector and Weaviate database
 Storing such a vector, with many dimensions, is not a typical storage consideration for a relational database.  A typical SQL database does not have a vector datatype.   This led me to vector databases.  My plan was that such a database would allow me to bridge the gap between the Georgia Project, which produced data, and the Midnight Train Project, which presents data.  Hence, the pun about “Midnight Train to Georgia.” 
 
 For more on Weaviate, visit [Weaviate](https://weaviate.io/).  
@@ -209,7 +208,6 @@ For more on the song, visit [Midnight Train to Georgia](https://en.wikipedia.org
 [back to top](#content)  
 
 ## PCA
-Principal component analysis algorithm
 People can see only three dimensions or less, so some algorithms were created to reduce the number of dimensions down to two or three.  Principle Component Analysis (PCA) is one of the “dimensionality reduction” algorithms.  Some details are lost reducing dimensions, but often new insights are gained.  
 
 As mentioned above, the model creates a feature vector for each image.  The feature vector has many, many dimensions.  PCA is used in Midnight Train to reduce the feature vectors for the images down to two dimensions.  Since PCA gives us an X and a Y coordinate for each image, they can be plotted in a 2D graph.  Similar images, depicted as circles, in the OpenCrystalData dataset are found near each other when the PCA coordinates are plotted, which implies that PCA is a good algorithm to use here.  
