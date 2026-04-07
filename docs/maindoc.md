@@ -85,7 +85,7 @@
 <a href="#quick-start">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Quick start instructions
 </a><br>
-<a href="#json">
+<a href="#JSON-files">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> JSON files
 </a><br>
 <a href="#weaviate-notes">
@@ -465,7 +465,7 @@ If there is interest in taking this further, there are several places to adjust 
 TBD
 [back to top](#content)  
 
-## json files
+## JSON files
 One of the goals of the Midnight Train project is to explore the Weaviate database for A.I.  Since installing the database might not be of interest to everyone, I added an alternative data source, JSON files.  They are part of the Midnight Train project files, so they are a reliable backup to the database.  They are three file under lib/data:  fdg_links.json, fdg_nodes.json, and crystals.json. 
 [back to top](#content)  
 
