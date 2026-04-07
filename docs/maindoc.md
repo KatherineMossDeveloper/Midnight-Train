@@ -197,7 +197,7 @@ As mentioned elsewhere, the Georgia Project produced many pieces of information 
 <a href="#">
   <img src="../images/featurevectorsizes.png" alt="CEX samples" style="vertical-align: middle; width: 800px; height: 300px;"/>
 </a><br>
-Image credit: [CNN](https://www.grammarly.com/blog/ai/what-is-a-neural-network/?msockid=3d0fdc000a4a6cba1658c90f0bfd6dbb#1).  
+Image credit: [CNN](https://www.grammarly.com/blog/ai/what-is-a-neural-network/).  
 [back to top](#content)  
 
 ## Feature vector and Weaviate database
