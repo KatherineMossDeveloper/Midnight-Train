@@ -3,7 +3,7 @@
 ## Content.
 <a href="#the-overview">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> The overview.
-</a>
+</a><br>
 <a href="#d3">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> D3.js
 </a><br>
@@ -57,6 +57,7 @@
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/>  React + Tailwind
 </a><br>
 
+## Implementation notes.
 <a href="#pseudo-3d">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Appendix A:  Pseudo 3D A.I. hallucination of structural relief
 </a><br>
