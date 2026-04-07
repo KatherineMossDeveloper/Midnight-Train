@@ -157,7 +157,7 @@ I wanted to apply this technique to the OpenCrystalData dataset.  In my first at
 
 CEX (6819).png with rainbow color scheme and showing all colorization (weight threshold > 0) (Image by author) 
 
-After several attempts, I decided to not use the typical rainbow color scheme, but simplify the colorization down to one or two colors.  When choosing the colors, pink and purple seemed more pleasing, probably because they reminded me of H&E staining, however irrelevant that is.  I also set up a threshold, so that only the areas with the highest weights would have the overlay colors applied, rather than have the whole image covered with color.  Here is an example using the same image, CEX (6819).png.  The original is on the left.  The original with the pink and purple CAM overlay applied is on the right.  For more, see Appendix H:  The CAM overlay generation process. 
+After several attempts, I decided to not use the typical rainbow color scheme, but simplify the colorization down to one or two colors.  When choosing the colors, pink and purple seemed more pleasing, probably because they reminded me of H&E staining, however irrelevant that is.  I also set up a threshold, so that only the areas with the highest weights would have the overlay colors applied, rather than have the whole image covered with color.  Here is an example using the same image, CEX (6819).png.  The original is on the left.  The original with the pink and purple CAM overlay applied is on the right.  For more, see The CAM overlay generation process, in the implementation notes. 
 
 <a href="#">
   <img src="../images/cammidnighttrain.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 300px;"/>
@@ -256,7 +256,7 @@ For more on this, visit [Wikipedia](https://en.wikipedia.org/wiki/Force-directed
 
 ## HNSW
 HNSW nearest neighbor algorithm 
-The images are represented in the Weaviate database partially by their feature vectors.  These vectors are stored in Weaviate by the Georgia project, then the Midnight Train application queries the database for vectors similar to a given vector using a nearest neighbor algorithm.  The algorithm used to gather nearest neighbor vectors for a given image is the default algorithm built into the Weaviate vector database.  It is HNSW, or Hierarchical Navigable Small World, which is an approximate similarity algorithm, not an exact one.  For more, see Appendix E:  HNSW
+The images are represented in the Weaviate database partially by their feature vectors.  These vectors are stored in Weaviate by the Georgia project, then the Midnight Train application queries the database for vectors similar to a given vector using a nearest neighbor algorithm.  The algorithm used to gather nearest neighbor vectors for a given image is the default algorithm built into the Weaviate vector database.  It is HNSW, or Hierarchical Navigable Small World, which is an approximate similarity algorithm, not an exact one.  For more, see HNSW, in the implementation notes
 [back to top](#content)  
 
 ## force directed graph kmeans
@@ -303,7 +303,7 @@ Histogram for CEX (2).png.  (image by author)
 
 ## entropy
 Screen Tool:  Entropy scatter plots + Kmeans 
-In Midnight Train, entropy is shown in a 2D scatter plot, where the entropy number per image is on the Y axis in the image below and the name of the image is in the X axis.  The images used in Midnight Train are a curated subset of the image collection.  Approximately four image ‘types’ emerge visually when you look at the total collection.  A handful of images from each type were chosen and used in Midnight Train.  Then the Kmeans group colors are added to the circles below, so that we can see to what extent the entropy per image lines up with the Kmeans groups.  For more, visit Appendix E:  Entropy.  
+In Midnight Train, entropy is shown in a 2D scatter plot, where the entropy number per image is on the Y axis in the image below and the name of the image is in the X axis.  The images used in Midnight Train are a curated subset of the image collection.  Approximately four image ‘types’ emerge visually when you look at the total collection.  A handful of images from each type were chosen and used in Midnight Train.  Then the Kmeans group colors are added to the circles below, so that we can see to what extent the entropy per image lines up with the Kmeans groups.  For more, visit Entropy, in the implementation notes.  
 
 <a href="#">
   <img src="../images/entropymidnighttrain.png" alt="Overview" style="vertical-align: middle; width:  300px; height: 300px;"/>
@@ -321,7 +321,6 @@ For more, visit [best css frameworks](https://hackr.io/blog/best-css-frameworks)
 [back to top](#content)  
 
 ## pseudo 3d
-Appendix A:  Pseudo 3D A.I. Hallucination. 
 I looked into the possibility of turning images from the OpenCrystalData dataset into 3D images.  Since the images are not a time-series, a true 3D rendering would not be possible.  
 
 In the past, I had experimented with relief maps algorithms, which would attempt to represent the structure by the geometric clues it picked up in a given image’s texture; i.e., brightness means height, edges mean slopes.  Here is an example from musely.ai website using the image PG (589).png.  I did not find this useful. 
@@ -341,7 +340,6 @@ While this was a fun romp, I did not think any of this should be put in Midnight
 [back to top](#content)  
 
 ## pca 3d
-Appendix B:  PCA in 3D
 After finishing most of Midnight Train, I decided to experiment with a 3D PCA plot.  I had already done it in 2D, as seen above.  When I experimented with doing 3D PCA with Kmeans, I found that approximately 25% of the images jumped to another Kmeans group.  In other words, some of the circles that represent the images defected to other Kmeans groups, thereby taking on a different Kmeans color.  While this was intriguing, I then had to face the prospect of two Kmeans color schemes:  one for 2D and one for 3D in the same app.   I was worried about the user interface experience becoming tiresome.  I want to shelve this idea for a later date.  
 [back to top](#content)  
 
@@ -376,7 +374,6 @@ for (const char in freqMap) {
 [back to top](#content)  
 
 ## flow
-Appendix D:  Flow of the code.
 General flow of the code.  
 page.tsx (pulls data from the database and passes it to the DataExplorerClient)
 	DataExplorerClient 
@@ -395,7 +392,6 @@ page.tsx (pulls data from the database and passes it to the DataExplorerClient)
 [back to top](#content)  
 
 ## HDSW
-Appendix E:  HNSW.
 HNSW, or Hierarchical Navigable Small World, is the default nearest neighbor algorithm used in the Weaviate database.  It is used when creating the Kmeans/PCA plot in Midnight Train, as pictured below. 
 
 When a new vector is inserted into the database, HNSW will not do all the math to map the relationships among all the vectors in the Weaviate database, out of brevity.   So, it trades accuracy for time efficiency.  Also, the search can vary, often starting with the most recently added vector, but not necessarily there.  So, both the “incomplete math homework” and the “random adjacent” search starting point make the HNSW algorithm non-deterministic; i.e., the order of queries initiated by the user when they click an image in Midnight Train can affect which nearest neighbors are fetched.  In other words, the order in which the user clicks on images in the Image Gallery, and elsewhere in the UI, might change the relationships depicted by the edges in the force directed graph. 
@@ -410,7 +406,6 @@ For more, visit [sklearn](https://scikit-learn.org/stable/modules/generated/skle
 [back to top](#content)  
 
 ## image slider notes
-Appendix F:  The Image Slider
 The ImageSlider is a component that uses D3.js.  It subscribes to Midnight Train’s SelectionContext, so that it can update when the user selects a new image to study.  The CAM overlay counterpart images were generated by the Georgia Project and stored in the /images_testing/CEX/ folder or the /images_testing/PG/ folder, depending on the classification of the currently selected image.  
 This component uses D3.js to control the drag event, so that when users click on the handle of the slider bar, the CAM overlay image is clipped to the new position, and the slider bar and its handle are rendered at the same vertical position. 
 <a href="#">
@@ -421,7 +416,6 @@ The CEX and PG CAM Overlays accordions.   (image by author)
 [back to top](#content)  
 
 ## log
-Appendix G:  The Log  
 The log component allows for better debugging.  The components send messages to it and the LogPanel.tsx will display them.  When Midnight Train first launches, the log is not visible.  Click the button at the bottom of the UI to see it.  
 
 Click this button…
@@ -437,7 +431,6 @@ Click this button…
 [back to top](#content)  
 
 ## cam generation
-Appendix H:  The CAM overlay generation process. 
 First, one needs to select a convolutional layer of the model to query.  Early layers usually depict small features of an image, while later layers depict bigger features.  Generally, later layers create larger CAM areas.  I tried several later layers and settled on one, "conv5_block2_out".
 
 Second, one needs to pick a color scheme and opacity level.  I chose pink and purple.  The opacity level is set at .5, so that half of the original image shows through the CAM image when creating the CAM overlay image.  The percentage to colorize is set to the top 16% by weight.  I came to these adjustments through trial and error, aiming to find a combination that created the most distinct CAM overlays. 
