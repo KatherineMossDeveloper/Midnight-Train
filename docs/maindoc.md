@@ -22,7 +22,7 @@
 <a href="#Feature-vectors">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors
 </a><br>
-<a href="#Feature vector database">
+<a href="#Feature-vector-database">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors + Weaviate database
 </a><br>
 <a href="#PCA">
