@@ -1,7 +1,7 @@
 ![Hero](../images/HeroPolaroidsSmall.png)  
 
-## Content.
-<a href="#the-overview">
+## Overview.
+<a href="#the-introduction">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> The overview.
 </a><br>
 <a href="#d3">
@@ -93,7 +93,7 @@
 </a><br>
 
 
-## The overview
+## The introduction
 I am a software developer doing an independent study into using machine learning to identify crystallization in images. I found an interesting dataset and a really good research paper on the topic, so I wrote code to train on the data, and presented the data, using the paper for guidance. I am posting the code and results here in the hope that others will also find it interesting.
 
 I found the crystal image dataset on Kaggle. I decided to work with it because there were enough images to train with, and the images are all high quality. Here is the hyperlink to the dataset: OpenCrystalData Crystal Impurity Detection.
@@ -117,7 +117,7 @@ Overview of the Georgia Project and Midnight Train.  (image by author)
 
 The goals for Midnight Train are to explore visualization with React in general and D3.js in particular.  I also wanted to see how the output from a trained model would benefit from support from a vector database.  
 
-[back to top](#content)   
+[back to top](#Overview)   
 
 ## D3
 D3.js is a free and open-source JavaScript visualization library that presents data in ways that are attractive, unusual, and often animated.  Midnight train has a number of interactive screen components that either use the D3.js library or are inspired by the D3.js visualization.  These include a force directed graph, scatter plot animation, a histogram, and an “accordion” view of images.  
@@ -135,7 +135,7 @@ For more on D3 on GitHub, visit [D3](https://github.com/d3/d3?tab=readme-ov-file
 
 For more on the creator of D3.js, visit [Mick Bostock](https://bost.ocks.org/mike/).  
 
-[back to top](#content)   
+[back to top](#Overview)   
 
 ## CAM overlays
 This method, known usually by it initials “CAM,” is a way to show where a trained A.I. model gave the most weight to the features in an image when classifying the image.  Here is a nice clear example from the Johannes Schusterbauer blog, using an image of a meer kat as an example.  The model was tasked with classifying the image as being of a meer kat or not.  
@@ -164,15 +164,15 @@ After several attempts, I decided to not use the typical rainbow color scheme, b
 </a><br>
 (Image by author) 
 
-[back to top](#content)   
+[back to top](#Overview)   
 
 ## D3 accordion
 Some years ago, I found an interactive visualization online in the The New York Times called “Front Row to Fashion”.  The technology was D3.js.  I was impressed that this ‘accordion’ style of visualization, on the one hand, showed partial images of clothing, and yet imparted new information about the collection.  Specifically, one could see the overall style of a designer, rather than focus on the individual pieces; i.e. one can see the forest, rather than the trees.  Here is an example using six of those collections.  
 <a href="#">
   <img src="../images/d3frontrow.png" alt="CEX samples" style="vertical-align: middle; width: 923px; height: 400px;"/>
 </a><br>
-Image credit: [NYT](https://www.nytimes.com/newsgraphics/2014/02/14/fashion-week-editors-picks/index.html).  
-[back to top](#content)   
+Image credit: [New York Times](https://www.nytimes.com/newsgraphics/2014/02/14/fashion-week-editors-picks/index.html).  
+[back to top](#Overview)   
 
 ## Screen tool CAM overlays D3 accordion
 So, how could scientific visualization benefit from this idea?  As a developer, I saw an opportunity here, so I put two accordion style visualizations in Midnight Train, as seen below.  The images are of the CAM overlays.  The top one is of CEX images, and the bottom is of PG images.  The pink and purple areas are where the model mostly “focused on” when doing classification of the images.  The accordions are animated.  A mouse hover opens each image fully.  Note that when you look at these partial images, the pink overlays are more uniform in the CEX images, and the background of the PG images is noisier.  We can see the forest. 
@@ -180,7 +180,7 @@ So, how could scientific visualization benefit from this idea?  As a developer, 
   <img src="../images/accordionsmidnighttrain.png" alt="CEX samples" style="vertical-align: middle; width: 500px; height: 600px;"/>
 </a><br>
 The accordion screen controls in Midnight Train (image by author). 
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## Screen tool CAM slider
 The CAM image slider, as seen below, shows both the original image and CAM overlay image together.  Instead of being side-by-side, they both take up the space of one image, with a click and drag functionality.  The user can drag the bar to the right and left to study where the CAM overlay is placed.  
@@ -189,7 +189,7 @@ The CAM image slider, as seen below, shows both the original image and CAM overl
   <img src="../images/camslider.png" alt="CEX samples" style="vertical-align: middle; width: 500px; height: 400px;"/>
 </a><br>
 The CAM Image Slider (image by author)  
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## Feature vectors
 As mentioned elsewhere, the Georgia Project produced many pieces of information after training on the OpenCrystalData dataset.  This included metadata, of course, like the confidence percent that the model had when determining the classification of an image.  However, the most important data was perhaps not the meta data, but the feature vectors that the model created in order to make the classification.  Feature vectors contain numerical weights calculated by the model.  Different layers of the model create weights for larger and larger areas of a given image.  Here is a visualization of these weights when a model was creating feature vectors for images of human faces.  
@@ -197,16 +197,15 @@ As mentioned elsewhere, the Georgia Project produced many pieces of information 
 <a href="#">
   <img src="../images/featurevectorsizes.png" alt="CEX samples" style="vertical-align: middle; width: 800px; height: 300px;"/>
 </a><br>
-Image credit: [CNN](https://datascience.stackexchange.com/questions/77830/how-do-stacked-cnn-layers-work).  
-
-[back to top](#content)  
+Image credit: [stackexchange](https://datascience.stackexchange.com/questions/77830/how-do-stacked-cnn-layers-work).  
+[back to top](#Overview)  
 
 ## Feature vector and Weaviate database
 Storing such a vector, with many dimensions, is not a typical storage consideration for a relational database.  A typical SQL database does not have a vector datatype.   This led me to vector databases.  My plan was that such a database would allow me to bridge the gap between the Georgia Project, which produced data, and the Midnight Train Project, which presents data.  Hence, the pun about “Midnight Train to Georgia.” 
 
 For more on Weaviate, visit [Weaviate](https://weaviate.io/).  
 For more on the song, visit [Midnight Train to Georgia](https://en.wikipedia.org/wiki/Midnight_Train_to_Georgia).  
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## PCA
 People can see only three dimensions or less, so some algorithms were created to reduce the number of dimensions down to two or three.  Principle Component Analysis (PCA) is one of the “dimensionality reduction” algorithms.  Some details are lost reducing dimensions, but often new insights are gained.  
