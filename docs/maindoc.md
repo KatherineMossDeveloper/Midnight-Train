@@ -31,27 +31,26 @@
 <a href="#Kmeans">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Kmeans
 </a><br>
-<a href="#PCA-Kmeans">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  PCA + Kmeans scatter plot of feature vectors 
+<a href="#Screen-tool-PCA-Kmeans">
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  PCA + Kmeans scatter plot of feature vectors 
 </a><br>
 <a href="#Force-directed-graph">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Force directed graphs
 </a><br>
-
 <a href="#HNSW">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> HNSW nearest neighbor algorithm 
 </a><br>
-<a href="#Force-directed-graph-kmeans">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  Force directed graphs + HNSW + Kmeans
+<a href="#Screen-tool-Force-directed-graph-kmeans">
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  Force directed graphs + HNSW + Kmeans
 </a><br>
 <a href="#Histograms-and-entropy">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Histograms and Entropy
 </a><br>
-<a href="#Histogram-notes">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  Histogram
+<a href="#Screen-tool-Histogram">
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  Histogram
 </a><br>
-<a href="#Entropy-kmeans">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> -->Screen tool:  Entropy scatter plots + Kmeans
+<a href="#Screen-tool-Entropy-kmeans">
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  Entropy scatter plots + Kmeans
 </a><br>
 <a href="#React-tailwind">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/>  React + Tailwind
@@ -213,23 +212,22 @@ People can see only three dimensions or less, so some algorithms were created to
 As mentioned above, the model creates a feature vector for each image.  The feature vector has many, many dimensions.  PCA is used in Midnight Train to reduce the feature vectors for the images down to two dimensions.  Since PCA gives us an X and a Y coordinate for each image, they can be plotted in a 2D graph.  Similar images, depicted as circles, in the OpenCrystalData dataset are found near each other when the PCA coordinates are plotted, which implies that PCA is a good algorithm to use here.  
 For more on PCA, visit [ScienceInsights](https://scienceinsights.org/what-is-principal-component-analysis-how-it-works/).  
 It has a cool animation that shows how Kmeans centroids ‘find’ each group.  
-[back to top](#content).
+[back to top](#Overview).
 
 ## Kmeans
 Kmeans clustering is an algorithm that can show us how data is grouped. It does this ‘unsupervised,’ meaning that the data is not labeled, as belonging to one group or another.  The author of the algorithm designates the number of groups to ‘find.’  The algorithm creates center points, or centroids, and then scatters them randomly.  Then it computes the distance between every centroid and the plotted points.  
 With each iteration of the algorithm, the centroids move to their respective final positions.  The plotted points closest to a given centroid ‘belongs’ to that centroid’s group.  
 
 For more on Kmeans, visit [Wohlenberg](https://medium.com/data-science/three-versions-of-k-means-cf939b65f4ea).  
-[back to top](#content)  
+[back to top](#Overview)  
 
-## PCA Kmeans
-Screen tool:  PCA + Kmeans scatter plot of feature vectors
+## Screen tool PCA Kmeans
 Putting these ideas together with our images, we move from multi-dimensional feature vectors to two dimensional, plottable, points with PCA.  Then Kmeans clustering marks each image as being part of a group.  After assigning a color to each Kmeans group, we have a visualization of how the images are related – or not.  As noted previously, human judgment is required to determine how many groups there should be.  After experimenting, I settled on 4. 
 <a href="#">
   <img src="../images/kmeanspcascatterplot.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 600px;"/>
 </a><br>
 The Kmeans/PCA scatter plot.   (image by author)
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## Force directed graph
 I became acquainted with force directed graphs (FDG) when looking through the D3.js library.  It is an animated graph that shows relationships between objects.  Below is a screenshot of an FDG from the D3.js website.  Every circle is an actor.  Every line represents a scene where the actors were on the stage at the same time in Les Misérables.”  The colorization, according to the D3.js website, “represents arbitrary clusters”.  In Midnight Train the colorization is determined by Kmeans clustering algorithm.  I assume that is what they did here to apply these colors. 
@@ -246,15 +244,14 @@ In contrast, a force-directed graph presents points, or nodes, in space that are
 
 Since an FDG is less exacting than a scatter plot, you might ask why one would use it. I would argue that since the points are unmoored, they are presented as an animation that the user can change in order to see more. The user can see not just the major relationships, but also the more tenuous ones, based on, for example, the thickness of the lines connecting the points. The animation is also beautiful and engaging.  Aesthetics matter.  
 For more on this, visit [Wikipedia](https://en.wikipedia.org/wiki/Force-directed_graph_drawing).  
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## HNSW
 HNSW nearest neighbor algorithm 
 The images are represented in the Weaviate database partially by their feature vectors.  These vectors are stored in Weaviate by the Georgia project, then the Midnight Train application queries the database for vectors similar to a given vector using a nearest neighbor algorithm.  The algorithm used to gather nearest neighbor vectors for a given image is the default algorithm built into the Weaviate vector database.  It is HNSW, or Hierarchical Navigable Small World, which is an approximate similarity algorithm, not an exact one.  For more, see HNSW, in the implementation notes
-[back to top](#content)  
+[back to top](#Overview)  
 
-## Force directed graph kmeans
-Screen tool:  Force Directed Graph + HNSW + Kmeans
+## Screen tool Force directed graph kmeans
 Here, too, I saw an opportunity.  The relationships animated by an FDG fit perfectly, I thought, with the need to better understand any possible connections between feature vectors generated by the A.I. model.  So, the Midnight Train code fetches the nearest neighbors by querying the Weaviate database’s default search algorithm, HNSW.  The Kmeans colorization is also stored in the database and applied to the FDG circles.  For example, here is a screenshot from Midnight Train, where the circles represent the image vectors, the lines between the circles represent their closest neighbors, and the colors represent their Kmeans groupings.  
 
 <a href="#">
@@ -262,7 +259,7 @@ Here, too, I saw an opportunity.  The relationships animated by an FDG fit perfe
 </a><br>
 
 Midnight Train’s FDG sample image.  (image by author). 
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## Histograms and entropy
 The images in the OpenCrystalData dataset are grayscale, meaning that the pixels all have values from 0  for black, through 255 for white, with every possible shade of gray in between.  To graph the use of these colors in an image, one can create a histogram, which is a 2D scatter plot.  On the X axis is the color range from 0 to 255. On the Y axis is the number of times each color was in the image.  Histograms can, in one plot, show the pixel color distribution within one image.  
@@ -278,9 +275,9 @@ The Shannon entropy formula is  −∑ p(i) log2 p(i).
 The probability calculated above are fractions of the sum of the pixels.  If the probability of the color black appearing is .5, or 50%, then log2(.5) is -1.  However, if the probability of a certain shade of gray appearing is .25, or 25%, then the log2(.25) is -2.  The negative symbol in the Shannon entropy formula turns these values, -1 and -2, positive.  So, the colors that appear less often ‘count’ more when calculating the entropy.  That way, entropy is a measure of how complex an image is. 
 
 For more on the probability and Shannon entropy equations, visit [Shannon](https://jeanvitor.com/image-entropy-value-visualization/).  
-[back to top](#content)  
+[back to top](#Overview)  
 
-## Histogram notes
+## Screen-tool-Histogram
 Midnight Train has a histogram showing the plot for the currently selected image.  Generally, images with histogram shapes that are broader and flatter have higher entropy.  Images with histogram shapes that are narrower, with a simple bell shape, tend to have lower entropy.  In Midnight Train, we have some good examples because the CEX curated images had both the highest and lowest entropy values.  The image CEX (1).png had the lowest entropy value, 5.90.  The image CEX (2).png had the highest entropy value, 7.60.  
 
 <a href="#">
@@ -293,10 +290,9 @@ Histogram for CEX (1).png.  (image by author)
 </a><br>
 Histogram for CEX (2).png.  (image by author)
 
-[back to top](#content)  
+[back to top](#Overview)  
 
-## Entropy
-Screen Tool:  Entropy scatter plots + Kmeans 
+## Screen-tool-Entropy 
 In Midnight Train, entropy is shown in a 2D scatter plot, where the entropy number per image is on the Y axis in the image below and the name of the image is in the X axis.  The images used in Midnight Train are a curated subset of the image collection.  Approximately four image ‘types’ emerge visually when you look at the total collection.  A handful of images from each type were chosen and used in Midnight Train.  Then the Kmeans group colors are added to the circles below, so that we can see to what extent the entropy per image lines up with the Kmeans groups.  For more, visit Entropy, in the implementation notes.  
 
 <a href="#">
@@ -304,7 +300,7 @@ In Midnight Train, entropy is shown in a 2D scatter plot, where the entropy numb
 </a><br>
 
 The Entropy scatter plot.   (image by author)
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## React Tailwind
 React + Tailwind 
@@ -312,7 +308,7 @@ In the Georgia Project, Python was a perfect and common choice for training the 
 
 As a companion to React, I wanted a way to style the UI without CSS files, in order to keep development straight-forward.  I chose Tailwind because it removes the need for CSS files, but also because of its popularity.  Many consider Tailwind CSS as the winner in this race.  
 For more, visit [best css frameworks](https://hackr.io/blog/best-css-frameworks).  
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## Pseudo 3d images
 I looked into the possibility of turning images from the OpenCrystalData dataset into 3D images.  Since the images are not a time-series, a true 3D rendering would not be possible.  
@@ -331,11 +327,11 @@ Finally, I settled on giving Chat-GPT this same original image and then asked it
 Original image on left.  Image on right was generated by OpenAI’s gpt-image-1.
 
 While this was a fun romp, I did not think any of this should be put in Midnight Train.  Maybe someone else sees potential here.  
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## PCA in 3D
 After finishing most of Midnight Train, I decided to experiment with a 3D PCA plot.  I had already done it in 2D, as seen above.  When I experimented with doing 3D PCA with Kmeans, I found that approximately 25% of the images jumped to another Kmeans group.  In other words, some of the circles that represent the images defected to other Kmeans groups, thereby taking on a different Kmeans color.  While this was intriguing, I then had to face the prospect of two Kmeans color schemes:  one for 2D and one for 3D in the same app.  I was worried about the user interface experience becoming tiresome.  I want to shelve this idea for a later date.  
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## Entropy
 The algorithm used in the Georgia Project to calculate the entropy per image is skimage.measure shannon_entropy.  It is widely used for image processing.  
@@ -365,7 +361,7 @@ for (const char in freqMap) {
    const p = freqMap[char] / len; // calculate the probability.* 
    entropy -= p * Math.log2(p);   // calculate the entropy for the image.** 
 }
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## Flow
 General flow of the code.  
@@ -383,7 +379,7 @@ page.tsx (pulls data from the database and passes it to the DataExplorerClient)
 		ImageSlider
 		LogPanel
 
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## HDSW
 HNSW, or Hierarchical Navigable Small World, is the default nearest neighbor algorithm used in the Weaviate database.  It is used when creating the Kmeans/PCA plot in Midnight Train, as pictured below. 
@@ -397,7 +393,7 @@ HNSW does, however, have a ~95% accuracy rate.  How does one have confidence tha
 On the left is a force directed graph, which uses non-deterministic HNSW to find nearby images. 
 On the right is a Kmeans/PCA 2D scatter plot, which uses the deterministic sklearn PCA to find nearby images.  (Images by author) 
 For more, visit [sklearn](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html).  
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## Image slider notes
 The ImageSlider is a component that uses D3.js.  It subscribes to Midnight Train’s SelectionContext, so that it can update when the user selects a new image to study.  The CAM overlay counterpart images were generated by the Georgia Project and stored in the /images_testing/CEX/ folder or the /images_testing/PG/ folder, depending on the classification of the currently selected image.  
@@ -407,7 +403,7 @@ This component uses D3.js to control the drag event, so that when users click on
 </a><br>
 
 The CEX and PG CAM Overlays accordions.   (image by author)
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## Log
 The log component allows for better debugging.  The components send messages to it and the LogPanel.tsx will display them.  When Midnight Train first launches, the log is not visible.  Click the button at the bottom of the UI to see it.  
@@ -422,7 +418,7 @@ Click this button…
   <img src="../images/showlogsopen.png" alt="Overview" style="vertical-align: middle; width:  300px; height: 200px;"/>
 </a><br>
 (images by author)
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## CAM generation
 First, one needs to select a convolutional layer of the model to query.  Early layers usually depict small features of an image, while later layers depict bigger features.  Generally, later layers create larger CAM areas.  I tried several later layers and settled on one, "conv5_block2_out".
@@ -446,18 +442,18 @@ If there is interest in taking this further, there are several places to adjust 
 - change the color scheme
 - edit the percentage of the image that gets colorized
 - edit the opacity percent when creating overlay  
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## Quick start instructions
 TBD
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## JSON files
 One of the goals of the Midnight Train project is to explore the Weaviate database for A.I.  Since installing the database might not be of interest to everyone, I added an alternative data source, JSON files.  They are part of the Midnight Train project files, so they are a reliable backup to the database.  They are three file under lib/data:  fdg_links.json, fdg_nodes.json, and crystals.json. 
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## Weaviate database
-Weaviate is an open-source vector database, available on GitHub. I downloaded the GitHub zip file, installed it, then ran it in a Docker container on my Win 10 pc. I found the setup fairly straightforward. The code in python to control the database bears no resemblance to SQL code, but I still found that writing the WeaviateDatabase class was fun.  Weaviate seemed pretty accommodating, in that it did not expect me to set up a table with a data type that handles vectors, nor did it expect me to study its many nearest neighbor search algorithms and explicitly ask for my favorite. It felt like the engineers at Weaviate know that developers are hoping to set up and use the database with minimum work, at least at the outset of a project.
+Weaviate is an open-source vector database, available on GitHub. I downloaded the GitHub zip file, installed it, then ran it in a Docker container on my Win 10 pc. I found the setup fairly straightforward. The code in python to control the database bears no resemblance to scrSQL code, but I still found that writing the WeaviateDatabase class was fun.  Weaviate seemed pretty accommodating, in that it did not expect me to set up a table with a data type that handles vectors, nor did it expect me to study its many nearest neighbor search algorithms and explicitly ask for my favorite. It felt like the engineers at Weaviate know that developers are hoping to set up and use the database with minimum work, at least at the outset of a project.
 
 For those of you who have worked with SQL databases, and not vector databases, let me mention that the terminology is a bit different, as seen here.  The change in terminology makes me laugh. 
 
@@ -472,16 +468,16 @@ fetch, select		GraphQL query
 For more on Weaviate, visit [Weaviate](https://weaviate.io/).  
 For more on Weaviate on Github, visit [Weaviate on Github](https://github.com/weaviate/weaviate).  
 For more on Weaviate in the Georgia Project, visit [Weaviate Georgia Project](https://github.com/KatherineMossDeveloper/The-Georgia-Project/blob/main/docs/maindoc.md#f7).  
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## The license.  
 This project is licensed under the MIT License.  See the license.txt file for details [here](../LICENSE).  
-[back to top](#content)  
+[back to top](#Overview)  
 
 ## Contact info.                                                                     
 For more details about this project, feel free to reach out to me at katherinemossdeveloper@gmail.com or my account on [LinkedIn](https://www.linkedin.com/pub/katherine-moss/3/b49/228) .  
 My time zone is EST in the U.S.
 
-[back to top](#content)  
+[back to top](#Overview)  
 
 
