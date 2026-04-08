@@ -4,6 +4,7 @@
 <a href="#the-introduction">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> The introduction.
 </a><br>
+## Features.
 <a href="#d3">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> D3.js
 </a><br>
