@@ -187,9 +187,16 @@ After several attempts, I decided to not use the typical rainbow color scheme, b
 ## D3 accordion
 Some years ago, I found an interactive visualization online in the The New York Times called “Front Row to Fashion”.  The technology was D3.js.  I was impressed that this ‘accordion’ style of visualization, on the one hand, showed partial images of clothing, and yet imparted new information about the collection.  Specifically, one could see the overall style of a designer, rather than focus on the individual pieces; i.e. one can see the forest, rather than the trees.  Here is an example using six of those collections.  
 <a href="#">
-  <img src="../images/d3frontrow.png" alt="CEX samples" style="vertical-align: middle; width: 923px; height: 400px;"/>
+  <img src="../images/d3frontrow.png" alt="CEX samples" style="vertical-align: middle; width: 823px; height: 350px;"/>
 </a><br>
-Image credit: [New York Times](https://www.nytimes.com/newsgraphics/2014/02/14/fashion-week-editors-picks/index.html).  
+<p>
+  <em>
+  Figure 6. Front Row to Fashion. Image credit:  New York Times. 
+  </em>
+</p>
+
+For more, visit [New York Times](https://www.nytimes.com/newsgraphics/2014/02/14/fashion-week-editors-picks/index.html).  
+
 [back to top](#Overview)   
 
 ## Screen tool CAM overlays D3 accordion
