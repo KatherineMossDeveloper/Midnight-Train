@@ -163,7 +163,7 @@ For more, visit [Schusterbauer](https://johfischer.com/2022/01/27/class-activati
 I wanted to apply this technique to the OpenCrystalData dataset.  In my first attempts, I used the traditional “rainbow” color scheme, as seen above with the meerkat.  The OpenCrystalData dataset images with these CAM overlays were aesthetically pleasing, but too visually complex to tie the colorization back to crystal structures, or the classification, which were the goals -- assuming that these goals could be achieved.  Here is an example image of my first attempt. 
 
 <a href="#">
-  <img src="../images/camcrystal.png" alt="Overview" style="vertical-align: middle; width:  250px; height: 250px;"/>
+  <img src="../images/camcrystal.png" alt="Overview" style="vertical-align: middle; width:  225px; height: 225px;"/>
 </a><br>
 <p>
   <em>
@@ -171,12 +171,16 @@ I wanted to apply this technique to the OpenCrystalData dataset.  In my first at
   </em>
 </p>
 
-After several attempts, I decided to not use the typical rainbow color scheme, but simplify the colorization down to one or two colors.  When choosing the colors, pink and purple seemed more pleasing, probably because they reminded me of H&E staining, however irrelevant that is.  I also set up a threshold, so that only the areas with the highest weights would have the overlay colors applied, rather than have the whole image covered with color.  Here is an example using the same image, CEX (6819).png.  The original is on the left.  The original with the pink and purple CAM overlay applied is on the right.  For more, see The CAM overlay generation process, in the implementation notes. 
+After several attempts, I decided to not use the typical rainbow color scheme, but simplify the colorization down to one or two colors. When choosing the colors, pink and purple seemed more pleasing, probably because they reminded me of H&E staining, however irrelevant that is.  I also set up a threshold, so that only the areas with the highest weights would have the overlay colors applied, rather than have the whole image covered with color.  Here is an example using the same image, CEX (6819).png.  The original is on the left.  The original with the pink and purple CAM overlay applied is on the right.  For more, see The CAM overlay generation process, in the implementation notes. 
 
 <a href="#">
   <img src="../images/cammidnighttrain.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 300px;"/>
 </a><br>
-(Image by author) 
+<p>
+  <em>
+  Figure 5. Original image on the left; CAM overlay on the right. Image by author. Data source: OpenCrystalData.
+  </em>
+</p>
 
 [back to top](#Overview)   
 
