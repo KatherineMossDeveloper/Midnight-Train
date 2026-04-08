@@ -361,40 +361,51 @@ Midnight Train has a histogram showing the plot for the currently selected image
 <a href="#">
   <img src="../images/histogrampic1.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 300px;"/>
 </a><br>
-Histogram for CEX (1).png.  (image by author)
+<p>
+  <em>
+  Figure 14. Histogram for CEX (1).png.  Image by author. 
+  </em>
+</p>
 
 <a href="#">
   <img src="../images/histogrampic2.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 300px;"/>
 </a><br>
-Histogram for CEX (2).png.  (image by author)
+<p>
+  <em>
+  Figure 15. Histogram for CEX (2).png.  Image by author. 
+  </em>
+</p>
 
 [back to top](#Overview)  
 
 ## Screen tool Entropy 
-In Midnight Train, entropy is shown in a 2D scatter plot, where the entropy number per image is on the Y axis in the image below and the name of the image is in the X axis.  The images used in Midnight Train are a curated subset of the image collection.  Approximately four image ‘types’ emerge visually when you look at the total collection.  A handful of images from each type were chosen and used in Midnight Train.  Then the Kmeans group colors are added to the circles below, so that we can see to what extent the entropy per image lines up with the Kmeans groups.  For more, visit Entropy, in the implementation notes.  
+In Midnight Train, entropy is shown in a 2D scatter plot, where the entropy number per image is on the Y axis in the image below and the name of the image is in the X axis.  The images used in Midnight Train are a curated subset of the image collection.  Approximately four image ‘types’ emerge visually when I looked at the total collection.  A handful of images from each type were chosen and used in Midnight Train.  Then the Kmeans group colors are added to the circles below, so that we can see to what extent the entropy per image lines up with the Kmeans groups.  For more, visit Entropy, in the implementation notes.  
 
 <a href="#">
   <img src="../images/entropymidnighttrain.png" alt="Overview" style="vertical-align: middle; width:  300px; height: 300px;"/>
 </a><br>
+<p>
+  <em>
+  Figure 16. The Entropy scatter plot.  Image by author.
+  </em>
+</p>
 
-The Entropy scatter plot.   (image by author)
 [back to top](#Overview)  
 
 ## React Tailwind chatGPT Vercel
-In the Georgia Project, Python was a perfect and popular choice for training the model, saving data to a database, and presenting plots of the progress.  However, to show the relationships between images, one needs a browser technology that can pull multiple visualization components together in a responsive and animated interface.  React was the answer.  For more, visit [React](https://react.dev/).  
+In the Georgia Project, Python was a perfect and popular choice for training the model, saving data to a database, and presenting plots of the progress.  However, to show the relationships between images, a logical choice would be a browser technology that can pull multiple visualization components together in a responsive and animated interface.  React was the answer.  For more, visit [React](https://react.dev/).  
 
 As a companion to React, I wanted a way to style the UI without CSS files, in order to keep development straight-forward.  I chose Tailwind because it removes the need for CSS files, but also because of its popularity.  Many consider Tailwind CSS as the winner in this race.  For more, visit [best css frameworks](https://hackr.io/blog/best-css-frameworks).  
 
-Another companion of the Midnight Train project as been chatGPT.  I have using it to write code snippets, give advice on technology choices, and some background on crystallization.  For more, visit [chatGPT](https://chatgpt.com/).   
+Another companion of the Midnight Train project has been chatGPT.  I have using it to write code snippets, get advice on technology choices, and get some background on crystallization.  For more, visit [chatGPT](https://chatgpt.com/).   
 
 Vercel TBD**
 For more, visit [Vercel](https://vercel.com/).   
 
-
 [back to top](#Overview)  
 
 ## Quick start instructions
-TBD
+TBD**
 [back to top](#Implementation)  
 
 ## Pseudo 3d images
@@ -402,22 +413,32 @@ I looked into the possibility of turning images from the OpenCrystalData dataset
 
 In the past, I had experimented with relief maps algorithms, which would attempt to represent the structure by the geometric clues it picked up in a given image’s texture; i.e., brightness means height, edges mean slopes.  Here is an example from musely.ai website using the image PG (589).png.  I did not find this useful. 
 <a href="#">
-  <img src="../images/pseudo3dreliefmap.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 200px;"/>
+  <img src="../images/pseudo3dreliefmap.png" alt="Overview" style="vertical-align: middle; width:  400px; height: 200px;"/>
 </a><br>
-Original image on the left.  Relief map from musely.ai website on the right.
+<p>
+  <em>
+  Figure 17. Original image on the left.  Relief map from musely.ai website on the right. Image by musely.ai. 
+  </em>
+</p>
 
 Finally, I settled on giving Chat-GPT this same original image and then asked it for a pseudo 3D image of it, using its image generation model, OpenAI’s gpt-image-1.  I found the results interesting, as seen below.  Importantly, the image generated is an A.I. hallucination and non-deterministic.  Every request for the image can produce a somewhat different result.  On the other hand, the image generator made the circular “disk” in the image more prominent, by making it appear raised.  This disk is arguably phenylglycine.
 
 <a href="#">
   <img src="../images/pseudo3dhallucination.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 200px;"/>
 </a><br>
-Original image on left.  Image on right was generated by OpenAI’s gpt-image-1.
+<p>
+  <em>
+  Figure 18. Original image on left.  Image on right was generated by OpenAI’s gpt-image-1.  Image by chatGPT.
+  </em>
+</p>
 
 While this was a fun romp, I did not think any of this should be put in Midnight Train.  Maybe someone else sees potential here.  
+
 [back to top](#Implementation)  
 
 ## PCA in 3D
 After finishing most of Midnight Train, I decided to experiment with a 3D PCA plot.  I had already done it in 2D, as seen above.  When I experimented with doing 3D PCA with Kmeans, I found that approximately 25% of the images jumped to another Kmeans group.  In other words, some of the circles that represent the images defected to other Kmeans groups, thereby taking on a different Kmeans color.  While this was intriguing, I then had to face the prospect of two Kmeans color schemes:  one for 2D and one for 3D in the same app.  I was worried about the user interface experience becoming tiresome.  I want to shelve this idea for a later date.  
+
 [back to top](#Implementation)  
 
 ## Entropy
