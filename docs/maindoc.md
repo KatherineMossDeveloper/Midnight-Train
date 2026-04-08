@@ -129,7 +129,7 @@ By the way, I ran across the D3.js library years ago, so I am surprised to see t
 
 <a href="#">
   <img src="../images/d3downloads.png" alt="Overview" style="vertical-align: middle; width: 1257px; height: 458px;"/>
-</a>
+</a><br>
 <p>
 	<em>
   		Figure 2. D3.js downloads in recent years. Image credit:  Mike Bostock.  
