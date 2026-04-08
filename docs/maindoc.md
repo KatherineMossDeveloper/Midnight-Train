@@ -326,6 +326,7 @@ Here, too, I saw an opportunity.  The relationships animated by an FDG fit perfe
 
 ## Histograms and entropy
 Notes on histograms. 
+
 The images in the OpenCrystalData dataset are grayscale, meaning that the pixels all have values from 0 for black, through 255 for white, with every possible shade of gray in between.  To graph the use of these colors in an image, one can create a histogram, which is a 2D scatter plot.  On the X axis is the color range from 0 to 255. On the Y axis is the number of times each color was in the image.  Histograms can, in one plot, show the pixel color distribution within one image.  Here is an example from Wikipedia. 
 
 <a href="#">
@@ -338,15 +339,16 @@ The images in the OpenCrystalData dataset are grayscale, meaning that the pixels
 </p>
 
 Notes on entropy. 
+
 Entropy is a summary of complexity.  The complexity measured in the OpenCrystalData dataset is the degree of texture complexity in the images.  Entropy summarizes in one number how distributed the pixel color values are within the same image.  To calculate the complexity, we calculate the probability of each image pixel color appearing.  
 
-The formula for probability is p(i) = h(i) / N.  
+The probability formula is p(i) = h(i) / N.  
 
 Here, p(i) is the probability that a given color will appear; h(i) is the number of times that a given color appeared; N is the total number of pixels in the image.  
 
 The Shannon entropy formula is  −∑ p(i) log2 p(i). 
 
-Here, in this entropy formula, we are taking the p(i) probability and multiplying it by the log2 p(i), then summing these values and multiplying by -1, to reverse the sign.  The probability calculated above are fractions of the sum of the pixels.  If the probability of the color black appearing is .5, or 50%, then log2(.5) is -1.  However, if the probability of a certain shade of gray appearing is .25, or 25%, then the log2(.25) is -2.  The negative symbol in the Shannon entropy formula turns these values, -1 and -2, positive.  So, the colors that appear less often ‘count more' when calculating the entropy.  So, the more an image has a scattered collection of rarely used colors, its entropy number will be higher.  
+In this entropy formula, we are taking the p(i) probability and multiplying it by the log2 p(i), then summing these values and multiplying by -1, which will be a positive number.  Here are a couple of examples.  If the probability of the color black appearing is .5, or 50%, then log2(.5) is -1.  However, if the probability of a certain shade of gray appearing is .25, or 25%, then the log2(.25) is -2.  Since the Shannon entropy formula will give us a positive number, the color black will add 1 to the final number.  Likewise, our shade of gray will add 2 to the final number.  Since 2 is more than 1, colors that appears less often 'count more' when adding up the entropy number for the image.  Generally then, the more an image has a scattered collection of rarely used colors, its entropy number will be higher.  It will be more complex. 
 
 For more, visit [Wikipedia](https://en.wikipedia.org/wiki/Image_histogram).  
 For more on the probability and Shannon entropy equations, visit [Shannon](https://jeanvitor.com/image-entropy-value-visualization/).  
