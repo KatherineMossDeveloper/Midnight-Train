@@ -310,6 +310,7 @@ Putting these ideas together with our images, we move from multi-dimensional fea
 
 ## Force directed graph
 I became acquainted with force directed graphs (FDG) when looking through the D3.js library.  It is an animated graph that shows relationships between objects.  Below is a screenshot of an FDG from the D3.js website.  Every circle is an actor.  Every line represents a scene where the actors were on the stage at the same time in Les Misérables.”  The colorization, according to the D3.js website, “represents arbitrary clusters”.  In Midnight Train the colorization is determined by Kmeans clustering algorithm.  I assume that is what they did here to apply these colors. 
+
 <a href="#">
   <img src="../images/forcedirectedgraphlesmis.png" alt="Overview" style="vertical-align: middle; width:  500px; height: 500px;"/>
 </a><br>
