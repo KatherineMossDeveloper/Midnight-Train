@@ -136,8 +136,8 @@ By the way, I ran across the D3.js library years ago, so I am surprised to see t
 	</em>
 </p>
 
-For more on D3.js, visit D3 by Observable, visit [D3](https://d3js.org/).  
 For more on D3 on GitHub, visit [D3](https://github.com/d3/d3?tab=readme-ov-file).  
+For more on D3.js, visit D3 by Observable, visit [D3](https://d3js.org/).  
 For more on the creator of D3.js, visit [Mick Bostock](https://bost.ocks.org/mike/).  
 
 [back to top](#Overview)   
@@ -157,7 +157,7 @@ We know from the CAM overlay that the model was “looking” in the right areas
   Figure 3. Photo of meerkat original and with a CAM overlay.  Image credit:  Johannes Schusterbauer. 
   </em>
 </p>
-For more, visit [Schusterbauer](https://johfischer.com/2022/01/27/class-activation-maps/).    
+For more, visit [Schusterbauer](https://johfischer.com/2022/01/27/class-activation-maps).    
 
 I wanted to apply this technique to the OpenCrystalData dataset.  In my first attempts, I used the traditional “rainbow” color scheme, as seen above with the meerkat.  The OpenCrystalData dataset images with these CAM overlays were aesthetically pleasing, but too visually complex to tie the colorization back to crystal structures, or the classification, which were the goals -- assuming that these goals could be achieved.  Here is an example image of my first attempt. 
 
