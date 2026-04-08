@@ -481,7 +481,7 @@ When a new vector is inserted into the database, HNSW will not do all the math t
 HNSW does, however, have a ~95% accuracy rate.  How does one have confidence that it is accurate enough?  The Kmeans/PCA scatter graph, on the right below, in Midnight train is effectively a cross-check.  The sklearn PCA algorithm it uses is deterministic.  If I click and drag the clusters in the FDG (left) like they arrange themselves in the Kmeans/PCA scatter graph (right), I get largely the same organization, as seen below. 
 
 <a href="#">
-  <img src="../images/fdgandpcagraph.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 200px;"/>
+  <img src="../images/fdgandpcagraph.png" alt="Overview" style="vertical-align: middle; width:  870px; height: 400px;"/>
 </a><br>
 <p>
   <em>
