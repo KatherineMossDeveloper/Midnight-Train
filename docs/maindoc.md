@@ -256,8 +256,7 @@ People can see only three dimensions or less, so some algorithms were created to
 
 As mentioned above, the model creates a feature vector for each image.  The feature vector has many, many dimensions.  PCA is used in Midnight Train to reduce the feature vectors for the images down to two dimensions.  Since PCA gives us an X and a Y coordinate for each image, they can be plotted in a 2D graph.  Similar images, depicted as circles, in the OpenCrystalData dataset are found near each other when the PCA coordinates are plotted, which implies that PCA is a good algorithm to use here.  
 
-For more on PCA, visit [ScienceInsights](https://scienceinsights.org/what-is-principal-component-analysis-how-it-works/).  
-It has a cool animation that shows how Kmeans centroids ‘find’ each group.  
+For more on PCA, visit [ScienceInsights](https://scienceinsights.org/what-is-principal-component-analysis-how-it-works/).  It has a cool animation that shows how Kmeans centroids ‘find’ each group.  
 
 [back to top](#Overview).
 
@@ -272,7 +271,7 @@ For more on Kmeans, visit [Wohlenberg](https://medium.com/data-science/three-ver
 Putting these ideas together with our images, we move from multi-dimensional feature vectors to two dimensional, plottable, points with PCA.  Then Kmeans clustering marks each image as being part of a group.  After assigning a color to each Kmeans group, we have a visualization of how the images are related – or not.  As noted previously, human judgment is required to determine how many groups there should be.  After experimenting, I settled on 4. 
 
 <a href="#">
-  <img src="../images/kmeanspcascatterplot.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 600px;"/>
+  <img src="../images/kmeanspcascatterplot.png" alt="Overview" style="vertical-align: middle; width:  500px; height: 500px;"/>
 </a><br>
 <p>
   <em>
