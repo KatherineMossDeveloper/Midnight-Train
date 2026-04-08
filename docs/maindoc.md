@@ -228,10 +228,10 @@ The CAM image slider, as seen below, shows both the original image and CAM overl
 [back to top](#Overview)  
 
 ## Feature vectors
-As mentioned elsewhere, the Georgia Project produced many pieces of information after training on the OpenCrystalData dataset.  This included metadata, of course, like the confidence percent that the model had when determining the classification of an image.  However, the most important data was perhaps not the meta data, but the feature vectors that the model created in order to make the classification.  Feature vectors contain numerical weights calculated by the model.  Different layers of the model create weights for different sized areas of a given image.  Here is a visualization of these weights when a model was creating feature vectors for images of human faces.  
+As mentioned elsewhere, the Georgia Project produced many pieces of information after training on the OpenCrystalData dataset.  This included metadata, of course, like the confidence percent that the model had when determining the classification of an image. However, the most important data was perhaps not the meta data, but the feature vectors that the model created in order to make the classification.  Feature vectors contain numerical weights calculated by the model.  Different layers of the model create weights for different sized areas of a given image.  Here is a visualization of these weights when a model was creating feature vectors for images of human faces.  
 
 <a href="#">
-  <img src="../images/featurevectorsizes.png" alt="CEX samples" style="vertical-align: middle; width: 800px; height: 300px;"/>
+  <img src="../images/featurevectorsizes.png" alt="CEX samples" style="vertical-align: middle; width: 700px; height: 250px;"/>
 </a><br>
 <p>
   <em>
