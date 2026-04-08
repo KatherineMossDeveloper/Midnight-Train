@@ -350,7 +350,7 @@ The Shannon entropy formula is  −∑ p(i) log2 p(i).
 
 In this entropy formula, we are taking the p(i) probability and multiplying it by the log2 p(i), then summing these values and multiplying by -1, which will be a positive number.  Here are a couple of examples.  If the probability of the color black appearing is .5, or 50%, then log2(.5) is -1.  However, if the probability of a certain shade of gray appearing is .25, or 25%, then the log2(.25) is -2.  Since the Shannon entropy formula will give us a positive number, the color black will add 1 to the final number.  Likewise, our shade of gray will add 2 to the final number.  Since 2 is more than 1, colors that appears less often 'count more' when adding up the entropy number for the image.  Generally then, the more an image has a scattered collection of rarely used colors, its entropy number will be higher.  It will be more complex. 
 
-For more, visit [Wikipedia](https://en.wikipedia.org/wiki/Image_histogram).  
+For more on image histograms, visit [Wikipedia](https://en.wikipedia.org/wiki/Image_histogram).  
 For more on the probability and Shannon entropy equations, visit [Shannon](https://jeanvitor.com/image-entropy-value-visualization/).  
 
 [back to top](#Overview)  
