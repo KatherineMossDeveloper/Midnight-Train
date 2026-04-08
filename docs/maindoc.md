@@ -483,8 +483,12 @@ HNSW does, however, have a ~95% accuracy rate.  How does one have confidence tha
 <a href="#">
   <img src="../images/fdgandpcagraph.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 200px;"/>
 </a><br>
-On the left is a force directed graph, which uses non-deterministic HNSW to find nearby images. 
-On the right is a Kmeans/PCA 2D scatter plot, which uses the deterministic sklearn PCA to find nearby images.  (Images by author) 
+<p>
+  <em>
+  Figure 19. On the left is a force directed graph, which uses non-deterministic HNSW to find nearby images.  On the right is a Kmeans/PCA 2D scatter plot, which uses the deterministic sklearn PCA to find nearby images.  Image by author. Data source: OpenCrystalData.
+  </em>
+</p>
+
 For more, visit [sklearn](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html).  
 
 [back to top](#Notes)  
@@ -555,6 +559,3 @@ For more on Weaviate on Github, visit [Weaviate on Github](https://github.com/we
 For more on Weaviate in the Georgia Project, visit [Weaviate Georgia Project](https://github.com/KatherineMossDeveloper/The-Georgia-Project/blob/main/docs/maindoc.md#f7).  
 
 [back to top](#Notes)  
-
-
-
