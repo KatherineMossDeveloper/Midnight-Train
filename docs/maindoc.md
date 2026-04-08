@@ -159,7 +159,6 @@ We know from the CAM overlay that the model was “looking” in the right areas
 </p>
 
 For more, visit [Schusterbauer](https://johfischer.com/2022/01/27/class-activation-maps).    
-For more, visit [D3](https://d3js.org/).    
 
 I wanted to apply this technique to the OpenCrystalData dataset.  In my first attempts, I used the traditional “rainbow” color scheme, as seen above with the meerkat.  The OpenCrystalData dataset images with these CAM overlays were aesthetically pleasing, but too visually complex to tie the colorization back to crystal structures, or the classification, which were the goals -- assuming that these goals could be achieved.  Here is an example image of my first attempt. 
 
