@@ -473,7 +473,7 @@ page.tsx (pulls data from the database and passes it to the DataExplorerClient)
 
 [back to top](#Notes)  
 
-## HDSW
+## HNSW
 HNSW, or Hierarchical Navigable Small World, is the default nearest neighbor algorithm used in the Weaviate database.  It is used when creating the Kmeans/PCA plot in Midnight Train, as pictured below. 
 
 When a new vector is inserted into the database, HNSW will not do all the math to map the relationships among all the vectors in the Weaviate database, out of brevity.   So, it trades accuracy for time efficiency.  Also, the search can vary, often starting with the most recently added vector, but not necessarily there.  So, both the “incomplete math homework” and the “random adjacent” search starting point make the HNSW algorithm non-deterministic; i.e., the order of queries initiated by the user when they click an image in Midnight Train can affect which nearest neighbors are fetched.  In other words, the order in which the user clicks on images in the Image Gallery, and elsewhere in the UI, might change the relationships depicted by the edges in the force directed graph. 
