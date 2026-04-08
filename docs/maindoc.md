@@ -213,6 +213,7 @@ After several attempts, I decided to not use the typical rainbow color scheme, b
 
 ## D3 accordion
 Some years ago, I found an interactive visualization online in the The New York Times called “Front Row to Fashion”.  The technology was D3.js.  I was impressed that this ‘accordion’ style of visualization, on the one hand, showed partial images of clothing, and yet imparted new information about the collection.  Specifically, one could see the overall style of a designer, rather than focus on the individual pieces; i.e. one can see the forest, rather than the trees.  Here is an example using six of those collections.  
+
 <a href="#">
   <img src="../images/d3frontrow.png" alt="CEX samples" style="vertical-align: middle; width: 823px; height: 350px;"/>
 </a><br>
@@ -478,6 +479,7 @@ HNSW, or Hierarchical Navigable Small World, is the default nearest neighbor alg
 When a new vector is inserted into the database, HNSW will not do all the math to map the relationships among all the vectors in the Weaviate database, out of brevity.   So, it trades accuracy for time efficiency.  Also, the search can vary, often starting with the most recently added vector, but not necessarily there.  So, both the “incomplete math homework” and the “random adjacent” search starting point make the HNSW algorithm non-deterministic; i.e., the order of queries initiated by the user when they click an image in Midnight Train can affect which nearest neighbors are fetched.  In other words, the order in which the user clicks on images in the Image Gallery, and elsewhere in the UI, might change the relationships depicted by the edges in the force directed graph. 
 
 HNSW does, however, have a ~95% accuracy rate.  How does one have confidence that it is accurate enough?  The Kmeans/PCA scatter graph, on the right below, in Midnight train is effectively a cross-check.  The sklearn PCA algorithm it uses is deterministic.  If I click and drag the clusters in the FDG (left) like they arrange themselves in the Kmeans/PCA scatter graph (right), I get largely the same organization, as seen below. 
+
 <a href="#">
   <img src="../images/fdgandpcagraph.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 200px;"/>
 </a><br>
