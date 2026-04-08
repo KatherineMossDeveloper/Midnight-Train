@@ -130,14 +130,14 @@ By the way, I ran across the D3.js library years ago, so I am surprised to see t
 <a href="#">
   <img src="../images/d3downloads.png" alt="Overview" style="vertical-align: middle; width: 1257px; height: 458px;"/>
 </a>
-<em>
-  Figure 2. D3.js downloads in recent years. Image credit:  Mike Bostock.  
-</em>
+<p>
+	<em>
+  		Figure 2. D3.js downloads in recent years. Image credit:  Mike Bostock.  
+	</em>
+</p>
 
 For more on D3.js, visit D3 by Observable, visit [D3](https://d3js.org/).  
-
 For more on D3 on GitHub, visit [D3](https://github.com/d3/d3?tab=readme-ov-file).  
-
 For more on the creator of D3.js, visit [Mick Bostock](https://bost.ocks.org/mike/).  
 
 [back to top](#Overview)   
