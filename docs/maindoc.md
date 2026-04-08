@@ -423,6 +423,7 @@ In Midnight Train, entropy is shown in a 2D scatter plot, where the entropy numb
 I looked into the possibility of turning images from the OpenCrystalData dataset into 3D images.  Since the images are not a time-series, a true 3D rendering would not be possible.  
 
 In the past, I had experimented with relief maps algorithms, which would attempt to represent the structure by the geometric clues it picked up in a given image’s texture; i.e., brightness means height, edges mean slopes.  Here is an example from musely.ai website using the image PG (589).png.  I did not find this useful. 
+
 <a href="#">
   <img src="../images/pseudo3dreliefmap.png" alt="Overview" style="vertical-align: middle; width:  400px; height: 200px;"/>
 </a><br>
@@ -435,7 +436,7 @@ In the past, I had experimented with relief maps algorithms, which would attempt
 Finally, I settled on giving Chat-GPT this same original image and then asked it for a pseudo 3D image of it, using its image generation model, OpenAI’s gpt-image-1.  I found the results interesting, as seen below.  Importantly, the image generated is an A.I. hallucination and non-deterministic.  Every request for the image can produce a somewhat different result.  On the other hand, the image generator made the circular “disk” in the image more prominent, by making it appear raised.  This disk is arguably phenylglycine.
 
 <a href="#">
-  <img src="../images/pseudo3dhallucination.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 200px;"/>
+  <img src="../images/pseudo3dhallucination.png" alt="Overview" style="vertical-align: middle; width:  700px; height: 350px;"/>
 </a><br>
 <p>
   <em>
