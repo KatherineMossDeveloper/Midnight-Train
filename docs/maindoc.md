@@ -52,8 +52,8 @@
 <a href="#Screen-tool-Entropy-kmeans">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  Entropy scatter plots + Kmeans
 </a><br>
-<a href="#React-tailwind">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/>  React + Tailwind
+<a href="#React-tailwind-chatGPT-Vercel">
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/>  React + Tailwind + chatGPT + Vercel
 </a><br>
 
 ## Implementation.
@@ -302,11 +302,15 @@ In Midnight Train, entropy is shown in a 2D scatter plot, where the entropy numb
 The Entropy scatter plot.   (image by author)
 [back to top](#Overview)  
 
-## React Tailwind
-React + Tailwind 
-In the Georgia Project, Python was a perfect and common choice for training the model, saving data to a database, and presenting plots of the progress.  However, to show the relationships between images, one needs a browser technology that can pull multiple visualization components together in a responsive and animated interface.  React was the answer. 
+## React Tailwind chatGPT Vercel
+In the Georgia Project, Python was a perfect and popular choice for training the model, saving data to a database, and presenting plots of the progress.  However, to show the relationships between images, one needs a browser technology that can pull multiple visualization components together in a responsive and animated interface.  React was the answer. 
 
 As a companion to React, I wanted a way to style the UI without CSS files, in order to keep development straight-forward.  I chose Tailwind because it removes the need for CSS files, but also because of its popularity.  Many consider Tailwind CSS as the winner in this race.  
+
+Another companion of the Midnight Train project as been chatGPT.  I have using it to write code snippets, give advice on technology choices, and some background on crystallization. 
+
+Vercel TBD
+
 For more, visit [best css frameworks](https://hackr.io/blog/best-css-frameworks).  
 [back to top](#Overview)  
 
