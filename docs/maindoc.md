@@ -484,4 +484,20 @@ For more details about this project, feel free to reach out to me at katherinemo
 My time zone is EST in the U.S.
 [back to top](#Implementation)  
 
+## Entropy Reveals Structured Variation
 
+Entropy provides a quantitative measure of texture complexity by analyzing the distribution of pixel intensities within each image.
+
+In the OpenCrystalData dataset, entropy reveals a surprising structure: while CEX images cluster tightly, PG images form distinct vertical alignments—what we informally call "little soldiers." These groupings closely mirror patterns observed in both PCA/k-means clustering and the force-directed graph (FDG), reinforcing that entropy captures meaningful structural differences.
+
+<p align="center">
+  <img src="./images/entropymidnighttrain.png" width="700"/>
+</p>
+
+<p align="center">
+  <em>
+  Figure 3. Entropy vs. image ID. PG samples form vertically aligned groupings ("little soldiers"), 
+  indicating structured variation in texture complexity. These groupings correspond closely with PCA and FDG clusters, 
+  providing cross-validation across independent analytical methods. Data: OpenCrystalData.
+  </em>
+</p>
