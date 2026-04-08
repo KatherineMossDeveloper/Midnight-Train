@@ -4,6 +4,13 @@
 <a href="#the-introduction">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> The introduction.
 </a><br>
+<a href="#Quick-start-instructions">
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Quick start instructions
+</a><br>
+<a href="#React-tailwind-chatGPT-Vercel">
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/>  React + Tailwind + chatGPT + Vercel
+</a><br>
+
 ## Features.
 <a href="#d3">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> D3.js
@@ -53,14 +60,8 @@
 <a href="#Screen-tool-Entropy-kmeans">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Screen tool:  Entropy scatter plots + Kmeans
 </a><br>
-<a href="#React-tailwind-chatGPT-Vercel">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/>  React + Tailwind + chatGPT + Vercel
-</a><br>
 
 ## Implementation.
-<a href="#Quick-start-instructions">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Quick start instructions
-</a><br>
 <a href="#pseudo-3d-images">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Pseudo 3D images
 </a><br>
@@ -116,6 +117,22 @@ The Georgia Project recreates their work, then it stores details in a database. 
 The goals for Midnight Train are to explore visualization with React in general and D3.js in particular.  I also wanted to see how the output from a trained model would benefit from support from a vector database.  
 
 [back to top](#Overview)   
+
+## React Tailwind chatGPT Vercel
+In the Georgia Project, Python was a perfect and popular choice for training the model, saving data to a database, and presenting plots of the progress.  However, to show the relationships between images, a logical choice would be a browser technology that can pull multiple visualization components together in a responsive and animated interface.  React was the answer.  For more, visit [React](https://react.dev/).  
+
+As a companion to React, I wanted a way to style the UI without CSS files, in order to keep development straight-forward.  I chose Tailwind because it removes the need for CSS files, but also because of its popularity.  Many consider Tailwind CSS as the winner in this race.  For more, visit [best css frameworks](https://hackr.io/blog/best-css-frameworks).  
+
+Another companion of the Midnight Train project has been chatGPT.  I have using it to write code snippets, get advice on technology choices, and get some background on crystallization.  For more, visit [chatGPT](https://chatgpt.com/).   
+
+Vercel TBD**
+For more, visit [Vercel](https://vercel.com/).   
+
+[back to top](#Overview)  
+
+## Quick start instructions
+TBD**
+[back to top](#Implementation)  
 
 ## D3
 D3.js is a free and open-source JavaScript visualization library that presents data in ways that are attractive, unusual, and often animated.  Midnight train has a number of interactive screen components that either use the D3.js library or are inspired by the D3.js visualization.  These include a force directed graph, scatter plot animation, a histogram, and an “accordion” view of images.  
@@ -387,21 +404,7 @@ In Midnight Train, entropy is shown in a 2D scatter plot, where the entropy numb
 
 [back to top](#Overview)  
 
-## React Tailwind chatGPT Vercel
-In the Georgia Project, Python was a perfect and popular choice for training the model, saving data to a database, and presenting plots of the progress.  However, to show the relationships between images, a logical choice would be a browser technology that can pull multiple visualization components together in a responsive and animated interface.  React was the answer.  For more, visit [React](https://react.dev/).  
 
-As a companion to React, I wanted a way to style the UI without CSS files, in order to keep development straight-forward.  I chose Tailwind because it removes the need for CSS files, but also because of its popularity.  Many consider Tailwind CSS as the winner in this race.  For more, visit [best css frameworks](https://hackr.io/blog/best-css-frameworks).  
-
-Another companion of the Midnight Train project has been chatGPT.  I have using it to write code snippets, get advice on technology choices, and get some background on crystallization.  For more, visit [chatGPT](https://chatgpt.com/).   
-
-Vercel TBD**
-For more, visit [Vercel](https://vercel.com/).   
-
-[back to top](#Overview)  
-
-## Quick start instructions
-TBD**
-[back to top](#Implementation)  
 
 ## Pseudo 3d images
 I looked into the possibility of turning images from the OpenCrystalData dataset into 3D images.  Since the images are not a time-series, a true 3D rendering would not be possible.  
