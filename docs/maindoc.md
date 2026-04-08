@@ -491,13 +491,11 @@ Entropy provides a quantitative measure of texture complexity by analyzing the d
 In the OpenCrystalData dataset, entropy reveals a surprising structure: while CEX images cluster tightly, PG images form distinct vertical alignments—what we informally call "little soldiers." These groupings closely mirror patterns observed in both PCA/k-means clustering and the force-directed graph (FDG), reinforcing that entropy captures meaningful structural differences.
 
 <p align="center">
-    <img src="../images/entropymidnighttrain.png" alt="Overview" style="vertical-align: middle; width:  500px; height: 500px;"/>
+    <img src="../images/entropymidnighttrain.png" alt="Overview" style="vertical-align: middle; width:  400px; height: 400px;"/>
 </p>
 
 <p align="center">
   <em>
-  Figure 3. Entropy vs. image ID. PG samples form vertically aligned groupings ("little soldiers"), 
-  indicating structured variation in texture complexity. These groupings correspond closely with PCA and FDG clusters, 
-  providing cross-validation across independent analytical methods. Data: OpenCrystalData.
+  Figure 8. Entropy scatter plot. Image by author. Data source: OpenCrystalData.
   </em>
 </p>
