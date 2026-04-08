@@ -303,15 +303,16 @@ The Entropy scatter plot.   (image by author)
 [back to top](#Overview)  
 
 ## React Tailwind chatGPT Vercel
-In the Georgia Project, Python was a perfect and popular choice for training the model, saving data to a database, and presenting plots of the progress.  However, to show the relationships between images, one needs a browser technology that can pull multiple visualization components together in a responsive and animated interface.  React was the answer. 
+In the Georgia Project, Python was a perfect and popular choice for training the model, saving data to a database, and presenting plots of the progress.  However, to show the relationships between images, one needs a browser technology that can pull multiple visualization components together in a responsive and animated interface.  React was the answer.  For more, visit [React](https://react.dev/).  
 
-As a companion to React, I wanted a way to style the UI without CSS files, in order to keep development straight-forward.  I chose Tailwind because it removes the need for CSS files, but also because of its popularity.  Many consider Tailwind CSS as the winner in this race.  
+As a companion to React, I wanted a way to style the UI without CSS files, in order to keep development straight-forward.  I chose Tailwind because it removes the need for CSS files, but also because of its popularity.  Many consider Tailwind CSS as the winner in this race.  For more, visit [best css frameworks](https://hackr.io/blog/best-css-frameworks).  
 
-Another companion of the Midnight Train project as been chatGPT.  I have using it to write code snippets, give advice on technology choices, and some background on crystallization. 
+Another companion of the Midnight Train project as been chatGPT.  I have using it to write code snippets, give advice on technology choices, and some background on crystallization.  For more, visit [chatGPT](https://chatgpt.com/).   
 
 Vercel TBD
+For more, visit [chatGPT](https://vercel.com/).   
 
-For more, visit [best css frameworks](https://hackr.io/blog/best-css-frameworks).  
+
 [back to top](#Overview)  
 
 ## Quick start instructions
