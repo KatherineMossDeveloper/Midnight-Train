@@ -326,10 +326,10 @@ Here, too, I saw an opportunity.  The relationships animated by an FDG fit perfe
 
 ## Histograms and entropy
 Notes on histograms. 
-The images in the OpenCrystalData dataset are grayscale, meaning that the pixels all have values from 0 for black, through 255 for white, with every possible shade of gray in between.  To graph the use of these colors in an image, one can create a histogram, which is a 2D scatter plot.  On the X axis is the color range from 0 to 255. On the Y axis is the number of times each color was in the image.  Histograms can, in one plot, show the pixel color distribution within one image.  Here is an example from Wikipedia.  In this example there are heights of different tree types.  
+The images in the OpenCrystalData dataset are grayscale, meaning that the pixels all have values from 0 for black, through 255 for white, with every possible shade of gray in between.  To graph the use of these colors in an image, one can create a histogram, which is a 2D scatter plot.  On the X axis is the color range from 0 to 255. On the Y axis is the number of times each color was in the image.  Histograms can, in one plot, show the pixel color distribution within one image.  Here is an example from Wikipedia. 
 
 <a href="#">
-  <img src="../images/HistogramWikipedia.png" alt="Overview" style="vertical-align: middle; width: 450px; height: 350px;"/>
+  <img src="../images/HistogramWikipedia.png" alt="Overview" style="vertical-align: middle; width: 750px; height: 350px;"/>
 </a><br>
 <p>
   <em>
