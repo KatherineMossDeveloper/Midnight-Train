@@ -309,8 +309,8 @@ As a companion to React, I wanted a way to style the UI without CSS files, in or
 
 Another companion of the Midnight Train project as been chatGPT.  I have using it to write code snippets, give advice on technology choices, and some background on crystallization.  For more, visit [chatGPT](https://chatgpt.com/).   
 
-Vercel TBD
-For more, visit [chatGPT](https://vercel.com/).   
+Vercel TBD**
+For more, visit [Vercel](https://vercel.com/).   
 
 
 [back to top](#Overview)  
