@@ -112,7 +112,11 @@ The Georgia Project recreates their work, then it stores details in a database. 
 <a href="#">
   <img src="../images/overview.png" alt="Overview" style="vertical-align: middle; width: 1022px; height: 387px;"/>
 </a><br>
-Overview of the Georgia Project and Midnight Train.  (image by author)
+<p>
+  <em>
+  Figure 1. Overview of the Georgia Project and Midnight Train. Image by author. 
+  </em>
+</p>
 
 The goals for Midnight Train are to explore visualization with React in general and D3.js in particular.  I also wanted to see how the output from a trained model would benefit from support from a vector database.  
 
@@ -489,7 +493,6 @@ My time zone is EST in the U.S.
 Entropy provides a quantitative measure of texture complexity by analyzing the distribution of pixel intensities within each image.
 
 In the OpenCrystalData dataset, entropy reveals a surprising structure: while CEX images cluster tightly, PG images form distinct vertical alignments—what we informally call "little soldiers." These groupings closely mirror patterns observed in both PCA/k-means clustering and the force-directed graph (FDG), reinforcing that entropy captures meaningful structural differences.
-
 	  
 <p align="center">
     <img src="../images/entropymidnighttrain.png" 
@@ -501,7 +504,7 @@ In the OpenCrystalData dataset, entropy reveals a surprising structure: while CE
         border-radius: 6px;
 </p>
 
-<p align="center">
+<p>
   <em>
   Figure 8. Entropy scatter plot. Image by author. Data source: OpenCrystalData.
   </em>
