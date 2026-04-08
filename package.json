@@ -32,6 +32,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.0.0",
     "tailwindcss": "^4",
+    "typedoc": "^0.28.18",
     "typescript": "^5"
   }
 }

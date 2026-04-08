@@ -1,13 +1,18 @@
 // GraphHistogram.tsx
 // Graphs the histogram of the currently selected image.
 //
+// type GraphHistogramProps
+// export default function GraphHistogram
+//
+// See notes in DataExplorerClient about the currently selected image.
+//
 
 "use client";
 
+import * as d3 from "d3";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelection } from "@/components/SelectionContext";
-import { imageToGrayscalePixels } from "@/lib/imageToGrayscalePixels"
-import * as d3 from "d3";
+import { imageToGrayscalePixels } from "@/lib/imageToGrayscalePixels";
 
 type GraphHistogramProps = {
   width?: number;
@@ -15,8 +20,9 @@ type GraphHistogramProps = {
   barColor?: string;
 };
 
-export default function GraphHistogram({ width = 520, height = 60,
-                                         barColor = "#f5f5f4", // slate-100
+// ************************************************
+export default function GraphHistogram({ width = 520, height = 150,
+                                         barColor = "#bedbff", // light blue
 }: GraphHistogramProps) {
 
   const { selectedFilename } = useSelection();
@@ -87,7 +93,7 @@ export default function GraphHistogram({ width = 520, height = 60,
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // if there is not data to display, put a note in the middle of the plot.
+    // if there is no data to display, put a note in the middle of the plot.
     if (!hasPixels || bins.length === 0) {
       g.append("text")
         .attr("x", innerWidth / 2)
@@ -100,10 +106,7 @@ export default function GraphHistogram({ width = 520, height = 60,
     }
 
     // scaling x:  mapping the data (0-255) to screen dimensions.
-    const x = d3
-      .scaleLinear()
-      .domain([0, 255])
-      .range([0, innerWidth]);
+    const x = d3.scaleLinear().domain([0, 255]).range([0, innerWidth]);
 
     // find out how tall the Y axis should be.
     const yMax = d3.max(bins, (d) => d.length) ?? 0;

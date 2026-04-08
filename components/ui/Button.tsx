@@ -1,11 +1,11 @@
 // Button.tsx
-// a custom button component.  TypeScript file with JSX support.
+// a custom button component used for all buttons.
 //
 // notes.
 // This button code creates buttons with a dark gray background,
 // and a slightly lighter gray background when hovered.  It has
-// white text.  The "primary" style is a little more prominent
-// than the "secondary" style.
+// white text.
+//
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -14,11 +14,12 @@ type ButtonProps = {
 };
 
 export default function Button({ children, onClick, variant = "primary", }: ButtonProps) {
-  const base = "px-3 py-1 rounded text-sm transition-colors";
 
+  // base styling + slight variations.
+  const base = "px-3 py-1 rounded text-sm transition-colors";
   const variants = {
-    primary: "bg-slate-700 text-slate-100 hover:bg-slate-600",
-    secondary: "bg-slate-800 text-slate-300 hover:bg-slate-700",
+    primary: "bg-slate-700 text-slate-100 hover:bg-slate-600 hover:text-blue-200",
+    secondary: "bg-slate-800 text-slate-300 hover:bg-slate-500 hover:text-white",
   };
 
   return (

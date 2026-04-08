@@ -3,9 +3,11 @@
 //
 // export async function getImageObjects          pulls all the image records from the db.
 // export async function getImageVectorNeighbors  pulls the top X number of nearest neighbors.
+//
 
 import { getBaseUrl } from "@/lib/baseUrl";
 
+// ************************************************
 export async function getImageObjects(limit = 10) {
   // crystals = app/api/crystals/route.ts
   const res = await fetch(`${getBaseUrl()}/api/crystals?limit=${limit}`, {
@@ -19,6 +21,7 @@ export async function getImageObjects(limit = 10) {
   return res.json();
 }
 
+// ************************************************
 export async function getImageVectorNeighbors({ imageId, k = 5 }: {
     imageId?: string;   // filename (image_id)
     k?: number;         // limit

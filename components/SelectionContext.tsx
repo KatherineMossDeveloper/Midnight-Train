@@ -29,17 +29,18 @@ const SelectionContext = createContext<SelectionContextValue | null>(null);
 
 // The component that owns the state; the children parameter = the components that
 // consume the shared value:  the currently selected image file name.
+// ************************************************
 export function SelectionProvider({ children }: { children: React.ReactNode }) {
   const [selectedFilename, setSelectedFilename] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!selectedFilename) {
-      const timer = setTimeout(() => {
-          setSelectedFilename("CEX (1).png");
-    }, 1000); // 1 second delay
-    return () => clearTimeout(timer); // cleanup
-    }
-  }, [selectedFilename]);
+//  useEffect(() => {
+//    if (!selectedFilename) {
+//      const timer = setTimeout(() => {
+//          setSelectedFilename("CEX (1).png");
+//    }, 1000); // 1 second delay
+//    return () => clearTimeout(timer); // cleanup
+//    }
+//  }, [selectedFilename]);
 
   // only send out updates when the selection changes, avoiding re-rendering.
   const value = useMemo(

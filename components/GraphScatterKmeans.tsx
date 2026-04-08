@@ -6,11 +6,7 @@
 // export type ScatterPoint
 // type GraphScatterKmeansProps
 //
-// This component is in the currently selected image context.
-// See DataExplorerClient for notes on this.
-// This component is a forwardRef because the parent needs to
-// call function here if the user clicks a 'copy to clipboard'
-// button on the main UI.
+// See notes in DataExplorerClient about the currently selected image.s
 //
 
 "use client";
@@ -19,10 +15,11 @@ import { useEffect, useRef } from "react";
 import { forwardRef, useImperativeHandle } from "react";
 
 import * as d3 from "d3";
+import { GRAY_DARK } from "@/lib/graphUtilities";
 import { useLog } from "@/components/LogPanel";
 import { useSelection } from "@/components/SelectionContext";
 import { copySvgElementToClipboard, copyPngElementToClipboard } from "@/lib/exportImages"
-import { gray_dark } from "@/lib/graphUtilities";
+
 
 export type GraphScatterKmeansFunctions = {
   copySvg: () => void;
@@ -42,7 +39,7 @@ type GraphScatterKmeansProps = {
   height?: number;
 };
 
-
+// ************************************************
 const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
                                        GraphForceDirectedProps > (({ data, width = 300,
                                                                      height = 300 }, ref) =>
@@ -78,7 +75,7 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
     svg.append("rect")
       .attr("width", width)
       .attr("height", height)
-      .attr("fill", gray_dark);
+      .attr("fill", GRAY_DARK);
 
     // No points, return.
     if (!data || data.length === 0) {

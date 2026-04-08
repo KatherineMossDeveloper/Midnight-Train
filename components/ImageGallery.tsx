@@ -12,6 +12,9 @@
 // FDG immediately, which might hinder attempts to study the image relationships.
 // Note that the order in which the nearest neighbors are pulled effects
 // the relationships depicted in the graph.
+//
+// See notes in DataExplorerClient about the currently selected image.
+//
 
 "use client";
 
@@ -19,25 +22,26 @@ import React, { useState, useEffect, useMemo } from "react";
 import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
 import type { ImageThumb } from "@/types/ImageThumb";
 
-import { getImageVectorNeighbors } from "@/lib/weaviate/weaviateQueries";
+import { getNeighborsClient } from "@/lib/api/crystalsClient";
 
 import { useSelection } from "@/components/SelectionContext";
 import { useMetaByFilename } from "@/components/MetaContext";
 import { useLog } from "@/components/LogPanel";  
 import { image } from "d3";
-import { CLUSTER_COLORS, CLUSTER_HEX } from "@/lib/graphUtilities";
+import { CLUSTER_COLORS_HEX, CLUSTER_COLORS_HEX_TAILWIND } from "@/lib/graphUtilities";
 
 type ImageGalleryProps = {
   images: ImageThumb[];
   onAddNeighbors: (center: any, neighbors: any[]) => void;
 };
 
+// ************************************************
 export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryProps) {
 
   // listen for changes to the currently selected file name.
   const { selectedFilename, setSelectedFilename } = useSelection();
 
-  // combine the MetaContext withe SelectionContext to get the meta data for the selected file name.
+  // combine the MetaContext with the SelectionContext to get the meta data for the selected file name.
   const metaByFilename = useMetaByFilename();
   const selectedMeta = selectedFilename != null ? metaByFilename.get(selectedFilename) : null;
 
@@ -51,17 +55,16 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
 
   useEffect(() => {
     if (!selectedFilename) return;
+    console.log("---> ImageGallery useEffect.");
 
     async function fetchNeighbors() {
       try {
-        const result = await getImageVectorNeighbors({
-          imageId: selectedFilename,
-          k: 5,
-        });
+        const result = await getNeighborsClient({ imageId: selectedFilename, k: 5 });
         onAddNeighbors(result.center, result.neighbors);
+        console.log("--->Inside ImageGallery, after onAddNeighbors call.");
 
       } catch (err) {
-        console.error("Failed to fetch neighbors:", err);
+        console.error("Inside ImageGallery, failed to fetch neighbors:", err);
       }
     }
     fetchNeighbors();
@@ -97,10 +100,9 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
          {images.map((c) => {
             const clusterIndex = Number(c.kmeans_pca_cluster);
             const borderClass =
-                  CLUSTER_COLORS[clusterIndex] ?? "border-l-slate-400";
+                  CLUSTER_COLORS_HEX[clusterIndex] ?? "border-l-slate-400"; // slate fallback
             const colorHex =
-                  CLUSTER_HEX[clusterIndex] ?? "#94a3b8"; // slate fallback
-
+                  CLUSTER_COLORS_HEX_TAILWIND[clusterIndex] ?? "#94a3b8"; // slate fallback
             return (
                <button
                   key={c.filename}

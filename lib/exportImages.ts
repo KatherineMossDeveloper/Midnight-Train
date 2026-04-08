@@ -6,6 +6,7 @@
 // export async function copyPngElementToClipboard
 //
 
+// ************************************************
 function cloneSvgWithInlineStyles(svg: SVGSVGElement): SVGSVGElement {
   const clone = svg.cloneNode(true) as SVGSVGElement;
 
@@ -30,6 +31,7 @@ function cloneSvgWithInlineStyles(svg: SVGSVGElement): SVGSVGElement {
   return clone;
 }
 
+// ************************************************
 export async function copySvgElementToClipboard(svg: SVGSVGElement) {
   const styledClone = cloneSvgWithInlineStyles(svg);
 
@@ -42,38 +44,67 @@ export async function copySvgElementToClipboard(svg: SVGSVGElement) {
   await navigator.clipboard.write([clipboardItem]);
 }
 
+// ************************************************
 export async function copyPngElementToClipboard(svgElement: SVGSVGElement) {
-  const serializer = new XMLSerializer();
-  const svgString = serializer.serializeToString(svgElement);
 
-  const blob = new Blob([svgString], { type: "image/svg+xml" });
+  // get the rendered size to make sure the copy is like the screen image.
+  const rect = svgElement.getBoundingClientRect();
+  const width = Math.round(rect.width);
+  const height = Math.round(rect.height);
+
+  // cloning the SVGSVGElement, so that we can reach its properties.
+  const clone = svgElement.cloneNode(true) as SVGSVGElement;
+  clone.setAttribute("width", String(width));
+  clone.setAttribute("height", String(height));
+
+  const existingViewBox = clone.getAttribute("viewBox");
+  if (!existingViewBox) {
+    clone.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  }
+
+  // turn the element into a string
+  const serializer = new XMLSerializer();
+  const svgString = serializer.serializeToString(clone);
+
+  // create basically a pointer to the image (string) in memory.
+  const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
   const url = URL.createObjectURL(blob);
 
-  const img = new Image();
-  img.src = url;
+  try {
+    const img = new Image();
+    img.src = url;
 
-  await new Promise((resolve) => {
-    img.onload = resolve;
-  });
-
-  const canvas = document.createElement("canvas");
-  canvas.width = img.width;
-  canvas.height = img.height;
-
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
-
-  ctx.drawImage(img, 0, 0);
-
-  await new Promise<void>((resolve) => {
-    canvas.toBlob(async (pngBlob) => {
-      if (!pngBlob) return;
-
-      const clipboardItem = new ClipboardItem({ "image/png": pngBlob });
-      await navigator.clipboard.write([clipboardItem]);
-      resolve();
+    await new Promise<void>((resolve, reject) => {
+      img.onload = () => resolve();
+      img.onerror = () => reject(new Error("Failed to load SVG into image"));
     });
-  });
 
-  URL.revokeObjectURL(url);
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    // rasterize:  create pixels from the image (string)
+    ctx.drawImage(img, 0, 0, width, height);
+
+    await new Promise<void>((resolve, reject) => {
+      canvas.toBlob(async (pngBlob) => {
+        if (!pngBlob) {
+          reject(new Error("Failed to create PNG blob"));
+          return;
+        }
+
+        try {
+          const clipboardItem = new ClipboardItem({ "image/png": pngBlob });
+          await navigator.clipboard.write([clipboardItem]);
+          resolve();
+        } catch (err) {
+          reject(err);
+        }
+      }, "image/png");
+    });
+  } finally {
+    URL.revokeObjectURL(url);
+  }
 }

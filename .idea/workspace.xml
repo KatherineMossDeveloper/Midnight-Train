@@ -5,26 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd1584ab-e917-4af0-8e13-a33a80aa0ddc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/helloworld.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/maindoc.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/HeroPolaroids.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/HeroPolaroidsSmall.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/HeroSmall.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/accordionsmidnighttrain.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/camcrystal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/cammeerkat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/cammidnighttrain.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/camslider.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/d3downloads.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/d3frontrow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/featurevectorsizes.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/forcedirectedgraphlesmis.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/forcedirectedgraphmidnighttrain.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/helloworld.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/kmeanspcascatterplot.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/overview.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/crystals/nearest/route.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/crystals/route.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/hello/route.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/weaviate/schema/route.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/weaviate/status/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/weaviate/status/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/CamAccordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/CamAccordion.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DataExplorer.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DataExplorerClient.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DataExplorerClient.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphForceDirected.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphForceDirected.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphHistogram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphHistogram.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphScatterEntropy.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphScatterEntropy.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphScatterKmeans.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphScatterKmeans.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ImageGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ImageGallery.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ImageSlider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ImageSlider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/LogPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/LogPanel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/MetaContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/MetaContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/SelectionContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SelectionContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/WeaviateStatus.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/WeaviateStatus.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/Button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/Button.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/helloworld.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/maindoc.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/maindoc.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/d3/createDrag.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/d3/createDrag.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/d3/createZoom.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/d3/createZoom.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dataMapper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/dataMapper.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/exportImages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/exportImages.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/graphUtilities.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/graphUtilities.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/imageToGrayscalePixels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/imageToGrayscalePixels.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/toolTipsText.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/toolTipsText.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/weaviate/weaviateQueries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/weaviate/weaviateQueries.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images_github/HeroPolaroids.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,13 +64,15 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging main",
-    "last_opened_file_path": "C:/Users/mossr/Desktop/MidnightTrain/MidnightTrainApp",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/mossr/Desktop/MidnightTrain/MidnightTrainApp/app/api/weaviate/nearest",
+    "settings.editor.selected.configurable": "settings.sync"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mossr\Desktop\MidnightTrain\MidnightTrainApp\app\api\weaviate\nearest" />
+      <recent name="C:\Users\mossr\Desktop\MidnightTrain\MidnightTrainApp\lib\data" />
       <recent name="C:\Users\mossr\Desktop\MidnightTrain\MidnightTrainApp" />
       <recent name="C:\Users\mossr\Desktop\MidnightTrain\MidnightTrainApp\public\images_github" />
     </key>
@@ -78,5 +95,16 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.ts" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

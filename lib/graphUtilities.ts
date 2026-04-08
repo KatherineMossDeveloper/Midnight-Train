@@ -4,27 +4,29 @@
 // is selected by the user.
 //
 // export function mergeGraphData(...)
-// export const CLUSTER_COLORS to color the badges on the ImageGallery images.
+// export const CLUSTER_COLORS_HEX
+// export const CLUSTER_COLORS_HEX_TAILWIND to color the image circles on the ImageGallery images.
 //
 
 import type { GraphNode, GraphLink } from "@/types/FDGtypes";
 
-export const gray_dark = "#020617"
+export const GRAY_DARK = "#020617"
 
-export const CLUSTER_HEX = [
+export const CLUSTER_COLORS_HEX = [
   "#7fc97f",
   "#beaed4",
   "#fdc086",
   "#ffff99",
 ];
 
-export const CLUSTER_COLORS = [
+export const CLUSTER_COLORS_HEX_TAILWIND = [
   "border-l-[#7fc97f]",
   "border-l-[#beaed4]",
   "border-l-[#fdc086]",
   "border-l-[#ffff99]",
 ];
 
+// ************************************************
 export function mergeGraphData(
   prevNodes: Map<string, GraphNode>,
   prevEdges: GraphLink[],
@@ -63,7 +65,7 @@ export function mergeGraphData(
   if (center.kmeans_pca_cluster !== undefined && center.kmeans_pca_cluster !== null) {
     centerNode.cluster = center.kmeans_pca_cluster;
   }
-  console.log( "CENTER CLUSTER test", center.id, center.kmeans_pca_cluster );
+  console.log( "Inside graphUtilities, center test", center.id, center.kmeans_pca_cluster );
 
   for (const n of neighbors) {
     // Add neighbor node

@@ -1,7 +1,12 @@
+// api/weaviate/status/route.ts
+// used by the WeaviateStatus component.
+//
+
 import { NextResponse } from "next/server";
 
 const WEAVIATE_URL = process.env.WEAVIATE_URL ?? "http://localhost:8080";
 
+// ************************************************
 export async function GET() {
   try {
     // --- 1. Fetch Weaviate meta info ---

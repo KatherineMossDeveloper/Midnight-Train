@@ -11,6 +11,7 @@ import type { ImageThumb } from "@/types/ImageThumb";
 import type { ScatterPoint } from "@/components/GraphScatterKmeans";
 import type { EntropyPoint } from "@/components/GraphScatterEntropy";
 
+// ************************************************
 export function toThumb(c: ImageDatabaseObject): ImageThumb {
   const filename = c.image_id;
   return {
@@ -21,6 +22,7 @@ export function toThumb(c: ImageDatabaseObject): ImageThumb {
   };
 }
 
+// ************************************************
 export function toKmeansData(crystals: ImageDatabaseObject[]): ScatterPoint[] {
   return crystals
     .filter(
@@ -37,6 +39,7 @@ export function toKmeansData(crystals: ImageDatabaseObject[]): ScatterPoint[] {
     }));
 }
 
+// ************************************************
 export function toEntropyData(crystals: ImageDatabaseObject[]): EntropyPoint[] {
   return crystals
     .filter(

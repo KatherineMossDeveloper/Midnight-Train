@@ -1,11 +1,13 @@
 // imageToGrayscalePixels
 // Takes a filename, pulls up the file, and returns pixels.
 //
-// Promise will either call resolve or reject after loading the file, etc.
+// export async function imageToGrayscalePixels
 //
 
+// ************************************************
 export async function imageToGrayscalePixels(src: string): Promise<number[]> {
   return new Promise((resolve, reject) => {
+
     const img = new Image();
     img.crossOrigin = "anonymous";
 

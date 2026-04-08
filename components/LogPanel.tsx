@@ -23,6 +23,7 @@ type LogContextValue = {
   log: (message: string) => void;
 };
 
+// ************************************************
 const LogContext = createContext<LogContextValue | null>(null);
 
 export function LogProvider({ children }: { children: ReactNode }) {

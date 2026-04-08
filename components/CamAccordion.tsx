@@ -5,11 +5,13 @@
 // export default function CamAccordion
 //
 // This component is inspired by the D3.js library, but does not use D3.js because
-// at this writing this graph type is not available there.  There are two states
+// at this writing this graph type is not available at d3.js.  There are two states
 // that the "return" section of the code handles:  isExpanded and isSelected.
 // The user can hover over the images, so that they expand to their full width.
 // The user can also click on an image, which makes it the currently selected image
 // and also draws a blue line around it, designating it as selected.
+//
+// See notes in DataExplorerClient about the currently selected image.
 //
 
 "use client";
@@ -27,8 +29,9 @@ type CamAccordionProps = {
   expandedWidth?: number;  // px
 };
 
+// ************************************************
 export default function CamAccordion({images, folder, title,
-                                      height = 300, collapsedWidth = 48, expandedWidth = 320,
+                                      height = 315, collapsedWidth = 48, expandedWidth = 320,
 }: CamAccordionProps) {
 
   const { selectedFilename, setSelectedFilename } = useSelection();

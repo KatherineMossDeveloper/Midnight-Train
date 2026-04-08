@@ -1,6 +1,12 @@
 // GraphForceDirected.tsx
 // creates and maintains the force directed graph of image relationships,
-// as calculated by the Weaviate database default nearest neighbor algorithm.
+// as calculated by the Weaviate database default nearest neighbor algorithm,
+// or as pulled from the JSON file.  Note that this component is a forward
+// referenced constant that is exported, rather than an exported function.
+// The parent, DataExplorerClient, owns the buttons, but the child,
+// ForceDirectedGraph, owns the data, so the parent calls the functions in
+// the child; a.k.a. an imperative escape hatch.
+//
 //
 // type GraphForceDirectedProps
 // export type GraphForceDirectedFunctions
@@ -12,6 +18,7 @@
 // to create the FDG:  useEffect(() => { if (!containerRef.current || !svgRef.current) return;
 // to update the FDG:  useEffect(() => { if (!simulationRef.current) return;
 //
+// Notes on the flow.
 // The create use effect waits for the DOM to exist so the graph can be created.
 // The update use effect waits for the simulation to exist so it can be updated.
 // The order of code flow here is approximately...
@@ -41,7 +48,7 @@ import { createZoomBehavior } from "@/lib/d3/createZoom";
 import { createDragBehavior } from "@/lib/d3/createDrag";
 
 // misc.
-import { gray_dark } from "@/lib/graphUtilities";
+import { GRAY_DARK } from "@/lib/graphUtilities";
 import { copySvgElementToClipboard, copyPngElementToClipboard } from "@/lib/exportImages"
 
 function copySvg() {
@@ -64,6 +71,7 @@ type GraphForceDirectedProps = {
   links: GraphLink[];
 };
 
+// ************************************************
 const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
                                        GraphForceDirectedProps >(({ nodes, links }, ref) =>
 {
@@ -125,7 +133,7 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
      .insert("rect", ":first-child")
      .attr("width", width)
      .attr("height", height)
-     .attr("fill", gray_dark);
+     .attr("fill", GRAY_DARK);
 
    // --- ZOOM ROOT ---
    const zoomGroup = svg.append("g");

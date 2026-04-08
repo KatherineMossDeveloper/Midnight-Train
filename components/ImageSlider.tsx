@@ -3,10 +3,11 @@
 // a CAM overlay.
 //
 // The currently selected image is presented in full.  The CAM overlay
-// image is clipped to the extent dictated by the slider bar.
-// The CAM overlay images are in either the CEX or PG folders because
-// this component is created twice, one for each type of image
-// classification.
+// image is clipped to the extent dictated by the slider bar.  The CAM
+// overlay images are in either the CEX or PG folders because this
+// component is created twice, one for each type of image classification.
+//
+// See notes in DataExplorerClient about the currently selected image.
 //
 
 "use client";
@@ -16,6 +17,7 @@ import { useSelection } from "@/components/SelectionContext";
 import { useLog } from "@/components/LogPanel";
 import * as d3 from "d3";
 
+// ************************************************
 export default function ImageSlider() {
 
   // hooks

@@ -1,12 +1,8 @@
 // GraphScatterEntropy.tsx
-// presents a circle for every image at entropy on the Y axis
+// presents a circle for every image, with entropy on the Y axis
 // and the file name on the X with kmeans colorization.
 //
-// This component is in the currently selected image context.
-// See DataExplorerClient for notes on this.
-// This component is a forwardRef because the parent needs to
-// call function here if the user clicks a 'copy to clipboard'
-// button on the main UI.
+// See notes in DataExplorerClient about the currently selected image.
 //
 
 "use client";
@@ -17,7 +13,7 @@ import { copySvgElementToClipboard, copyPngElementToClipboard } from "@/lib/expo
 import * as d3 from "d3";
 import { useLog } from "@/components/LogPanel";
 import { useSelection } from "@/components/SelectionContext";
-import { gray_dark } from "@/lib/graphUtilities";
+import { GRAY_DARK } from "@/lib/graphUtilities";
 
 export type EntropyPoint = {
   entropy: number;  // positive float
@@ -37,7 +33,7 @@ export type GraphScatterEntropyFunctions = {
   copyPng: () => void;
 };
 
-
+// ************************************************
 const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
                                         GraphScatterEntropyByFilenameProps > (({ data,
                                                                                  width = 300,
@@ -79,7 +75,7 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
     svg.append("rect")
       .attr("width", width)
       .attr("height", height)
-      .attr("fill", gray_dark);
+      .attr("fill", GRAY_DARK);
 
     // calculate dimensions
     const margin = { top: 20, right: 20, bottom: 80, left: 20 };

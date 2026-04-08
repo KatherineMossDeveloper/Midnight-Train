@@ -13,6 +13,7 @@ import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
 // React context object that holds a filename and its metadata.
 const MetaContext = createContext<Map<string, ImageDatabaseObject> | null>(null);
 
+// ************************************************
 export function MetaProvider({ metas, children,}: {
            metas: ImageDatabaseObject[]; children: React.ReactNode; }) {
 

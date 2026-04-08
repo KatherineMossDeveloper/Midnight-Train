@@ -1,6 +1,4 @@
 // DataExplorerClient.tsx
-// a client component
-//
 // This component takes the data from page.tsx as a parameter and acts
 // as the main driver for Midnight Train.
 //
@@ -8,20 +6,25 @@
 // function handleAddNeighbors(center, neighbors)
 // export default function DataExplorerClient
 //
-// Currently selected image notes.
+// Notes on the currently selected image context provider.
 // This component sets up the context provider for the currently selected image,
-// the SelectionProvider.
-// A component listening for the selection will import the useSelection
-// from the SelectionContext component.
-// A component that can also change the currently selected image will
-// set up a click event that captures a new image selection and
-// set up a useSelection that is tied to the click event.
+// the SelectionProvider.  A component listening for the selection will import
+// the useSelection from the SelectionContext component.  A component that can
+// also change the currently selected image will set up a click event that
+// captures a new image selection and set up a useSelection that is tied to the
+// click event.
+//
+// Notes on forwardRef components.
+// Some of the components are forwardRef because the parent needs to call
+// functions in them.  For example, if the user clicks a 'copy to clipboard'
+// button for the Entropy graph, then the parent will need to call functions
+// in the GraphScatterEntropy component to fulfill the request.
 //
 
 "use client";
 
 // react
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // data
 import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
@@ -57,6 +60,7 @@ import Tooltip from "@/components/ui/Tooltip";
 import { TOOLTIP_TEXT } from "@/lib/toolTipsText";
 
 
+// ************************************************
 export default function DataExplorerClient({ crystals, error }: {
      crystals: ImageDatabaseObject[];
      error: string | null; }) {
@@ -79,6 +83,7 @@ export default function DataExplorerClient({ crystals, error }: {
     entropyData = toEntropyData(crystals);
   }
 
+  const [showWelcome, setShowWelcome] = useState(false);
   const [graphNodes, setGraphNodes] = useState<Map<string, GraphNode>>(new Map());
   const [graphEdges, setGraphEdges] = useState<GraphLink[]>([]);
 
@@ -89,14 +94,22 @@ export default function DataExplorerClient({ crystals, error }: {
   }
 
   // add nodes and edges to the FDG by calling /lib/graphUtilities.mergeGraphData
-  function handleAddNeighbors(center, neighbors) {
+  function handleAddNeighbors( center: NeighborCenter, neighbors: NeighborRecord[] ) {
+    console.log("handleAddNeighbors center:", center);
+    console.log("handleAddNeighbors neighbors:", neighbors);
+
     const { newNodes, newEdges } = mergeGraphData(
-      graphNodes, graphEdges, center, neighbors
+      graphNodes,
+      graphEdges,
+      center,
+      neighbors
     );
 
-    setGraphNodes(newNodes);  // update graphNodes, which is an FDG parameter.
-    setGraphEdges(newEdges);  // update graphEdges, which is an FDG parameter.
-    console.log("Inside DataExplorerClient.handleAddNeighbors:  nodes...", graphEdges.length );
+    setGraphNodes(newNodes);
+    setGraphEdges(newEdges);
+
+    console.log("nodes after merge:", newNodes.size);
+    console.log("edges after merge:", newEdges.length);
   }
 
   // State to track visibility of the log message component
@@ -213,10 +226,8 @@ export default function DataExplorerClient({ crystals, error }: {
 
                {/* Panel showing log messages:  1 row, 1 col */}
                <div  className={"bg-slate-900/60 rounded-xl p-4"} > {/* log message div */}
-                 <Button
-                   onClick={toggleVisibility} variant="secondary" >
+                 <Button onClick={toggleVisibility} variant="secondary" >
                    {isVisible ? "Hide logs" : "Show logs"}
-
                  </Button>
 
                  {isVisible && (
