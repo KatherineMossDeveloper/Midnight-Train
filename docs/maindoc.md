@@ -200,59 +200,85 @@ For more, visit [New York Times](https://www.nytimes.com/newsgraphics/2014/02/14
 [back to top](#Overview)   
 
 ## Screen tool CAM overlays D3 accordion
-So, how could scientific visualization benefit from this idea?  As a developer, I saw an opportunity here, so I put two accordion style visualizations in Midnight Train, as seen below.  The images are of the CAM overlays.  The top one is of CEX images, and the bottom is of PG images.  The pink and purple areas are where the model mostly “focused on” when doing classification of the images.  The accordions are animated.  A mouse hover opens each image fully.  Note that when you look at these partial images, the pink overlays are more uniform in the CEX images, and the background of the PG images is noisier.  We can see the forest. 
+So, how could scientific visualization benefit from this idea?  As a developer, I saw an opportunity here, so I put two accordion style visualizations in Midnight Train, as seen below.  The images are of the CAM overlays.  The top one is of CEX images, and the bottom is of PG images.  The pink and purple areas are where the model mostly “focused on” when doing classification of the images.  The accordions are animated.  A mouse hover opens each image fully.  Note that when you look at these partial images, the pink overlays are more uniform in the CEX images, and the background of the PG images is noisier.  We can see the forests. 
 <a href="#">
   <img src="../images/accordionsmidnighttrain.png" alt="CEX samples" style="vertical-align: middle; width: 500px; height: 600px;"/>
 </a><br>
-The accordion screen controls in Midnight Train (image by author). 
+<p>
+  <em>
+  Figure 7. The accordion screen controls in Midnight Train.  Image by author. Data source: OpenCrystalData.
+  </em>
+</p>
+
 [back to top](#Overview)  
 
 ## Screen tool CAM slider
-The CAM image slider, as seen below, shows both the original image and CAM overlay image together.  Instead of being side-by-side, they both take up the space of one image, with a click and drag functionality.  The user can drag the bar to the right and left to study where the CAM overlay is placed.  
+The CAM image slider, as seen below, shows both the original image and CAM overlay image together.  Instead of being side-by-side, they both take up the space of one image, with a horizontal click-and-drag functionality.  The user can drag the bar to the right and left to study where the CAM overlay is placed.  
 
 <a href="#">
   <img src="../images/camslider.png" alt="CEX samples" style="vertical-align: middle; width: 500px; height: 400px;"/>
 </a><br>
-The CAM Image Slider (image by author)  
+<p>
+  <em>
+  Figure 8. The CAM Image Sliders.  Image by author.  Data source: OpenCrystalData.
+  </em>
+</p>
+
 [back to top](#Overview)  
 
 ## Feature vectors
-As mentioned elsewhere, the Georgia Project produced many pieces of information after training on the OpenCrystalData dataset.  This included metadata, of course, like the confidence percent that the model had when determining the classification of an image.  However, the most important data was perhaps not the meta data, but the feature vectors that the model created in order to make the classification.  Feature vectors contain numerical weights calculated by the model.  Different layers of the model create weights for larger and larger areas of a given image.  Here is a visualization of these weights when a model was creating feature vectors for images of human faces.  
+As mentioned elsewhere, the Georgia Project produced many pieces of information after training on the OpenCrystalData dataset.  This included metadata, of course, like the confidence percent that the model had when determining the classification of an image.  However, the most important data was perhaps not the meta data, but the feature vectors that the model created in order to make the classification.  Feature vectors contain numerical weights calculated by the model.  Different layers of the model create weights for different sized areas of a given image.  Here is a visualization of these weights when a model was creating feature vectors for images of human faces.  
 
 <a href="#">
   <img src="../images/featurevectorsizes.png" alt="CEX samples" style="vertical-align: middle; width: 800px; height: 300px;"/>
 </a><br>
-Image credit: [stackexchange](https://datascience.stackexchange.com/questions/77830/how-do-stacked-cnn-layers-work).  
+<p>
+  <em>
+  Figure 9. The model is trained on larger and larger areas of images.  Image source:  datascience.stackexchange.com.
+  </em>
+</p>
+
+For more, visit [stackexchange](https://datascience.stackexchange.com/questions/77830/how-do-stacked-cnn-layers-work).
+
 [back to top](#Overview)  
 
 ## Feature vector and Weaviate database
-Storing such a vector, with many dimensions, is not a typical storage consideration for a relational database.  A typical SQL database does not have a vector datatype.   This led me to vector databases.  My plan was that such a database would allow me to bridge the gap between the Georgia Project, which produced data, and the Midnight Train Project, which presents data.  Hence, the pun about “Midnight Train to Georgia.” 
+Storing such a vector, with many dimensions, is not a typical storage consideration for a relational database.  A typical SQL database does not have a vector datatype.  This led me to vector databases.  My plan was that such a database would allow me to bridge the gap between the Georgia Project, which produced data, and the Midnight Train Project, which presents data.  Hence, the pun about “Midnight Train to Georgia.” 
 
 For more on Weaviate, visit [Weaviate](https://weaviate.io/).  
 For more on the song, visit [Midnight Train to Georgia](https://en.wikipedia.org/wiki/Midnight_Train_to_Georgia).  
+
 [back to top](#Overview)  
 
 ## PCA
 People can see only three dimensions or less, so some algorithms were created to reduce the number of dimensions down to two or three.  Principle Component Analysis (PCA) is one of the “dimensionality reduction” algorithms.  Some details are lost reducing dimensions, but often new insights are gained.  
 
 As mentioned above, the model creates a feature vector for each image.  The feature vector has many, many dimensions.  PCA is used in Midnight Train to reduce the feature vectors for the images down to two dimensions.  Since PCA gives us an X and a Y coordinate for each image, they can be plotted in a 2D graph.  Similar images, depicted as circles, in the OpenCrystalData dataset are found near each other when the PCA coordinates are plotted, which implies that PCA is a good algorithm to use here.  
+
 For more on PCA, visit [ScienceInsights](https://scienceinsights.org/what-is-principal-component-analysis-how-it-works/).  
 It has a cool animation that shows how Kmeans centroids ‘find’ each group.  
+
 [back to top](#Overview).
 
 ## Kmeans
-Kmeans clustering is an algorithm that can show us how data is grouped. It does this ‘unsupervised,’ meaning that the data is not labeled, as belonging to one group or another.  The author of the algorithm designates the number of groups to ‘find.’  The algorithm creates center points, or centroids, and then scatters them randomly.  Then it computes the distance between every centroid and the plotted points.  
-With each iteration of the algorithm, the centroids move to their respective final positions.  The plotted points closest to a given centroid ‘belongs’ to that centroid’s group.  
+Kmeans clustering is an algorithm that can show us how data is grouped. It does this ‘unsupervised,’ meaning that the data is not labeled, as belonging to one group or another.  The author of the algorithm designates the number of groups to ‘find.’  The algorithm creates center points, or centroids, and then scatters them randomly.  Then it computes the distance between every centroid and the plotted points.  With each iteration of the algorithm, the centroids move to their respective final positions.  The plotted points closest to a given centroid ‘belongs’ to that centroid’s group.  
 
 For more on Kmeans, visit [Wohlenberg](https://medium.com/data-science/three-versions-of-k-means-cf939b65f4ea).  
+
 [back to top](#Overview)  
 
 ## Screen tool PCA Kmeans
 Putting these ideas together with our images, we move from multi-dimensional feature vectors to two dimensional, plottable, points with PCA.  Then Kmeans clustering marks each image as being part of a group.  After assigning a color to each Kmeans group, we have a visualization of how the images are related – or not.  As noted previously, human judgment is required to determine how many groups there should be.  After experimenting, I settled on 4. 
+
 <a href="#">
   <img src="../images/kmeanspcascatterplot.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 600px;"/>
 </a><br>
-The Kmeans/PCA scatter plot.   (image by author)
+<p>
+  <em>
+  Figure 10. The Kmeans/PCA scatter plot.  Image by author. 
+  </em>
+</p>
+
 [back to top](#Overview)  
 
 ## Force directed graph
@@ -260,7 +286,11 @@ I became acquainted with force directed graphs (FDG) when looking through the D3
 <a href="#">
   <img src="../images/forcedirectedgraphlesmis.png" alt="Overview" style="vertical-align: middle; width:  600px; height: 600px;"/>
 </a><br>
-For more on this, visit [D3](https://observablehq.com/@d3/force-directed-graph-component).  
+<p>
+  <em>
+  Figure 11.  Force directed graph of Les Misérables scenes. Image by Mike Bostock. 
+  </em>
+</p>
 
 Allow me to explain force-directed graphs (FDG) by comparing them with a 2D scatter plot.
 
@@ -269,12 +299,15 @@ A scatter plot presents exact, fixed points in space. The space is cartesian, me
 In contrast, a force-directed graph presents points, or nodes, in space that are not fixed. The space is not cartesian. There are no axes. The value of each point is understood by its position relative to other points that it is connected to, by lines, or edges. The clusters remain generally cohesive, and generally visible, because their positions are calculated with values representing two physical forces, attraction and repulsion.
 
 Since an FDG is less exacting than a scatter plot, you might ask why one would use it. I would argue that since the points are unmoored, they are presented as an animation that the user can change in order to see more. The user can see not just the major relationships, but also the more tenuous ones, based on, for example, the thickness of the lines connecting the points. The animation is also beautiful and engaging.  Aesthetics matter.  
-For more on this, visit [Wikipedia](https://en.wikipedia.org/wiki/Force-directed_graph_drawing).  
+
+For more on the FDG of Les Misérables, visit [D3](https://observablehq.com/@d3/force-directed-graph-component).  
+For more on FDG plots, visit [Wikipedia](https://en.wikipedia.org/wiki/Force-directed_graph_drawing).  
+
 [back to top](#Overview)  
 
 ## HNSW
-HNSW nearest neighbor algorithm 
-The images are represented in the Weaviate database partially by their feature vectors.  These vectors are stored in Weaviate by the Georgia project, then the Midnight Train application queries the database for vectors similar to a given vector using a nearest neighbor algorithm.  The algorithm used to gather nearest neighbor vectors for a given image is the default algorithm built into the Weaviate vector database.  It is HNSW, or Hierarchical Navigable Small World, which is an approximate similarity algorithm, not an exact one.  For more, see HNSW, in the implementation notes
+The images are represented in the Weaviate database partially by their feature vectors.  These vectors are stored in Weaviate by the Georgia project, then the Midnight Train application queries the database for vectors similar to a given vector using a nearest neighbor algorithm.  The algorithm used to gather nearest neighbor vectors for a given image is the default algorithm built into the Weaviate vector database.  It is HNSW, or Hierarchical Navigable Small World, which is an approximate similarity algorithm, not an exact one.  For more, see HNSW, in the implementation notes.
+
 [back to top](#Overview)  
 
 ## Screen tool Force directed graph kmeans
@@ -283,12 +316,28 @@ Here, too, I saw an opportunity.  The relationships animated by an FDG fit perfe
 <a href="#">
   <img src="../images/forcedirectedgraphmidnighttrain.png" alt="Overview" style="vertical-align: middle; width:  400px; height: 300px;"/>
 </a><br>
+<p>
+  <em>
+  Figure 12.  A Midnight Train FDG sample image.  Image by author. 
+  </em>
+</p>
 
-Midnight Train’s FDG sample image.  (image by author). 
 [back to top](#Overview)  
 
 ## Histograms and entropy
-The images in the OpenCrystalData dataset are grayscale, meaning that the pixels all have values from 0  for black, through 255 for white, with every possible shade of gray in between.  To graph the use of these colors in an image, one can create a histogram, which is a 2D scatter plot.  On the X axis is the color range from 0 to 255. On the Y axis is the number of times each color was in the image.  Histograms can, in one plot, show the pixel color distribution within one image.  
+The images in the OpenCrystalData dataset are grayscale, meaning that the pixels all have values from 0 for black, through 255 for white, with every possible shade of gray in between.  To graph the use of these colors in an image, one can create a histogram, which is a 2D scatter plot.  On the X axis is the color range from 0 to 255. On the Y axis is the number of times each color was in the image.  Histograms can, in one plot, show the pixel color distribution within one image.  Here is an example from Wikipedia.  
+
+<a href="#">
+  <img src="../images/HistogramWikipedia.png" alt="Overview" style="vertical-align: middle; width: 400px; height: 450px;"/>
+</a><br>
+<p>
+  <em>
+  Figure 13. Histogram. Image by Wikipedia. 
+  </em>
+</p>
+For more, visit [Wikipedia](https://en.wikipedia.org/wiki/Histogram).  
+
+TBD
 
 The probability for the image pixel color appearing is p(i) = h(i) / N.  
 
