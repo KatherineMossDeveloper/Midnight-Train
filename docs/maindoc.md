@@ -143,18 +143,22 @@ For more on the creator of D3.js, visit [Mick Bostock](https://bost.ocks.org/mik
 [back to top](#Overview)   
 
 ## CAM overlays
-This method, known usually by it initials “CAM,” is a way to show where a trained A.I. model gave the most weight to the features in an image when classifying the image.  Here is a nice clear example from the Johannes Schusterbauer blog, using an image of a meer kat as an example.  The model was tasked with classifying the image as being of a meer kat or not.  
+Classification activation mapping, known usually by it initials “CAM,” is a way to show where a trained A.I. model gave the most weight to the features in an image when classifying the image.  Here is a nice clear example from the Johannes Schusterbauer blog, using an image of a meerkat as an example.  The model was tasked with classifying the image as being of a meerkat or not.  
 
 The image on the left is the original photo.  The image on the right is the CAM overlay, which shows the weights applied by the A.I. model as colors over the original image.  The red areas had the highest weights.  The purple areas had the lowest weights.  
 
-We know from the CAM overlay that the model was “looking” in the right areas when making a classification.  The red colors are over the animal, instead of mistakenly over the background, for example.  Going further, we know that it was looking more at the neck than the eyes when classifying this as an image of a meer kat.  
+We know from the CAM overlay that the model was “looking” in the right areas when making a classification.  The red colors are over the animal, instead of mistakenly over the background, for example.  Going further, we know that it was looking more at the neck than the eyes when classifying this as an image of a meerkat.  
 
 <a href="#">
   <img src="../images/cammeerkat.png" alt="Overview" style="vertical-align: middle; width:  800px; height: 300px;"/>
 </a><br>
-Image credit: [Schusterbauer](https://johfischer.com/2022/01/27/class-activation-maps/).  
+<p>
+  <em>
+  Figure 3. Photo of meerkat original and with a CAM overlay.  Image credit: [Schusterbauer](https://johfischer.com/2022/01/27/class-activation-maps/).    
+  </em>
+</p>
 
-I wanted to apply this technique to the OpenCrystalData dataset.  In my first attempts, I used the traditional “rainbow” color scheme, as seen above with the meer kat.  The OpenCrystalData dataset images with these CAM overlays were aesthetically pleasing, but too visually complex to tie the colorization back to crystal structures, or the classification, which were the goals -- assuming that these goals could be achieved.  Here is an example image of my first attempt. 
+I wanted to apply this technique to the OpenCrystalData dataset.  In my first attempts, I used the traditional “rainbow” color scheme, as seen above with the meerkat.  The OpenCrystalData dataset images with these CAM overlays were aesthetically pleasing, but too visually complex to tie the colorization back to crystal structures, or the classification, which were the goals -- assuming that these goals could be achieved.  Here is an example image of my first attempt. 
 
 <a href="#">
   <img src="../images/camcrystal.png" alt="Overview" style="vertical-align: middle; width:  300px; height: 300px;"/>
