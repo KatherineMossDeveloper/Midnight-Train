@@ -1,4 +1,4 @@
-![Hero](public/images/HeroPolaroids.png)  
+![Hero](images/HeroPolaroids.png)  
 
 ![Crystallization](https://img.shields.io/badge/domain-Crystallization-white)
 [![](https://img.shields.io/badge/Kaggle-Dataset-teal?logo=kaggle&logoColor=white)](https://www.kaggle.com/datasets/opencrystaldata/cephalexin-reactive-crystallization)
