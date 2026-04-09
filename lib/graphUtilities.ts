@@ -12,14 +12,14 @@ import type { GraphNode, GraphLink } from "@/types/FDGtypes";
 
 export const GRAY_DARK = "#020617"
 
-export const CLUSTER_COLORS_HEX = [
+export const CLUSTER_HEX  = [
   "#7fc97f",
   "#beaed4",
   "#fdc086",
   "#ffff99",
 ];
 
-export const CLUSTER_COLORS_HEX_TAILWIND = [
+export const CLUSTER_COLORS = [
   "border-l-[#7fc97f]",
   "border-l-[#beaed4]",
   "border-l-[#fdc086]",

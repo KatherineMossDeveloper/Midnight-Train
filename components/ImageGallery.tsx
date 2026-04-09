@@ -28,7 +28,7 @@ import { useSelection } from "@/components/SelectionContext";
 import { useMetaByFilename } from "@/components/MetaContext";
 import { useLog } from "@/components/LogPanel";  
 import { image } from "d3";
-import { CLUSTER_COLORS_HEX, CLUSTER_COLORS_HEX_TAILWIND } from "@/lib/graphUtilities";
+import { CLUSTER_HEX, CLUSTER_COLORS } from "@/lib/graphUtilities";
 
 type ImageGalleryProps = {
   images: ImageThumb[];
@@ -95,14 +95,16 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
             <div className="ml-3">timestamp: {selectedMeta.image_header}</div>
           </div>
       )}
+
       {/* image gallery; create a button with image on it, plus a kmeans colored badge */}
       <div className="grid grid-cols-3 gap-1">
          {images.map((c) => {
             const clusterIndex = Number(c.kmeans_pca_cluster);
             const borderClass =
-                  CLUSTER_COLORS_HEX[clusterIndex] ?? "border-l-slate-400"; // slate fallback
+                  CLUSTER_COLORS[clusterIndex] ?? "border-l-slate-400";  // slate fallback
             const colorHex =
-                  CLUSTER_COLORS_HEX_TAILWIND[clusterIndex] ?? "#94a3b8"; // slate fallback
+                  CLUSTER_HEX[clusterIndex] ?? "#94a3b8";  // slate fallback
+
             return (
                <button
                   key={c.filename}
