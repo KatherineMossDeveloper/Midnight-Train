@@ -1,4 +1,4 @@
-// types.ts
+// lib/data/types.ts
 // types used for fetching data
 //
 // export interface ImageDatabaseObject    (Page)
@@ -8,8 +8,21 @@
 
 export type DataSourceKind = "weaviate" | "json";
 
+export type NeighborCenter = {
+  id: string;
+  image_id: string;
+  kmeans_pca_cluster?: number;
+};
+
+export type NeighborRecord = {
+  id: string;
+  image_id: string;
+  kmeans_pca_cluster?: number;
+  distance?: number;
+};
+
 export interface ImageDatabaseObject {
-  id?: string;
+  id: string;
   image_id: string;
   class_label?: string;
   confidence?: number;
@@ -30,3 +43,9 @@ export interface ImageObjectsResult {
   items: ImageDatabaseObject[];
   dbStatus: DbStatus;
 }
+
+export type GetNeighborsResult = {
+  center: NeighborCenter;
+  neighbors: NeighborRecord[];
+  source: string;
+};

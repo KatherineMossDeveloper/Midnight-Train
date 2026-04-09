@@ -39,7 +39,7 @@ export function mergeGraphData(
     id: string;
     image_id?: string;
     kmeans_pca_cluster?: number;
-    distance: number;
+    distance?: number;
   }>
 ) {
   const newNodes = new Map(prevNodes);
@@ -84,10 +84,10 @@ export function mergeGraphData(
 
     if (!exists) {
       newEdges.push({
-        source: center.id,
-        target: n.id,
-        distance: n.distance,
-        weight: 1 / (n.distance + 1e-6),
+         source: center.id,
+         target: n.id,
+         distance: n.distance ?? 0,
+         weight: 1 / ((n.distance ?? 0) + 1e-6),
       });
     }
   }

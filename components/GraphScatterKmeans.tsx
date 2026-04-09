@@ -41,7 +41,7 @@ type GraphScatterKmeansProps = {
 
 // ************************************************
 const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
-                                       GraphForceDirectedProps > (({ data, width = 300,
+                                       GraphScatterKmeansProps > (({ data, width = 300,
                                                                      height = 300 }, ref) =>
 {
 

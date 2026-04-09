@@ -6,16 +6,18 @@
 // export async function getNeighborsClient
 //
 
-import type { ImageObjectsResult, GetNeighborsResult } from "@/lib/types";
+import type { ImageObjectsResult, GetNeighborsResult } from "@/lib/data/types";
 
 // ************************************************
 export async function getNeighborsClient(params: {
+  id: string,
   imageId: string;
   k?: number;
 }): Promise<GetNeighborsResult> {
-  const { imageId, k = 5 } = params;
+  const { id, imageId, k = 5 } = params;
 
   const searchParams = new URLSearchParams();
+  searchParams.set("id", id);
   searchParams.set("image_id", imageId);
   searchParams.set("k", String(k));
 

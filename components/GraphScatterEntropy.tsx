@@ -40,6 +40,8 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
                                                                                  height = 300,
                                                                                  xTickEvery = 1 }, ref) =>
 {
+  const svgRef = useRef<SVGSVGElement | null>(null);
+
   // list the functions that the parent is allowed to call.
   useImperativeHandle(ref, () => ({
     copySvg: () => {
@@ -54,7 +56,6 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
   }));
 
   const { selectedFilename, setSelectedFilename } = useSelection();
-  const svgRef = useRef<SVGSVGElement | null>(null);
 
   const { log } = useLog();
   useEffect(() => {log("[mount]  GraphScatterEntropy");}, [log]);

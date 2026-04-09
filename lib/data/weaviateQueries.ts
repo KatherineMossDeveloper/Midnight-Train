@@ -8,7 +8,7 @@
 
 import "server-only";
 import weaviate from "weaviate-ts-client";
-import type { ImageDatabaseObject } from "@/lib/types";
+import type { ImageDatabaseObject } from "@/lib/data/types";
 
 const WEAVIATE_URL = process.env.WEAVIATE_URL || "http://localhost:8080";
 const WEAVIATE_CLASS = process.env.WEAVIATE_CLASS || "CrystalImage";
@@ -71,13 +71,13 @@ export async function getImageObjectsFromWeaviate(
 
 export interface NeighborCenter {
   id: string;
-  image_id?: string;
+  image_id: string;
   kmeans_pca_cluster?: number;
 }
 
 export interface NeighborRecord {
   id: string;
-  image_id?: string;
+  image_id: string;
   kmeans_pca_cluster?: number;
   distance: number;
   class_label?: string;
@@ -94,9 +94,7 @@ export interface GetNeighborsResult {
 
 
 // ************************************************
-export async function getNeighborsFromWeaviate(
-  imageId: string,
-  k = 5
+export async function getNeighborsFromWeaviate( id: string, imageId: string,  k = 5
 ): Promise<GetNeighborsResult> {
   if (!imageId) {
     throw new Error("getNeighborsFromWeaviate requires imageId");

@@ -3,7 +3,7 @@
 
 import "server-only";
 
-import type { ImageObjectsResult, GetNeighborsResult } from "@/lib/types";
+import type { ImageObjectsResult, GetNeighborsResult } from "@/lib/data/types";
 import { getImageObjectsFromWeaviate, getNeighborsFromWeaviate } from "@/lib/data/weaviateQueries";
 import { getImageObjectsFromJson, getNeighborsFromJson } from "@/lib/data/jsonQueries";
 
@@ -65,15 +65,12 @@ export async function getImageObjects(limit = 100): Promise<ImageObjectsResult> 
   };
 }
 
-export async function getNeighbors(
-  imageId: string,
-  k = 5
-): Promise<GetNeighborsResult> {
+export async function getNeighbors( id: string, imageId: string, k = 5 ): Promise<GetNeighborsResult> {
   try {
     const dbOk = await checkWeaviateAvailable(3000);
 
     if (dbOk) {
-      return await getNeighborsFromWeaviate(imageId, k);
+      return await getNeighborsFromWeaviate(id, imageId, k);
     }
 
     console.warn(`Weaviate unavailable for ${imageId}, falling back to JSON.`);
@@ -84,6 +81,6 @@ export async function getNeighbors(
     );
   }
 
-  return await getNeighborsFromJson(imageId, k);
+  return await getNeighborsFromJson(id, imageId, k);
 }
 

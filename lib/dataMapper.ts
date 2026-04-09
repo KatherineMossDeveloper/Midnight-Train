@@ -13,12 +13,16 @@ import type { EntropyPoint } from "@/components/GraphScatterEntropy";
 
 // ************************************************
 export function toThumb(c: ImageDatabaseObject): ImageThumb {
+
+  const db_id = c.id;
   const filename = c.image_id;
+
   return {
+    id: db_id,
     filename,
     kmeans_pca_cluster: c.kmeans_pca_cluster,
     src: `/images_testing/${encodeURIComponent(filename)}`,
-    alt: c.image_id
+    alt: filename
   };
 }
 

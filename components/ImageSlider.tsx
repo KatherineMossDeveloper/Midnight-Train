@@ -32,10 +32,10 @@ export default function ImageSlider() {
   const safe = selectedFilename ? encodeURIComponent(selectedFilename) : null;
   const isCEX = safe?.startsWith("CEX");
   const camFolder = isCEX ? "CEX" : "PG";
-  const originalSrc = safe ? `/images_testing/${safe}` : null;
-  const camSrc = safe ? `/images_CAM/${camFolder}/${safe}` : null;
-  const altLeft = safe ? `/images_testing/${safe}` : null;
-  const altRight = safe ? `/images_CAM/${camFolder}/${safe}` : null;
+  const originalSrc = safe ? `/images_testing/${safe}` : undefined;
+  const camSrc = safe ? `/images_CAM/${camFolder}/${safe}` : undefined;
+  const altLeft = safe ? `/images_testing/${safe}` : undefined;
+  const altRight = safe ? `/images_CAM/${camFolder}/${safe}` : undefined;
 
   // handle the click and drag mouse event.
   useEffect(() => {

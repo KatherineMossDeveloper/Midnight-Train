@@ -7,7 +7,7 @@
 import "server-only";
 import fs from "fs/promises";
 import path from "path";
-import type { GetNeighborsResult, NeighborRecord } from "@/lib/types";
+import type { ImageDatabaseObject, GetNeighborsResult, NeighborRecord } from "@/lib/data/types";
 
 interface SavedGraphNode {
   id: string;
@@ -37,7 +37,7 @@ export async function getImageObjectsFromJson( limit = 100
 }
 
 // ************************************************
-export async function getNeighborsFromJson( imageId: string, k = 5
+export async function getNeighborsFromJson( id: string, imageId: string, k = 5
 ): Promise<GetNeighborsResult> {
   try {
     const nodesPath = path.join(process.cwd(), "lib", "data", "fdg_nodes.json");
@@ -50,9 +50,11 @@ export async function getNeighborsFromJson( imageId: string, k = 5
 
     const centerNode = nodes.find((n) => n.image_id === imageId);
 
+    // NeighborCenter type...   id: string;  image_id?: string;  kmeans_pca_cluster?: number;
     if (!centerNode) {
       return {
         center: {
+          id: id,
           image_id: imageId,
         },
         neighbors: [],
@@ -117,6 +119,7 @@ export async function getNeighborsFromJson( imageId: string, k = 5
 
     return {
       center: {
+        id: id,
         image_id: imageId,
       },
       neighbors: [],

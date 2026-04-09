@@ -27,9 +27,11 @@
 import { useEffect, useState, useRef } from "react";
 
 // data
+import type { NeighborCenter, NeighborRecord } from "@/lib/data/types";
 import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
 import type { ImageFileDetails } from "@/types/ImageFileDetails";
 import type { GraphNode, GraphLink } from "@/types/FDGtypes";
+import type { ImageThumb } from "@/types/ImageThumb";
 import { toThumb, toKmeansData, toEntropyData } from  "@/lib/dataMapper";
 
 // copy to clipboard buttons
@@ -44,7 +46,6 @@ import { MetaProvider } from "@/components/MetaContext";
 
 // UI components.
 import CamAccordion from "@/components/CamAccordion";
-import DataExplorer from "@/components/DataExplorer";
 import GraphForceDirected from "@/components/GraphForceDirected";
 import GraphHistogram from "@/components/GraphHistogram";
 import GraphScatterEntropy, { EntropyPoint } from "@/components/GraphScatterEntropy";
@@ -71,9 +72,12 @@ export default function DataExplorerClient({ crystals, error }: {
   const entRef = useRef<GraphScatterEntropyFunctions | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [pixels, setPixels] = useState<number[]>([]);
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [graphNodes, setGraphNodes] = useState<Map<string, GraphNode>>(new Map());
+  const [graphEdges, setGraphEdges] = useState<GraphLink[]>([]);
 
   // get various kinds of data.
-  let imageFiles: ImageFileDetails[];
+  let imageFiles: ImageThumb[] = [];
   let kmeansData: ScatterPoint[] = [];
   let entropyData: EntropyPoint[] = [];
   const camImages = crystals.map(c => (c.image_id));
@@ -82,10 +86,6 @@ export default function DataExplorerClient({ crystals, error }: {
     kmeansData = toKmeansData(crystals);
     entropyData = toEntropyData(crystals);
   }
-
-  const [showWelcome, setShowWelcome] = useState(false);
-  const [graphNodes, setGraphNodes] = useState<Map<string, GraphNode>>(new Map());
-  const [graphEdges, setGraphEdges] = useState<GraphLink[]>([]);
 
   // clear the FDG when the 'clear FDG' button is pressed.
   function handleClearGraph() {

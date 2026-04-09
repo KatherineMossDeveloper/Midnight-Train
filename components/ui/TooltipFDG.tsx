@@ -18,7 +18,7 @@ export default function TooltipFDG({
   y,
   imageSrc,
   label,
-}: Props) {
+}: FDGTooltipProps) {
   if (!visible) return null;
 
   return (

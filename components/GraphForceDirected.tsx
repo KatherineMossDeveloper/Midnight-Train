@@ -10,8 +10,6 @@
 //
 // type GraphForceDirectedProps
 // export type GraphForceDirectedFunctions
-// function copySvg()
-// function copyPng()
 //
 // There are three useEffect's here.
 // to update the log:  useEffect(() => {log("GraphForceDirected mounted.");}, [log]);
@@ -50,16 +48,6 @@ import { createDragBehavior } from "@/lib/d3/createDrag";
 // misc.
 import { GRAY_DARK } from "@/lib/graphUtilities";
 import { copySvgElementToClipboard, copyPngElementToClipboard } from "@/lib/exportImages"
-
-function copySvg() {
-  if (!svgRef.current) return;
-  copySvgElementToClipboard(svgRef.current);
-}
-
-function copyPng() {
-  if (!svgRef.current) return;
-  copyPngElementToClipboard(svgRef.current);
-}
 
 export type GraphForceDirectedFunctions = {
   copySvg: () => void;
@@ -186,8 +174,8 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
     const padding = 20;
     simulation.on("tick", () => {
       nodes.forEach(d => {
-        d.x = Math.max(padding, Math.min(width - padding, d.x));
-        d.y = Math.max(padding, Math.min(height - padding, d.y));
+        d.x = Math.max(padding, Math.min(width - padding, d.x ?? 0));
+        d.y = Math.max(padding, Math.min(height - padding, d.y ?? 0));
       });
 
     // update links
@@ -271,7 +259,7 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
         x: event.clientX,
         y: event.clientY,
         imageSrc: `/images_testing/${d.image_id}`,
-        label: d.image_id,
+        label: d.image_id ?? "",
       });
     })
     .on("mousemove", (event) => {

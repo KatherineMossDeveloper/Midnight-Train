@@ -21,7 +21,7 @@
 import React, { useState, useEffect, useMemo } from "react";  
 import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
 import type { ImageThumb } from "@/types/ImageThumb";
-
+import type { NeighborCenter, NeighborRecord } from "@/lib/data/types";
 import { getNeighborsClient } from "@/lib/api/crystalsClient";
 
 import { useSelection } from "@/components/SelectionContext";
@@ -32,8 +32,9 @@ import { CLUSTER_HEX, CLUSTER_COLORS } from "@/lib/graphUtilities";
 
 type ImageGalleryProps = {
   images: ImageThumb[];
-  onAddNeighbors: (center: any, neighbors: any[]) => void;
+  onAddNeighbors: (center: NeighborCenter, neighbors: NeighborRecord[]) => void;
 };
+
 
 // ************************************************
 export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryProps) {
@@ -54,12 +55,14 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
   useEffect(() => {log(`[select] Gallery image ${selectedFilename}`); }, [selectedFilename]);
 
   useEffect(() => {
-    if (!selectedFilename) return;
-    console.log("---> ImageGallery useEffect.");
+    if (!selectedFilename || !selectedMeta) return;
 
     async function fetchNeighbors() {
       try {
-        const result = await getNeighborsClient({ imageId: selectedFilename, k: 5 });
+        if (!selectedFilename || !selectedMeta) return;
+        const result = await getNeighborsClient({ id: selectedMeta.id,
+                                                  imageId: selectedFilename,
+                                                  k: 5 });
         onAddNeighbors(result.center, result.neighbors);
         console.log("--->Inside ImageGallery, after onAddNeighbors call.");
 
@@ -85,7 +88,7 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
       )}
 
       {/* details for currently selected image (passed from parent) */}
-      {selectedImage != null && (
+      {selectedMeta != null && (
           <div className="mb-4 text-xs text-gray-800">
             <div className="ml-3">image: {selectedMeta.image_id}</div>
             <div className="ml-3">label: {selectedMeta.class_label}</div>

@@ -5,9 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd1584ab-e917-4af0-8e13-a33a80aa0ddc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/types/ImageThumb.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/weaviate/nearest/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/weaviate/nearest/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DataExplorerClient.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DataExplorerClient.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphForceDirected.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphForceDirected.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphScatterEntropy.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphScatterEntropy.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphScatterKmeans.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphScatterKmeans.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/ImageGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ImageGallery.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ImageSlider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ImageSlider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/TooltipFDG.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/TooltipFDG.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/maindoc.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/maindoc.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/crystalsClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/crystalsClient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/crystalDataSource.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/crystalDataSource.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/jsonQueries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/jsonQueries.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/weaviateQueries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/weaviateQueries.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dataMapper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/dataMapper.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/graphUtilities.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/graphUtilities.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/FDGtypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/FDGtypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/ImageDatabaseObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/ImageDatabaseObject.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/ImageFileDetails.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/ImageFileDetails.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

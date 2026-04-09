@@ -9,8 +9,16 @@ import { getNeighbors } from "@/lib/data/crystalDataSource";
 // ************************************************
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id");
   const imageId = searchParams.get("image_id");
   const kParam = searchParams.get("k");
+
+  if (!id) {
+    return NextResponse.json(
+      { error: "Missing id" },
+      { status: 400 }
+    );
+  }
 
   if (!imageId) {
     return NextResponse.json(
@@ -23,7 +31,7 @@ export async function GET(request: Request) {
   const k = Number.isFinite(kRaw) && kRaw > 0 ? kRaw : 5;
 
   try {
-    const result = await getNeighbors(imageId, k);
+    const result = await getNeighbors(id, imageId, k);
     return NextResponse.json(result);
   } catch (error) {
     console.error("Neighbor route failed.", error);
