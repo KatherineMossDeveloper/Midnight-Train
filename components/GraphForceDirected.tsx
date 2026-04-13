@@ -106,6 +106,8 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
   useEffect(() => {
    if (!containerRef.current || !svgRef.current) return;
 
+   // the graph is optimized for the available container size when the app is loaded.
+   // the complexity of adding code to respond to resizing seems like overkill.
    const rect = containerRef.current.getBoundingClientRect();
    const width = rect.width;
    const height = rect.height;

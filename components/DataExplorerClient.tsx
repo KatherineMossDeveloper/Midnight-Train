@@ -136,8 +136,9 @@ export default function DataExplorerClient({ crystals, error }: {
                className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 auto-rows-auto" >
 
                {/* Image gallery of crystal images */}
-               <section className="row-span-3 bg-slate-900/60 rounded-xl p-3">
-                 <h2 className="mb-2 text-lg font-medium">Image Gallery (click an image)
+               <section className="row-span-3 bg-white rounded-xl p-3">
+
+                 <h2 className="text-lg text-black ">Image Gallery (click an image)
                     <Tooltip content={TOOLTIP_TEXT.gallery}>
                        <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
                     </Tooltip>

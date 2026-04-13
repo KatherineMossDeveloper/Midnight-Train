@@ -74,22 +74,22 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
   }, [selectedFilename]);
 
   return (
-    <div className="bg-white border border-gray-200 rounded-md p-2 shadow-sm">
-
+  <div>
+    <div className="flex flex-col md:flex-row gap-4 pt-4">
       {selectedImage ? (
         <img
           src={selectedImage.src}
           className="w-40 h-40 object-contain rounded mb-4 bg-gray-300"
         />
       ) : (
-        <div className="w-40 h-40 rounded mb-4 bg-gray-300 flex items-center justify-center text-slate-600">
+        <div className="w-40 h-40 rounded mb-4 bg-gray-300 flex items-center justify-center text-white">
           No selection
         </div>
       )}
 
       {/* details for currently selected image (passed from parent) */}
       {selectedMeta != null && (
-          <div className="mb-4 text-xs text-gray-800">
+          <div className="text-xs text-black flex-1">
             <div className="ml-3">image: {selectedMeta.image_id}</div>
             <div className="ml-3">label: {selectedMeta.class_label}</div>
             <div className="ml-3">kmeans/pca group: {selectedMeta.kmeans_pca_cluster}</div>
@@ -98,9 +98,9 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
             <div className="ml-3">timestamp: {selectedMeta.image_header}</div>
           </div>
       )}
+    </div>
 
-      {/* image gallery; create a button with image on it, plus a kmeans colored badge */}
-      <div className="grid grid-cols-3 gap-1">
+    <div className="grid grid-cols-3 gap-1">
          {images.map((c) => {
             const clusterIndex = Number(c.kmeans_pca_cluster);
             const borderClass =
@@ -130,7 +130,7 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
               </button>
             );
          })}
-      </div>
     </div>
+  </div>
   );
 }

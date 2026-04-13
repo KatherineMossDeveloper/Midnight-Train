@@ -95,8 +95,6 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
 
     // give the svg a width and height
     const g = svg
-      .attr("width", width)
-      .attr("height", height)
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
