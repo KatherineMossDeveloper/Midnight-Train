@@ -25,12 +25,10 @@ Clone the repository:
 ```
  git clone https://github.com/KatherineMossDeveloper/MidnightTrain.git
 ```
-  
 Open the project in Pycharm, or your preferred editor, and start the local development server:
 ```
  npm run dev
 ```
-
 Open the app in your browser at...
 ```
  http://localhost:3000 
