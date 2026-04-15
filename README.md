@@ -1,16 +1,18 @@
 ![Hero](images/HeroPolaroids.png)  
 
+[![Vercel](https://img.shields.io/badge/Live%20Demo-Vercel-000000?logo=vercel&logoColor=white)](https://your-live-site-url-here)
+[![React](https://img.shields.io/badge/Built%20with-React-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![Next.js](https://img.shields.io/badge/Built%20with-Next.js-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Styled%20with-Tailwind%20CSS-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![D3](https://img.shields.io/badge/Built%20with-D3-F9A03C?logo=d3&logoColor=white)](https://d3js.org/)
+[![Weaviate](https://img.shields.io/badge/Powered%20by-Weaviate-orange?logo=github)](https://github.com/weaviate/weaviate)
+![PyCharm](https://img.shields.io/badge/PyCharm-2023.2.4-lightorange)
+
 ![Crystallization](https://img.shields.io/badge/domain-Crystallization-white)
 [![](https://img.shields.io/badge/Kaggle-Dataset-teal?logo=kaggle&logoColor=white)](https://www.kaggle.com/datasets/opencrystaldata/cephalexin-reactive-crystallization)
 ![MIT License](https://img.shields.io/badge/License-MIT-green)
-![PyCharm](https://img.shields.io/badge/PyCharm-2023.2.4-lightorange)
 ![Binary Classification](https://img.shields.io/badge/task-Binary_Classification-yellowgreen)
 ![ResNet](https://img.shields.io/badge/model-ResNet-yellow)
-[![Weaviate](https://img.shields.io/badge/Powered%20by-Weaviate-orange?logo=github)](https://github.com/weaviate/weaviate)
-[![Tailwind CSS](https://img.shields.io/badge/Styled%20with-Tailwind%20CSS-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![React](https://img.shields.io/badge/Built%20with-React-61DAFB?logo=react&logoColor=white)](https://react.dev/)
-[![D3](https://img.shields.io/badge/Built%20with-D3-F9A03C?logo=d3&logoColor=white)](https://d3js.org/)
-[![Next.js](https://img.shields.io/badge/Built%20with-Next.js-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![JSON](https://img.shields.io/badge/Data-JSON-5E5C64)](https://www.json.org/json-en.html)
 
 
