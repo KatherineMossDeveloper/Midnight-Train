@@ -21,7 +21,7 @@ type GraphHistogramProps = {
 };
 
 // ************************************************
-export default function GraphHistogram({ width = 520, height = 150,
+export default function GraphHistogram({ width = 300, height = 400,
                                          barColor = "#bedbff", // light blue
 }: GraphHistogramProps) {
 
@@ -36,7 +36,7 @@ export default function GraphHistogram({ width = 520, height = 150,
     const histogram = d3
       .bin<number, number>()
       .domain([0, 255])
-      .thresholds(128); // number of bins
+      .thresholds(64); // number of bins
 
     return histogram(pixels);
   }, [pixels, hasPixels]);
@@ -68,7 +68,6 @@ export default function GraphHistogram({ width = 520, height = 150,
 
     // cancel if the user clicked too quickly.
     return () => { cancelled = true; };
-
   }, [selectedFilename]);
 
   useEffect(() => {
@@ -77,15 +76,13 @@ export default function GraphHistogram({ width = 520, height = 150,
     // dump any existing changes to the svg.
     svg.selectAll("*").remove();
 
-    const maxBin = d3.max(bins, d => d.length);
+    const maxBin = d3.max(bins, d => d.length);  // get the highest # for the title.
     const margin = { top: 20, right: 20, bottom: 40, left: 48 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
     // give the svg a shape.
     const root = svg
-      .attr("width", width)
-      .attr("height", height)
       .attr("viewBox", `0 0 ${width} ${height}`);
 
     // create an element 'g' inside the svg & adjust it a bit down and to the right.
@@ -100,7 +97,6 @@ export default function GraphHistogram({ width = 520, height = 150,
         .attr("y", innerHeight / 2)
         .attr("text-anchor", "middle")
         .attr("fill", "#94a3b8")
-        .style("font-size", "14px")
         .text("No histogram data available");
       return;
     }
@@ -147,7 +143,6 @@ export default function GraphHistogram({ width = 520, height = 150,
       .attr("y", innerHeight + 34)
       .attr("text-anchor", "middle")
       .attr("fill", "#cbd5e1")
-      .style("font-size", "12px")
       .text("Pixel intensity");
 
     // y-axis label
@@ -157,7 +152,6 @@ export default function GraphHistogram({ width = 520, height = 150,
       .attr("y", -36)
       .attr("text-anchor", "middle")
       .attr("fill", "#cbd5e1")
-      .style("font-size", "12px")
       .text("Count");
 
     // horizontal grid lines on the plot.
@@ -204,14 +198,17 @@ export default function GraphHistogram({ width = 520, height = 150,
       .attr("x", 0)
       .attr("y", -6)
       .attr("fill", "#f8fafc")
-      .style("font-size", "14px")
-      .style("font-weight", "600")
       .text(selectedFilename + " (maximum pixel count is " + maxBin + ").");
-  }, [bins, hasPixels, width, height]);
+  }, [bins, hasPixels]);
 
   return (
-    <div className="rounded-xl bg-slate-900/60 p-3 ">
-      <svg ref={svgRef} />
-    </div>
+   <div className="rounded-xl bg-slate-900/60 h-[350px]">
+    <svg
+      ref={svgRef}
+      className="w-full h-full"
+      viewBox={`0 0 ${width} ${height}`}
+      preserveAspectRatio="xMidYMid meet"
+    />
+   </div>
   );
 }

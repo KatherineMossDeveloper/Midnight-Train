@@ -12,10 +12,10 @@
 
 "use client";
 
+import * as d3 from "d3";
 import { useRef, useEffect, useState } from "react";
 import { useSelection } from "@/components/SelectionContext";
 import { useLog } from "@/components/LogPanel";
-import * as d3 from "d3";
 
 // ************************************************
 export default function ImageSlider() {
@@ -32,7 +32,7 @@ export default function ImageSlider() {
   const safe = selectedFilename ? encodeURIComponent(selectedFilename) : null;
   const isCEX = safe?.startsWith("CEX");
   const camFolder = isCEX ? "CEX" : "PG";
-  const originalSrc = safe ? `/images_testing/${safe}` : undefined;
+  const originalSrc = safe ? `/images_orig512/${safe}` : undefined;
   const camSrc = safe ? `/images_CAM/${camFolder}/${safe}` : undefined;
   const altLeft = safe ? `/images_testing/${safe}` : undefined;
   const altRight = safe ? `/images_CAM/${camFolder}/${safe}` : undefined;
@@ -63,23 +63,21 @@ export default function ImageSlider() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full aspect-[4/3] overflow-hidden bg-black border border-slate-400"  >
+      className="relative w-full h-[300px] overflow-hidden bg-black border border-slate-400"  >
 
       {/* original image */}
-      <img  className="absolute inset-0 w-full h-full object-contain"
-        src={originalSrc} alt={altLeft}
+      <img
+        src={originalSrc}
+        alt={altLeft}
+        className="absolute inset-0 w-full h-full object-contain"
       />
 
       {/* Masked CAM overlay */}
-      {/* clipPath: `inset(0    ${100 - sliderPct}% 0       0)`    */}
-      {/*            inset(top, right,              bottom, left)` */}
-      {/* transition: "clip-path 0.2s linear" -- animate clipping  */}
-
       <img
          src={camSrc}
          alt={altRight}
          className="absolute inset-0 w-full h-full object-contain
-                    pointer-events-none border-4 border-blue-400 "
+                    pointer-events-none "
          style={{
             clipPath: `inset(0 ${100 - sliderPct}% 0 0)`,
             transition: "clip-path 0.2s linear",
@@ -90,7 +88,7 @@ export default function ImageSlider() {
       <div  className="absolute top-0 h-full bg-blue-400"
         style={{
           left: `${sliderPct}%`,
-          width: 9,
+          width: 4,
           transform: "translateX(-50%)",
         }}
       />

@@ -70,7 +70,9 @@ export const TOOLTIP_TEXT = {
   `,
 
   histogram:
-  `The histogram shows the count of pixels of the same color on the Y axis and the pixel color (0-255) on the X axis.
+  `The histogram shows the count of pixels of the same color on the (vertical) Y axis and the pixel color (0-255) on the (horizontal) X axis.  Black is 0 and white is 255.  Shades of gray are in between.
+
+  Instead of trying to draw a line in the graph for all 256 colors, the color values are binned at 64.  This means that there are 64 buckets, with 4 pixels per bucket.
 
    For more on this, visit [Katherine Moss Developer](https://github.com/KatherineMossDeveloper).
   `,

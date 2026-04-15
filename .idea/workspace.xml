@@ -6,13 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="bd1584ab-e917-4af0-8e13-a33a80aa0ddc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/DataExplorerClient.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DataExplorerClient.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/GraphForceDirected.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphForceDirected.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/GraphScatterEntropy.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphScatterEntropy.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ImageGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ImageGallery.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/CamAccordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/CamAccordion.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphHistogram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphHistogram.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ImageSlider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ImageSlider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/maindoc.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/maindoc.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/toolTipsText.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/toolTipsText.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,17 +31,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/mossr/Desktop/MidnightTrain/MidnightTrainApp/app/api/weaviate/nearest&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/mossr/Desktop/MidnightTrain/MidnightTrainApp/public",
+    "settings.editor.selected.configurable": "settings.sync"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mossr\Desktop\MidnightTrain\MidnightTrainApp\public" />
       <recent name="C:\Users\mossr\Desktop\MidnightTrain\MidnightTrainApp\app\api\weaviate\nearest" />
       <recent name="C:\Users\mossr\Desktop\MidnightTrain\MidnightTrainApp\lib\data" />
       <recent name="C:\Users\mossr\Desktop\MidnightTrain\MidnightTrainApp" />

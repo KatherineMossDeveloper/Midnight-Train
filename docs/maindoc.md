@@ -77,6 +77,9 @@
 <a href="#PCA-in-3D">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> PCA in 3D 
 </a><br>
+<a href="#CAM-sizing">
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> CAM sizing
+</a><br>
 <a href="#flow">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Flow of the code
 </a><br>
@@ -130,7 +133,7 @@ As a companion to React, I wanted a way to style the UI without CSS files, in or
 
 Another companion of the Midnight Train project has been chatGPT.  I have using it to write code snippets, get advice on technology choices, and get some background on crystallization.  For more, visit [chatGPT](https://chatgpt.com/).   
 
-Vercel TBD**
+For hosting, I am using Vercel.  I created a Vercel free account, then pointed it to the Midnight Train GitHub project.  I then added Vercel analytics to the code in PyCharm.  Everytime that I update my GitHub site from my local development computer, the Vercel site is updated, and visits to the site are tracked.  It was easy to set up.  
 For more, visit [Vercel](https://vercel.com/).   
 
 [back to top](#Overview)  
@@ -455,6 +458,13 @@ After finishing most of Midnight Train, I decided to experiment with a 3D PCA pl
 
 [back to top](#Notes)  
 
+## CAM sizing
+The sizes of the images in this project vary from each other because they were cropped from original source images.  I tried in the training to mimic what was originally done in the Salami, et al, paper, but the paper did not mention image sizing when feeding the model, so I used the standard size of 224,224. When the model trained on the images, I resized them to 224 width and 224 height.  
+
+When the CAM images are generated, I tried two resizing shapes.  The first resize was 224,224, which created images where the model was focused on the edges of the images. This had the advantage of being the same size as the model was trained on, but it also highlighted smaller portions of the image.  The second resize sent to the model was 512,512.  At that sizing the model is focused on the center of the images.  I kept that larger sizing for Midnight Train.  Exploring other sizes is a thought for the future.  
+
+[back to top](#Notes)  
+
 ## Flow
 (Server-side code is in purple.)
 
@@ -543,12 +553,19 @@ Second, one needs to pick a color scheme and opacity level.  I chose pink and pu
 Then, one would create a model by loading the weights file created by the Georgia Project.  The images are opened and the features of the selected layer queried.  The resulting feature map is applied to the color scheme to create a CAM image.  The CAM image is overlaid on the original image to create the CAM overlay image.  
 
 CAM overlay weights notes.
+
 A confidence percentage returned from the model with all layers is a measure of how 'confident' the model is that a given image has PG in it.  In contrast, the data return from a single layer for a given image, during the CAM creation process, may or may not contribute to the final classification.  It just tells us which features contributed positively at that layer in the model.  Therefore, the classification from the model, with all layers, is used to interpret the features activated in the selected layer.  
 Convolutional layers later in the model’s structure are larger, so they tend to concentrate on the center of the image and less on the border.  When the percentage of colorization goes towards 100%, a rectangle tends to form in the center of the image.  A uniform rectangle can mean that the region was uniformly CEX or uniformly PG, but this is up for interpretation.  In contrast, heterogeneous CAM images highlight competing structures, as seen in PG images.  
 
 The CAM overlays for the images labeled by the model as CEX and some of the PG labeled images have a common structure.  They both form a fairly consistent rectangle in the center of the image.  However, in both image types, the top part of the rectangle is less consistently blocky than the bottom part.  This could be an artifact of the model or of the imaging, but probably not of the crystal growth.  
 
 CAM overlays are only as meaningful as the model’s ability to predict accurately.  Because the model in the Georgia Project had high scores in its prediction, we can be confident that the CAM overlays produced reflect the model’s classification focus.  
+
+CAM overlay image slider notes. 
+
+The sizes of the images in this project vary from each other because they were cropped from original source images.  I tried in the training to mimic what was originally done in the Salami, et al, paper, but the paper did not mention image sizing when feeding the model, so I used the standard size of 224,224. When the model trained on the images, I resized them to 224 width and 224 height.  
+
+When the CAM images are generated, I tried two resizing shapes.  The first resize was 224,224, which created images where the model was focused on the edges of the images. This had the advantage of being the same size as the model was trained on, but it also highlighted smaller portions of the image.  The second resize sent to the model was 512,512.  At that sizing the model is focused on the center of the images.  I kept that larger sizing for Midnight Train.  Exploring other sizes is a thought for the future.   
 
 If there is interest in taking this further, there are several places to adjust this process to create different looking CAM overlays. 
 

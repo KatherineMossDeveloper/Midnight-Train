@@ -31,10 +31,10 @@ type CamAccordionProps = {
 
 // ************************************************
 export default function CamAccordion({images, folder, title,
-                                      height = 315, collapsedWidth = 48, expandedWidth = 320,
+                                      height = 300, collapsedWidth = 48, expandedWidth = 320,
 }: CamAccordionProps) {
 
-  const { selectedFilename, setSelectedFilename } = useSelection();
+      const { selectedFilename, setSelectedFilename } = useSelection();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [sliceX, setSliceX] = useState(50); // percent
 
@@ -49,7 +49,7 @@ export default function CamAccordion({images, folder, title,
   return (
     <div className="space-y-3">
 
-      {/* Slice position control */}
+      {/* Slice position control adjusts which vertical slice is shown */}
       <div className="flex items-center gap-3 text-xs text-slate-400">
         <span>{title}</span>
         <input
