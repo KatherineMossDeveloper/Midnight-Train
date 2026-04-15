@@ -16,13 +16,6 @@
 ![PyCharm](https://img.shields.io/badge/PyCharm-2023.2.4-lightorange)
 ![MIT License](https://img.shields.io/badge/License-MIT-green)
 
-## Content. 
-[Really quick start.](#really-quick-start) • 
-[Quick start.](#quick-start) • 
-[Slow start.](#slow-start) • 
-[Contributions](#contributions) • 
-[Known issues](#known-issues) • 
-[Contact info](#contact-info)
 
 ## Really quick start. 
 See the live demo now by clicking [here.](https://midnight-train-explorer.vercel.app/)  
