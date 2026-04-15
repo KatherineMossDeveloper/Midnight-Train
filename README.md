@@ -29,15 +29,13 @@ See the live demo now by clicking [here.](https://midnight-train-explorer.vercel
 
 ## Quick start. 
 Clone the repository: 
-```bash
  git clone https://github.com/KatherineMossDeveloper/MidnightTrain.git
   
-Open the project in Pycharm or your preferred editor.
+Open the project in Pycharm or your preferred editor and start the app:
  npm run dev
  
 Open http://localhost:3000 in your browser.
 
-When the app opens, click on the images in the Image Gallery on the left. 
 
 ## Slow start.  
 This project was inspired by a research paper:  Salami, H., McDonald, M. A., Bommarius, A. S., Rousseau, R. W., & Grover, M. A. (2021). [In Situ Imaging Combined with Deep Learning for Crystallization Process Monitoring: Application to Cephalexin Production](https://doi.org/10.1021/acs.oprd.1c00136). *Organic Process Research & Development*, 25, 1670–1679. 
