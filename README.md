@@ -6,14 +6,13 @@
 [![Tailwind CSS](https://img.shields.io/badge/Styled%20with-Tailwind%20CSS-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![D3](https://img.shields.io/badge/Built%20with-D3-F9A03C?logo=d3&logoColor=white)](https://d3js.org/)
 [![Weaviate](https://img.shields.io/badge/Powered%20by-Weaviate-orange?logo=github)](https://github.com/weaviate/weaviate)
-![PyCharm](https://img.shields.io/badge/PyCharm-2023.2.4-lightorange)
+
 ![Crystallization](https://img.shields.io/badge/domain-Crystallization-white)
-[![](https://img.shields.io/badge/Kaggle-Dataset-teal?logo=kaggle&logoColor=white)](https://www.kaggle.com/datasets/opencrystaldata/cephalexin-reactive-crystallization)
-![MIT License](https://img.shields.io/badge/License-MIT-green)
+[![](https://img.shields.io/badge/Kaggle-Dataset-green?logo=kaggle&logoColor=white)](https://www.kaggle.com/datasets/opencrystaldata/cephalexin-reactive-crystallization)
 ![Binary Classification](https://img.shields.io/badge/task-Binary_Classification-yellowgreen)
 ![ResNet](https://img.shields.io/badge/model-ResNet-yellow)
-[![JSON](https://img.shields.io/badge/Data-JSON-5E5C64)](https://www.json.org/json-en.html)
-
+![PyCharm](https://img.shields.io/badge/PyCharm-2023.2.4-lightorange)
+![MIT License](https://img.shields.io/badge/License-MIT-green)
 
 ## Content. 
 [Really quick start.](#really-quick-start) • 
