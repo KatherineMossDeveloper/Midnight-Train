@@ -1,4 +1,6 @@
-![Hero](images/HeroPolaroids.png)  
+<p align="center">
+  <img src="images/HeroPolaroids.png" alt="Hero" width="700">
+</p>
 
 [![Vercel](https://img.shields.io/badge/Live%20Demo-Vercel-000000?logo=vercel&logoColor=white)](https://midnight-train-explorer.vercel.app/)
 [![React](https://img.shields.io/badge/Built%20with-React-61DAFB?logo=react&logoColor=white)](https://react.dev/)
