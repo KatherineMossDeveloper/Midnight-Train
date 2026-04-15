@@ -33,7 +33,6 @@ Clone the repository:
  git clone https://github.com/KatherineMossDeveloper/MidnightTrain.git
   
 Open the project in Pycharm or your preferred editor.
-```bash
  npm run dev
  
 Open http://localhost:3000 in your browser.
