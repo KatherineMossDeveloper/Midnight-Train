@@ -29,11 +29,11 @@ See the live demo now by clicking [here.](https://midnight-train-explorer.vercel
 
 ## Quick start. 
 Clone the repository: 
-'''bash
+```bash
  git clone https://github.com/KatherineMossDeveloper/MidnightTrain.git
- cd MidnightTrain
- 
+  
 Open the project in Pycharm or your preferred editor.
+```bash
  npm run dev
  
 Open http://localhost:3000 in your browser.
