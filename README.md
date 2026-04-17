@@ -21,9 +21,9 @@
 See the live demo now by clicking [here.](https://midnight-train-explorer.vercel.app/)  
 
 ## Quick start. 
-Clone the repository: 
+Clone the repository by downloading the code or using this at a prompt: 
 ```
- git clone https://github.com/KatherineMossDeveloper/MidnightTrain.git
+ git clone https://github.com/KatherineMossDeveloper/Midnight-Train.git
 ```
 Open the project in Pycharm, or your preferred editor, and start the local development server:
 ```
