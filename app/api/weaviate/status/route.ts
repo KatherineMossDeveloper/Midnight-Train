@@ -14,9 +14,6 @@ export async function GET() {
       cache: "no-store",
     });
 
-    //if (!metaRes.ok) {
-    //  throw new Error("Failed to fetch Weaviate meta");
-    //}
     if (!metaRes.ok) {
       return NextResponse.json(
         { ok: false, weaviateVersion: null },
@@ -45,12 +42,18 @@ export async function GET() {
       classNames,
     });
   } catch (error) {
-    return NextResponse.json(
-      {
-        ok: false,
-        error: "Weaviate unavailable",
-      },
-      { status: 503 }
-    );
+      return NextResponse.json(
+        { ok: false, weaviateVersion: null },
+        { status: 200 }
+      );
+
+    //return NextResponse.json(
+    //  {
+    //    ok: false,
+    //    error: "Weaviate unavailable",
+    //  },
+    //  { status: 503 }
+    //);
+
   }
 }
