@@ -13,9 +13,17 @@ export async function GET() {
     const metaRes = await fetch(`${WEAVIATE_URL}/v1/meta`, {
       cache: "no-store",
     });
+
+    //if (!metaRes.ok) {
+    //  throw new Error("Failed to fetch Weaviate meta");
+    //}
     if (!metaRes.ok) {
-      throw new Error("Failed to fetch Weaviate meta");
+      return NextResponse.json(
+        { ok: false, weaviateVersion: null },
+        { status: 200 }
+      );
     }
+
     const meta = await metaRes.json();
 
     // --- 2. Fetch schema (to count classes) ---
