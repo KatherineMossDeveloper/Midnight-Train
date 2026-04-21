@@ -34,7 +34,8 @@ export default function CamAccordion({images, folder, title,
                                       height = 300, collapsedWidth = 48, expandedWidth = 320,
 }: CamAccordionProps) {
 
-      const { selectedFilename, setSelectedFilename } = useSelection();
+  // hooks.
+  const { selectedFilename, setSelectedFilename } = useSelection();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [sliceX, setSliceX] = useState(50); // percent
 
@@ -66,6 +67,8 @@ export default function CamAccordion({images, folder, title,
         className="flex overflow-hidden border border-slate-600 rounded-md bg-black"
         style={{ height }}
       >
+
+        {/* loop through the images filtered by their classification. */}
         {filteredImages.map((filename, i) => {
           const isExpanded = i === activeIndex;             // for the hover state
           const isSelected = filename === selectedFilename; // for the user selected file.

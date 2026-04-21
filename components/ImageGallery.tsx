@@ -42,7 +42,7 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
   // listen for changes to the currently selected file name.
   const { selectedFilename, setSelectedFilename } = useSelection();
 
-  // combine the MetaContext with the SelectionContext to get the meta data for the selected file name.
+  // combine the MetaContext with the SelectionContext to get the meta data for the selected image.
   const metaByFilename = useMetaByFilename();
   const selectedMeta = selectedFilename != null ? metaByFilename.get(selectedFilename) : null;
 
@@ -123,8 +123,7 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
                  {/* cluster badge */}
                  <span
                     className=" absolute top-1 right-1
-                                w-3.5 h-3.5 rounded-full
-                                ring-2 ring-black/40 "
+                                w-3.5 h-3.5 rounded-full "
                     style={{ backgroundColor: colorHex }}
                  />
               </button>

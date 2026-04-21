@@ -8,6 +8,7 @@
 // export function useLog()
 // export default function LogPanel()  // for displaying the message.
 //
+
 "use client";
 
 import React, { createContext, useCallback, useContext, useMemo, useState, useRef, type ReactNode, } from "react";
@@ -31,7 +32,6 @@ export function LogProvider({ children }: { children: ReactNode }) {
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const nextIdRef = useRef(1);  // simple counter
 
-  //
   const log = useCallback((message: string) => {
     const id = nextIdRef.current++;
     const entry: LogEntry = {
@@ -42,6 +42,7 @@ export function LogProvider({ children }: { children: ReactNode }) {
 
     setLogs((prevLogs) => [...prevLogs, entry].slice(-30));
   }, []);
+
   const value = useMemo(() => ({ log }), [log]);
 
   return (
@@ -54,7 +55,7 @@ export function LogProvider({ children }: { children: ReactNode }) {
 
 // --- Hook for other components to send messages ---
 export function useLog() {
-  const ctx = useContext(LogContext);
+  const ctx = useContext(LogContext);  // effectively, ctx === value
   if (!ctx) {
     throw new Error("useLog must be used within a LogProvider");
   }

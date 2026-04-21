@@ -6,7 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="bd1584ab-e917-4af0-8e13-a33a80aa0ddc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/weaviate/status/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/weaviate/status/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/CamAccordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/CamAccordion.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DataExplorerClient.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DataExplorerClient.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphHistogram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphHistogram.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphScatterEntropy.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphScatterEntropy.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphScatterKmeans.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphScatterKmeans.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ImageGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ImageGallery.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/LogPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/LogPanel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/MetaContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/MetaContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/SelectionContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SelectionContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/imageToGrayscalePixels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/imageToGrayscalePixels.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/toolTipsText.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/toolTipsText.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

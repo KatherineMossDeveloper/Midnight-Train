@@ -15,19 +15,22 @@ import { useSelection } from "@/components/SelectionContext";
 import { imageToGrayscalePixels } from "@/lib/imageToGrayscalePixels";
 
 type GraphHistogramProps = {
+  title?: string;
   width?: number;
   height?: number;
   barColor?: string;
 };
 
 // ************************************************
-export default function GraphHistogram({ width = 300, height = 400,
+export default function GraphHistogram({ title = "Hover for color intensity & pixel count", width = 300, height = 400,
                                          barColor = "#bedbff", // light blue
 }: GraphHistogramProps) {
 
+  // hooks.
   const { selectedFilename } = useSelection();
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [pixels, setPixels] = useState<number[]>([]);
+
   const hasPixels = pixels.length > 0;
 
   const bins = useMemo(() => {
@@ -41,17 +44,15 @@ export default function GraphHistogram({ width = 300, height = 400,
     return histogram(pixels);
   }, [pixels, hasPixels]);
 
-  // when the currently selected file name changes, gets its pixels.
-  useEffect(() => {
-    // Reacts cancel flag to keep things up to date.
-    let cancelled = false;
 
+  useEffect(() => {
+    // when the currently selected file name changes, get its pixels.
+    let cancelled = false;  // Reacts cancel flag to keep things up to date.
     if (!selectedFilename) {
       setPixels([]);
       return;
     }
     const src = `/images_testing/${selectedFilename}`;
-
     // immediately invoked function expression.
     (async () => {
       try {
@@ -65,7 +66,6 @@ export default function GraphHistogram({ width = 300, height = 400,
         }
       }
     })();
-
     // cancel if the user clicked too quickly.
     return () => { cancelled = true; };
   }, [selectedFilename]);
@@ -77,7 +77,7 @@ export default function GraphHistogram({ width = 300, height = 400,
     svg.selectAll("*").remove();
 
     const maxBin = d3.max(bins, d => d.length);  // get the highest # for the title.
-    const margin = { top: 20, right: 20, bottom: 40, left: 48 };
+    const margin = { top: 10, right: 20, bottom: 10, left: 20 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
@@ -85,7 +85,8 @@ export default function GraphHistogram({ width = 300, height = 400,
     const root = svg
       .attr("viewBox", `0 0 ${width} ${height}`);
 
-    // create an element 'g' inside the svg & adjust it a bit down and to the right.
+    // create an element 'g' inside the svg to draw on.
+    // adjust it a bit down and to the right.
     const g = root
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
@@ -114,11 +115,11 @@ export default function GraphHistogram({ width = 300, height = 400,
       .nice()
       .range([innerHeight, 0]);
 
-    // create axes
+    // create axes functions.  create ticks mark.  make the tick labels decimal, "d".
     const xAxis = d3.axisBottom(x).ticks(8).tickFormat(d3.format("d"));
     const yAxis = d3.axisLeft(y).ticks(5).tickFormat(d3.format("d"));
 
-    // draw X axis
+    // draw X axis on another group within the g group.
     g.append("g")
       .attr("transform", `translate(0,${innerHeight})`)
       .call(xAxis)
@@ -128,7 +129,7 @@ export default function GraphHistogram({ width = 300, height = 400,
         sel.selectAll("path").attr("stroke", "#94a3b8");
       });
 
-    // draw Y axis
+    // draw Y axis on another group within the g group.
     g.append("g")
       .call(yAxis)
       .call((sel) => {
@@ -154,7 +155,7 @@ export default function GraphHistogram({ width = 300, height = 400,
       .attr("fill", "#cbd5e1")
       .text("Count");
 
-    // horizontal grid lines on the plot.
+    // horizontal grid lines on the plot on another group within the g group.
     g.append("g")
       .attr("class", "grid")
       .call(
@@ -170,27 +171,27 @@ export default function GraphHistogram({ width = 300, height = 400,
         sel.select("path").remove();
       });
 
-    // bars
+    // draw a rectangle for each histogram bin
     g.selectAll("rect.hist-bar")
-      .data(bins)
-      .enter()
-      .append("rect")
-      .attr("class", "hist-bar")
-      .attr("x", (d) => x(d.x0 ?? 0) + 1)
-      .attr("y", (d) => y(d.length))
+      .data(bins)                                  // use the bins data.
+      .enter()                                     // create a DOM element for all
+      .append("rect")                              // create rectangles
+      .attr("class", "hist-bar")                   // create class handle for this
+      .attr("x", (d) => x(d.x0 ?? 0) + 1)          // left edge of bars
+      .attr("y", (d) => y(d.length))               // top edge of bars
       .attr("width", (d) => {
         const w = x(d.x1 ?? 0) - x(d.x0 ?? 0) - 2;
         return Math.max(0, w);
       })
-      .attr("height", (d) => innerHeight - y(d.length))
-      .attr("rx", 2)
+      .attr("height", (d) => innerHeight - y(d.length)) // height = bottom - top
+      .attr("rx", 2)                                // rounded corners
       .attr("fill", barColor)
       .attr("opacity", 0.9)
       .append("title")
       .text((d) => {
         const from = Math.round(d.x0 ?? 0);
         const to = Math.round(d.x1 ?? 0);
-        return `Intensity ${from}-${to}\nCount: ${d.length}`;
+        return `Color intensity ${from}-${to}\nPixel count: ${d.length}`;
       });
 
     // title at the top of the plot.
@@ -203,6 +204,7 @@ export default function GraphHistogram({ width = 300, height = 400,
 
   return (
    <div className="rounded-xl bg-slate-900/60 h-[350px]">
+    <span>{title}</span>
     <svg
       ref={svgRef}
       className="w-full h-full"

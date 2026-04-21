@@ -1,5 +1,5 @@
 // MetaContext.tsx
-// provides meta data from the database for the currently selected image file name.
+// provides meta data for the images from the database or JSON files.
 //
 // export function MetaProvider
 // export function useMetaByFilename
@@ -17,10 +17,10 @@ const MetaContext = createContext<Map<string, ImageDatabaseObject> | null>(null)
 export function MetaProvider({ metas, children,}: {
            metas: ImageDatabaseObject[]; children: React.ReactNode; }) {
 
-  // creates a lookup map for the data, which is faster than metas.find(...).
-  // this is useMemo code, so it will not recreate the map on every render, just when data changes.
-  // in a 'subscriber' to this MetaContext provider, they will call metaByFilename.get(selectedFilename)
-  // because this is a map.
+  // Creates a lookup map for the data.
+  // This is useMemo code, so it will not recreate the map on every render, just when
+  // data changes.  In a 'subscriber' to this MetaContext provider, they will call
+  // metaByFilename.get(selectedFilename) because this is a map.
   const metaByFilename = useMemo(() => {
     const map = new Map<string, ImageDatabaseObject>();
     for (const m of metas) map.set(m.image_id, m);
@@ -31,7 +31,7 @@ export function MetaProvider({ metas, children,}: {
 }
 
 export function useMetaByFilename() {
-  const ctx = useContext(MetaContext);
+  const ctx = useContext(MetaContext);  // effectively, ctx === metaByFilename
   if (!ctx) throw new Error("useMetaByFilename must be used within <MetaProvider>");
   return ctx;
 }

@@ -5,6 +5,7 @@
 // export type GraphScatterKmeansFunctions
 // export type ScatterPoint
 // type GraphScatterKmeansProps
+// const GraphScatterKmeans = forwardRef
 //
 // See notes in DataExplorerClient about the currently selected image.s
 //
@@ -44,10 +45,11 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
                                        GraphScatterKmeansProps > (({ data, width = 300,
                                                                      height = 300 }, ref) =>
 {
-
+    // hooks.
     // list the functions that the parent is allowed to call.
     // copySVG and copyPng allow the user to save graphics to the clipboard.
     useImperativeHandle(ref, () => ({
+
       copySvg: () => {
          if (!svgRef.current) return;
          copySvgElementToClipboard(svgRef.current);
@@ -60,10 +62,8 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
     }));
 
     const { selectedFilename, setSelectedFilename } = useSelection();
-
     const { log } = useLog();
     useEffect(() => {log("[mount]  GraphScatterKmeans");}, [log]);
-
     const svgRef = useRef<SVGSVGElement | null>(null);
     useEffect(() => {if (!svgRef.current) return;
 
@@ -81,9 +81,9 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
     if (!data || data.length === 0) {
       return;
     }
-    // Log to browser console
-    console.log("GraphScatterKmeans data sample:", data.slice(0, 5));
 
+    // bottom is 80 to allow room for file names in entropy plot,
+    // so that this plot and that plot line up vertically.
     const margin = { top: 20, right: 20, bottom: 80, left: 20 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
@@ -101,36 +101,36 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
       return;
     }
 
-    // pull cluster numbers from the data; create unique array of them.
+    // pull kmeans cluster numbers from the data; create unique array of them, then sort.
     const clusterIDs = Array.from(new Set(data.map(d => d.cluster)))
       .filter((x): x is number => x !== undefined && x !== null)
       .sort((a, b) => a - b);
-    // create a function that applies these numbers to the color scheme 'd3.schemeAccent'
+    // create a function that applies cluster numbers to the color scheme 'd3.schemeAccent'
     const colorScale = d3.scaleOrdinal<number, string>()
       .domain(clusterIDs)
       .range(d3.schemeAccent);
-
     // create functions that map values to screen coordinates later.
     const xScale = d3.scaleLinear().domain(xExtent).range([0, innerWidth]);
     const yScale = d3.scaleLinear().domain(yExtent).range([innerHeight, 0]);
 
     // create the X axis
-    g.append("g")
+    const xAxisG = g.append("g")
      .attr("transform", `translate(0, ${innerHeight})`)
      .call(d3.axisBottom(xScale))
      .selectAll("text")
      .attr("fill", "white");
 
     // create the Y axis
-    g.append("g")
+    const yAxisG = g.append("g")
      .call(d3.axisLeft(yScale))
      .selectAll("text")
      .attr("fill", "white");
 
+    // make all paths and lines white.
     svg.selectAll("path, line")
        .attr("stroke", "white");
 
-   // draw circles, call attach events, add static styles before calling
+   // creates one circle per data item, positions it, colors it, then attaches a click handler.
    const sel = g.selectAll("circle")
       .data(data)
       .enter()
@@ -143,7 +143,8 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
       .style("cursor", "pointer")
       .on("click", (_, d) => setSelectedFilename(d.filename));
 
-   // transition that animates a redraw.
+   // transition that animates a redraw over 2 sec., with a slow down (ease).
+   // the selected file is drawn larger than the others.
    sel
     .transition()
     .duration(2000)
@@ -159,8 +160,6 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
 
     svg.selectAll<SVGCircleElement, ScatterPoint>("circle")
       .attr("r", d => d.filename === selectedFilename ? 10 : 8)
-      .attr("stroke", d => d.filename === selectedFilename ? "white" : "none")
-      .attr("stroke-width", d => d.filename === selectedFilename ? 2 : 0);
 
   }, [selectedFilename]);
 

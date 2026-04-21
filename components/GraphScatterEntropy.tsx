@@ -40,10 +40,10 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
                                                                                  height = 300,
                                                                                  xTickEvery = 1 }, ref) =>
 {
-  const svgRef = useRef<SVGSVGElement | null>(null);
-
+  // hooks.
   // list the functions that the parent is allowed to call.
   useImperativeHandle(ref, () => ({
+
     copySvg: () => {
      if (!svgRef.current) return;
      copySvgElementToClipboard(svgRef.current);
@@ -56,7 +56,7 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
   }));
 
   const { selectedFilename, setSelectedFilename } = useSelection();
-
+  const svgRef = useRef<SVGSVGElement | null>(null);
   const { log } = useLog();
   useEffect(() => {log("[mount]  GraphScatterEntropy");}, [log]);
 
@@ -78,7 +78,7 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
       .attr("height", height)
       .attr("fill", GRAY_DARK);
 
-    // calculate dimensions
+    // calculate dimensions;  bottom is 80 to allow room for file names.
     const margin = { top: 20, right: 20, bottom: 80, left: 20 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
@@ -172,9 +172,7 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
     const svg = d3.select(svgRef.current);
     svg.selectAll<SVGCircleElement, EntropyPoint>("circle")
        .attr("r", d => d.filename === selectedFilename ? 10 : 8)
-       .attr("stroke", d => d.filename === selectedFilename ? "white" : "none")
-       .attr("stroke-width", d => d.filename === selectedFilename ? 2 : 0);
-  
+
     }, [selectedFilename]);
    
   
