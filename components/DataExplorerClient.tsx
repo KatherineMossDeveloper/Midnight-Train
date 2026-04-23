@@ -48,7 +48,7 @@ import CamAccordion from "@/components/CamAccordion";
 import GraphForceDirected from "@/components/GraphForceDirected";
 import GraphHistogram from "@/components/GraphHistogram";
 import GraphScatterEntropy, { EntropyPoint } from "@/components/GraphScatterEntropy";
-import GraphScatterKmeans, { ScatterPoint } from "@/components/GraphScatterKmeans";
+import GraphScatterKmeans, { KmeansPoint } from "@/components/GraphScatterKmeans";
 import ImageGallery from "@/components/ImageGallery";
 import ImageSlider from "@/components/ImageSlider";
 import WeaviateStatus from "@/components/WeaviateStatus";
@@ -77,7 +77,7 @@ export default function DataExplorerClient({ crystals, error }: {
 
   const hasData = !error;
   const imageFiles: ImageThumb[] = hasData ? crystals.map(toThumb) : [];
-  const kmeansData: ScatterPoint[] = hasData ? toKmeansData(crystals) : [];
+  const kmeansData: KmeansPoint[] = hasData ? toKmeansData(crystals) : [];
   const entropyData: EntropyPoint[] = hasData ? toEntropyData(crystals) : [];
   const camImages: string[] = hasData ? crystals.map(c => c.image_id) : [];
 
@@ -138,7 +138,7 @@ export default function DataExplorerClient({ crystals, error }: {
 
                {/* Force directed graph showing nearest neighbors for feature vectors from the db. */}
                <section className="row-span-1 col-span-2 bg-slate-900/60 rounded-xl p-4">
-                 <h2 className="flex items-center gap-2 mb-2 text-lg font-medium">Force directed graph (drag points)
+                 <h2 className="flex items-center gap-2 mb-2 text-lg font-medium">Force directed graph (drag points; roll mouse wheel)
                     <Tooltip content={TOOLTIP_TEXT.force}>
                        <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
                     </Tooltip>

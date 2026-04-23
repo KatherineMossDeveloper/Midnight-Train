@@ -8,7 +8,7 @@
 
 import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
 import type { ImageThumb } from "@/types/ImageThumb";
-import type { ScatterPoint } from "@/components/GraphScatterKmeans";
+import type { KmeansPoint } from "@/components/GraphScatterKmeans";
 import type { EntropyPoint } from "@/components/GraphScatterEntropy";
 
 // ************************************************
@@ -27,7 +27,7 @@ export function toThumb(c: ImageDatabaseObject): ImageThumb {
 }
 
 // ************************************************
-export function toKmeansData(crystals: ImageDatabaseObject[]): ScatterPoint[] {
+export function toKmeansData(crystals: ImageDatabaseObject[]): KmeansPoint[] {
   return crystals
     .filter(
       (c) =>

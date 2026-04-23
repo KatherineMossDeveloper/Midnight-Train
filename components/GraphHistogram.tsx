@@ -13,6 +13,7 @@ import * as d3 from "d3";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelection } from "@/components/SelectionContext";
 import { imageToGrayscalePixels } from "@/lib/imageToGrayscalePixels";
+import { GRAY_DARK } from "@/lib/graphUtilities";
 
 type GraphHistogramProps = {
   title?: string;
@@ -22,7 +23,9 @@ type GraphHistogramProps = {
 };
 
 // ************************************************
-export default function GraphHistogram({ title = "Hover for color intensity & pixel count", width = 300, height = 400,
+export default function GraphHistogram({ title = "Hover for color intensity & pixel count",
+                                         width = 300,
+                                         height = 400,
                                          barColor = "#bedbff", // light blue
 }: GraphHistogramProps) {
 
@@ -31,22 +34,9 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [pixels, setPixels] = useState<number[]>([]);
 
-  const hasPixels = pixels.length > 0;
-
-  const bins = useMemo(() => {
-    if (!hasPixels) return [];
-
-    const histogram = d3
-      .bin<number, number>()
-      .domain([0, 255])
-      .thresholds(64); // number of bins
-
-    return histogram(pixels);
-  }, [pixels, hasPixels]);
-
-
+  // when the currently selected file name changes, get its pixels.
+  // this is a useEffect because it changes 'pixels' state, is async, and image loading is external.
   useEffect(() => {
-    // when the currently selected file name changes, get its pixels.
     let cancelled = false;  // Reacts cancel flag to keep things up to date.
     if (!selectedFilename) {
       setPixels([]);
@@ -70,6 +60,20 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
     return () => { cancelled = true; };
   }, [selectedFilename]);
 
+  // compute bins from pixels.
+  // this is a useMemo because its work is not external, is not async, and does not change a useState var.
+  const bins = useMemo(() => {
+    if (!pixels.length) return [];
+
+    const binGenerator = d3
+      .bin<number, number>()
+      .domain([0, 255])
+      .thresholds(64); // number of bins
+
+    return binGenerator(pixels);
+  }, [pixels]);
+
+  // draw with the bins.
   useEffect(() => {
     // create a handle to the SVG DOM element by wrapping it with d3.
     const svg = d3.select(svgRef.current);
@@ -82,17 +86,19 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
     const innerHeight = height - margin.top - margin.bottom;
 
     // give the svg a shape.
-    const root = svg
-      .attr("viewBox", `0 0 ${width} ${height}`);
+    svg.append("rect")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("fill", GRAY_DARK);
 
     // create an element 'g' inside the svg to draw on.
     // adjust it a bit down and to the right.
-    const g = root
+    const g = svg
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
     // if there is no data to display, put a note in the middle of the plot.
-    if (!hasPixels || bins.length === 0) {
+    if (bins.length === 0) {
       g.append("text")
         .attr("x", innerWidth / 2)
         .attr("y", innerHeight / 2)
@@ -117,10 +123,8 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
 
     // create axes functions.  create ticks mark.  make the tick labels decimal, "d".
     const xAxis = d3.axisBottom(x).ticks(8).tickFormat(d3.format("d"));
-    const yAxis = d3.axisLeft(y).ticks(5).tickFormat(d3.format("d"));
-
     // draw X axis on another group within the g group.
-    g.append("g")
+    const xAxisG = g.append("g")
       .attr("transform", `translate(0,${innerHeight})`)
       .call(xAxis)
       .call((sel) => {
@@ -129,8 +133,10 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
         sel.selectAll("path").attr("stroke", "#94a3b8");
       });
 
+    // create axes functions.  create ticks mark.  make the tick labels decimal, "d".
+    const yAxis = d3.axisLeft(y).ticks(5).tickFormat(d3.format("d"));
     // draw Y axis on another group within the g group.
-    g.append("g")
+    const yAxisG = g.append("g")
       .call(yAxis)
       .call((sel) => {
         sel.selectAll("text").attr("fill", "#cbd5e1");
@@ -200,7 +206,7 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
       .attr("y", -6)
       .attr("fill", "#f8fafc")
       .text(selectedFilename + " (maximum pixel count is " + maxBin + ").");
-  }, [bins, hasPixels]);
+  }, [bins]);
 
   return (
    <div className="rounded-xl bg-slate-900/60 h-[350px]">
