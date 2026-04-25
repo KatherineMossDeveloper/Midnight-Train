@@ -242,15 +242,11 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
   const nodeEnter = nodeSel
     .enter()
     .append("circle")
-    .attr("r", d => (d.isCenter ? 10 : 8))
-    .attr("fill", d => (d.cluster == null ? "#999" : colorScale(d.cluster)))
-    .attr("stroke", d => (d.isCenter ? "#fff" : "none"))
-    .attr("stroke-width", d => (d.isCenter ? 2 : 0));
 
   nodeSel
     .merge(nodeEnter)
     .attr("r", d => (d.isCenter ? 10 : 8))
-    .attr("fill", d => (d.cluster == null ? "#999" : colorScale(d.cluster)))
+    .attr("fill", d => (d.cluster == null ? "#f00" : colorScale(d.cluster)))
     .attr("stroke", d => (d.isCenter ? "#fff" : "none"))
     .attr("stroke-width", d => (d.isCenter ? 2 : 0))
     .call(createDragBehavior(simulationRef.current!))

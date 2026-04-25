@@ -157,7 +157,6 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
       .append("circle")
       .attr("cx", (d) => (x(d.filename) ?? 0) + x.bandwidth() / 2) // center points within the band using bandwidth()/2)
       .attr("cy", (d) => y(d.entropy))
-      .attr("r", 8)
       .attr("fill", (d) => colorScale(d.cluster))
       .attr("opacity", 0.85)
       .style("cursor", "pointer")
@@ -167,18 +166,20 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
       .transition()
       .duration(2000)
       .ease(d3.easeCubicOut)
-      .attr("r", d => d.filename === selectedFilename ? 8 : 4);
-      
+      .attr("r", d => d.filename === selectedFilename ? 10 : 6)
+      .attr("stroke", d => d.filename === selectedFilename ? "#fff" : "none")
+      .attr("stroke-width", d => d.filename === selectedFilename ? 2 : 0);
+
   }, [data]);
 
-  useEffect(() => {
-    if (!svgRef.current) return;
+  //useEffect(() => {
+  //  if (!svgRef.current) return;
   
-    const svg = d3.select(svgRef.current);
-    svg.selectAll<SVGCircleElement, EntropyPoint>("circle")
-       .attr("r", d => d.filename === selectedFilename ? 10 : 8)
+  // const svg = d3.select(svgRef.current);
+  //  svg.selectAll<SVGCircleElement, EntropyPoint>("circle")
+  //     .attr("r", d => d.filename === selectedFilename ? 10 : 6);
 
-    }, [selectedFilename]);
+  //  }, [selectedFilename]);
    
   
   return (

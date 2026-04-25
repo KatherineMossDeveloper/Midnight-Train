@@ -113,7 +113,7 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
                   key={c.filename}
                   onClick={() => setSelectedFilename(c.filename)}
                   className={` relative rounded-md overflow-hidden
-                     border-l-0 ${borderClass} hover:ring-2 hover:ring-white/40  `}
+                     border-l-0 ${borderClass}  `}
                   >
                   <img
                      src={c.src}
@@ -123,7 +123,7 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
                  {/* cluster badge */}
                  <span
                     className=" absolute top-1 right-1
-                                w-3.5 h-3.5 rounded-full "
+                                size-4 rounded-full "
                     style={{ backgroundColor: colorHex }}
                  />
               </button>

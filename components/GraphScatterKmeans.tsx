@@ -140,7 +140,6 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
         .append("circle")
         .attr("cx", (d) => xScale(d.x))
         .attr("cy", (d) => yScale(d.y))
-        .attr("r", 8)
         .attr("fill", (d) => colorScale(d.cluster))
         .attr("opacity", 0.85)
         .style("cursor", "pointer")
@@ -152,7 +151,10 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
       .transition()
       .duration(2000)
       .ease(d3.easeCubicOut)
-      .attr("r", d => d.filename === selectedFilename ? 8 : 4);
+      .attr("r", d => d.filename === selectedFilename ? 10 : 6)
+      .attr("stroke", d => d.filename === selectedFilename ? "#fff" : "none")
+      .attr("stroke-width", d => d.filename === selectedFilename ? 2 : 0);
+
 
   }, [data]);
 
@@ -162,7 +164,7 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
     const svg = d3.select(svgRef.current);
 
     svg.selectAll<SVGCircleElement, KmeansPoint>("circle")
-      .attr("r", d => d.filename === selectedFilename ? 10 : 8)
+      .attr("r", d => d.filename === selectedFilename ? 10 : 6)
 
   }, [selectedFilename]);
 

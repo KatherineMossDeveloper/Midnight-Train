@@ -177,22 +177,28 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
         sel.select("path").remove();
       });
 
-    // draw a rectangle for each histogram bin
-    g.selectAll("rect.hist-bar")
-      .data(bins)                                  // use the bins data.
-      .enter()                                     // create a DOM element for all
-      .append("rect")                              // create rectangles
-      .attr("class", "hist-bar")                   // create class handle for this
-      .attr("x", (d) => x(d.x0 ?? 0) + 1)          // left edge of bars
-      .attr("y", (d) => y(d.length))               // top edge of bars
+    const bars = g.selectAll("rect.hist-bar")
+      .data(bins)
+      .enter()
+      .append("rect")
+      .attr("class", "hist-bar")
+      .attr("x", (d) => x(d.x0 ?? 0) + 1)
+      .attr("y", innerHeight)              // start at bottom
       .attr("width", (d) => {
-        const w = x(d.x1 ?? 0) - x(d.x0 ?? 0) - 2;
-        return Math.max(0, w);
+         const w = x(d.x1 ?? 0) - x(d.x0 ?? 0) - 2;
+         return Math.max(0, w);
       })
-      .attr("height", (d) => innerHeight - y(d.length)) // height = bottom - top
-      .attr("rx", 2)                                // rounded corners
+      .attr("height", 0)                   // start invisible
+      .attr("rx", 2)
       .attr("fill", barColor)
-      .attr("opacity", 0.9)
+
+    bars
+      .transition()                       // draw bars upwardly
+      .duration(1500)
+      .attr("y", (d) => y(d.length))
+      .attr("height", (d) => innerHeight - y(d.length));
+
+    bars
       .append("title")
       .text((d) => {
         const from = Math.round(d.x0 ?? 0);
