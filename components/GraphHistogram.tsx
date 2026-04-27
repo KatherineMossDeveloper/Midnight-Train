@@ -15,13 +15,14 @@ import { useSelection } from "@/components/SelectionContext";
 import { imageToGrayscalePixels } from "@/lib/imageToGrayscalePixels";
 
 type GraphHistogramProps = {
+  title?: string;
   width?: number;
   height?: number;
   barColor?: string;
 };
 
 // ************************************************
-export default function GraphHistogram({title = "Hover for color intensity & pixel count",
+export default function GraphHistogram({title = "Hover for color intensity and pixel count",
                                         width = 350, height = 350,
                                         barColor = "#bedbff", // light blue
 }: GraphHistogramProps) {

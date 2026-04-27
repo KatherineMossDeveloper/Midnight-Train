@@ -1,7 +1,7 @@
 // app/layout.tsx
 import "./globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/react';  // Vercel analytics tracking
 
 export const metadata = {
   title: 'Midnight Train',
