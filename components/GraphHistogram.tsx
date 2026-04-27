@@ -22,7 +22,7 @@ type GraphHistogramProps = {
 
 // ************************************************
 export default function GraphHistogram({title = "Hover for color intensity & pixel count",
-                                        width = 300, height = 300,
+                                        width = 350, height = 350,
                                         barColor = "#bedbff", // light blue
 }: GraphHistogramProps) {
 
@@ -31,16 +31,6 @@ export default function GraphHistogram({title = "Hover for color intensity & pix
   const [pixels, setPixels] = useState<number[]>([]);
   const hasPixels = pixels.length > 0;
 
-  const bins = useMemo(() => {
-    if (!hasPixels) return [];
-
-    const histogram = d3
-      .bin<number, number>()
-      .domain([0, 255])
-      .thresholds(64); // number of bins
-
-    return histogram(pixels);
-  }, [pixels, hasPixels]);
 
   // when the currently selected file name changes, gets its pixels.
   useEffect(() => {
@@ -72,6 +62,17 @@ export default function GraphHistogram({title = "Hover for color intensity & pix
 
   }, [selectedFilename]);
 
+  const bins = useMemo(() => {
+    if (!hasPixels) return [];
+
+    const binGenerator = d3
+      .bin<number, number>()
+      .domain([0, 255])
+      .thresholds(64); // number of bins
+
+    return binGenerator(pixels);
+  }, [pixels]);
+
   useEffect(() => {
     // create a handle to the SVG DOM element by wrapping it with d3.
     const svg = d3.select(svgRef.current);
@@ -88,7 +89,6 @@ export default function GraphHistogram({title = "Hover for color intensity & pix
       .attr("width", width)
       .attr("height", height)
       .attr("viewBox", `0 0 ${width} ${height}`);
-
     // create an element 'g' inside the svg & adjust it a bit down and to the right.
     const g = root
       .append("g")
@@ -100,7 +100,7 @@ export default function GraphHistogram({title = "Hover for color intensity & pix
         .attr("x", innerWidth / 2)
         .attr("y", innerHeight / 2)
         .attr("text-anchor", "middle")
-        .attr("fill", "#94a3b8")
+        .attr("fill", "white")
         .style("font-size", "14px")
         .text("No histogram data available");
       return;
@@ -108,58 +108,36 @@ export default function GraphHistogram({title = "Hover for color intensity & pix
 
     // scaling x:  mapping the data (0-255) to screen dimensions.
     const x = d3.scaleLinear().domain([0, 255]).range([0, innerWidth]);
+    // create axes
+    const xAxis = d3.axisBottom(x).ticks(8).tickFormat(d3.format("d"));
+    // draw X axis
+    const xAxisG = g.append("g")
+      .attr("transform", `translate(0,${innerHeight})`)
+      .call(xAxis);
+    // x-axis label
+    g.append("text")
+      .attr("x", innerWidth / 2).attr("y", innerHeight + 34)
+      .attr("text-anchor", "middle").attr("fill", "white")
+      .style("font-size", "12px")
+      .text("Pixel color");
+
 
     // find out how tall the Y axis should be.
     const yMax = d3.max(bins, (d) => d.length) ?? 0;
-
     // scaling y:  mapping the data (yMax) to screen dimensions.  (.nice = round tick labels)
-    const y = d3
-      .scaleLinear()
-      .domain([0, yMax])
-      .nice()
-      .range([innerHeight, 0]);
-
-    // create axes
-    const xAxis = d3.axisBottom(x).ticks(8).tickFormat(d3.format("d"));
+    const y = d3.scaleLinear().domain([0, yMax]).nice().range([innerHeight, 0]);
     const yAxis = d3.axisLeft(y).ticks(5).tickFormat(d3.format("d"));
-
-    // draw X axis
-    g.append("g")
-      .attr("transform", `translate(0,${innerHeight})`)
-      .call(xAxis)
-      .call((sel) => {
-        sel.selectAll("text").attr("fill", "#cbd5e1");
-        sel.selectAll("line").attr("stroke", "#94a3b8");
-        sel.selectAll("path").attr("stroke", "#94a3b8");
-      });
-
     // draw Y axis
     g.append("g")
-      .call(yAxis)
-      .call((sel) => {
-        sel.selectAll("text").attr("fill", "#cbd5e1");
-        sel.selectAll("line").attr("stroke", "#94a3b8");
-        sel.selectAll("path").attr("stroke", "#94a3b8");
-      });
-
-    // x-axis label
-    g.append("text")
-      .attr("x", innerWidth / 2)
-      .attr("y", innerHeight + 34)
-      .attr("text-anchor", "middle")
-      .attr("fill", "#cbd5e1")
-      .style("font-size", "12px")
-      .text("Pixel intensity");
-
+      .call(yAxis);
     // y-axis label
     g.append("text")
       .attr("transform", "rotate(-90)")
       .attr("x", -innerHeight / 2)
       .attr("y", -36)
-      .attr("text-anchor", "middle")
-      .attr("fill", "#cbd5e1")
+      .attr("text-anchor", "middle").attr("fill", "white")
       .style("font-size", "12px")
-      .text("Count");
+      .text("Pixel count");
 
     // horizontal grid lines on the plot.
     g.append("g")
@@ -172,10 +150,19 @@ export default function GraphHistogram({title = "Hover for color intensity & pix
       )
       .call((sel) => {
         sel.selectAll("line")
-          .attr("stroke", "#334155")
-          .attr("stroke-opacity", 0.45);
+          .attr("stroke", "white")
+          .attr("stroke-opacity", 0.50);
         sel.select("path").remove();
       });
+
+    // title at the top of the plot.
+    g.append("text")
+      .attr("x", 0)
+      .attr("y", -6)
+      .attr("fill", "#f8fafc")
+      .style("font-size", "14px")
+      .style("font-weight", "600")
+      .text(selectedFilename + " (maximum pixel count is " + maxBin + ").");
 
     // bars
     g.selectAll("rect.hist-bar")
@@ -200,15 +187,7 @@ export default function GraphHistogram({title = "Hover for color intensity & pix
         return `Intensity ${from}-${to}\nCount: ${d.length}`;
       });
 
-    // title at the top of the plot.
-    g.append("text")
-      .attr("x", 0)
-      .attr("y", -6)
-      .attr("fill", "#f8fafc")
-      .style("font-size", "14px")
-      .style("font-weight", "600")
-      .text(selectedFilename + " (maximum pixel count is " + maxBin + ").");
-  }, [bins, hasPixels, width, height]);
+  }, [bins]);
 
   return (
    <div className="rounded-xl bg-slate-900/60 h-[350px]">
