@@ -51,7 +51,7 @@ export default function WeaviateStatus() {
 
     {/* Row 0: application version */}
     <h2 className="text-lg text-slate-300 ">
-      Ver. 1.1
+      Ver. 1.4
     </h2>
 
     {/* Row 1: database status */}
