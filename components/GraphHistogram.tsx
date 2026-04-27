@@ -13,36 +13,46 @@ import * as d3 from "d3";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelection } from "@/components/SelectionContext";
 import { imageToGrayscalePixels } from "@/lib/imageToGrayscalePixels";
-import { GRAY_DARK } from "@/lib/graphUtilities";
 
 type GraphHistogramProps = {
-  title?: string;
   width?: number;
   height?: number;
   barColor?: string;
 };
 
 // ************************************************
-export default function GraphHistogram({ title = "Hover for color intensity & pixel count",
-                                         width = 300,
-                                         height = 400,
-                                         barColor = "#bedbff", // light blue
+export default function GraphHistogram({title = "Hover for color intensity & pixel count",
+                                        width = 300, height = 300,
+                                        barColor = "#bedbff", // light blue
 }: GraphHistogramProps) {
 
-  // hooks.
   const { selectedFilename } = useSelection();
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [pixels, setPixels] = useState<number[]>([]);
+  const hasPixels = pixels.length > 0;
 
-  // when the currently selected file name changes, get its pixels.
-  // this is a useEffect because it changes 'pixels' state, is async, and image loading is external.
+  const bins = useMemo(() => {
+    if (!hasPixels) return [];
+
+    const histogram = d3
+      .bin<number, number>()
+      .domain([0, 255])
+      .thresholds(64); // number of bins
+
+    return histogram(pixels);
+  }, [pixels, hasPixels]);
+
+  // when the currently selected file name changes, gets its pixels.
   useEffect(() => {
-    let cancelled = false;  // Reacts cancel flag to keep things up to date.
+    // Reacts cancel flag to keep things up to date.
+    let cancelled = false;
+
     if (!selectedFilename) {
       setPixels([]);
       return;
     }
     const src = `/images_testing/${selectedFilename}`;
+
     // immediately invoked function expression.
     (async () => {
       try {
@@ -56,54 +66,42 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
         }
       }
     })();
+
     // cancel if the user clicked too quickly.
     return () => { cancelled = true; };
+
   }, [selectedFilename]);
 
-  // compute bins from pixels.
-  // this is a useMemo because its work is not external, is not async, and does not change a useState var.
-  const bins = useMemo(() => {
-    if (!pixels.length) return [];
-
-    const binGenerator = d3
-      .bin<number, number>()
-      .domain([0, 255])
-      .thresholds(64); // number of bins
-
-    return binGenerator(pixels);
-  }, [pixels]);
-
-  // draw with the bins.
   useEffect(() => {
     // create a handle to the SVG DOM element by wrapping it with d3.
     const svg = d3.select(svgRef.current);
     // dump any existing changes to the svg.
     svg.selectAll("*").remove();
 
-    const maxBin = d3.max(bins, d => d.length);  // get the highest # for the title.
-    const margin = { top: 10, right: 20, bottom: 10, left: 20 };
+    const maxBin = d3.max(bins, d => d.length);
+    const margin = { top: 20, right: 20, bottom: 40, left: 48 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
     // give the svg a shape.
-    svg.append("rect")
+    const root = svg
       .attr("width", width)
       .attr("height", height)
-      .attr("fill", GRAY_DARK);
+      .attr("viewBox", `0 0 ${width} ${height}`);
 
-    // create an element 'g' inside the svg to draw on.
-    // adjust it a bit down and to the right.
-    const g = svg
+    // create an element 'g' inside the svg & adjust it a bit down and to the right.
+    const g = root
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
     // if there is no data to display, put a note in the middle of the plot.
-    if (bins.length === 0) {
+    if (!hasPixels || bins.length === 0) {
       g.append("text")
         .attr("x", innerWidth / 2)
         .attr("y", innerHeight / 2)
         .attr("text-anchor", "middle")
         .attr("fill", "#94a3b8")
+        .style("font-size", "14px")
         .text("No histogram data available");
       return;
     }
@@ -121,10 +119,12 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
       .nice()
       .range([innerHeight, 0]);
 
-    // create axes functions.  create ticks mark.  make the tick labels decimal, "d".
+    // create axes
     const xAxis = d3.axisBottom(x).ticks(8).tickFormat(d3.format("d"));
-    // draw X axis on another group within the g group.
-    const xAxisG = g.append("g")
+    const yAxis = d3.axisLeft(y).ticks(5).tickFormat(d3.format("d"));
+
+    // draw X axis
+    g.append("g")
       .attr("transform", `translate(0,${innerHeight})`)
       .call(xAxis)
       .call((sel) => {
@@ -133,10 +133,8 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
         sel.selectAll("path").attr("stroke", "#94a3b8");
       });
 
-    // create axes functions.  create ticks mark.  make the tick labels decimal, "d".
-    const yAxis = d3.axisLeft(y).ticks(5).tickFormat(d3.format("d"));
-    // draw Y axis on another group within the g group.
-    const yAxisG = g.append("g")
+    // draw Y axis
+    g.append("g")
       .call(yAxis)
       .call((sel) => {
         sel.selectAll("text").attr("fill", "#cbd5e1");
@@ -150,6 +148,7 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
       .attr("y", innerHeight + 34)
       .attr("text-anchor", "middle")
       .attr("fill", "#cbd5e1")
+      .style("font-size", "12px")
       .text("Pixel intensity");
 
     // y-axis label
@@ -159,9 +158,10 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
       .attr("y", -36)
       .attr("text-anchor", "middle")
       .attr("fill", "#cbd5e1")
+      .style("font-size", "12px")
       .text("Count");
 
-    // horizontal grid lines on the plot on another group within the g group.
+    // horizontal grid lines on the plot.
     g.append("g")
       .attr("class", "grid")
       .call(
@@ -177,33 +177,27 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
         sel.select("path").remove();
       });
 
-    const bars = g.selectAll("rect.hist-bar")
+    // bars
+    g.selectAll("rect.hist-bar")
       .data(bins)
       .enter()
       .append("rect")
       .attr("class", "hist-bar")
       .attr("x", (d) => x(d.x0 ?? 0) + 1)
-      .attr("y", innerHeight)              // start at bottom
+      .attr("y", (d) => y(d.length))
       .attr("width", (d) => {
-         const w = x(d.x1 ?? 0) - x(d.x0 ?? 0) - 2;
-         return Math.max(0, w);
+        const w = x(d.x1 ?? 0) - x(d.x0 ?? 0) - 2;
+        return Math.max(0, w);
       })
-      .attr("height", 0)                   // start invisible
+      .attr("height", (d) => innerHeight - y(d.length))
       .attr("rx", 2)
       .attr("fill", barColor)
-
-    bars
-      .transition()                       // draw bars upwardly
-      .duration(1500)
-      .attr("y", (d) => y(d.length))
-      .attr("height", (d) => innerHeight - y(d.length));
-
-    bars
+      .attr("opacity", 0.9)
       .append("title")
       .text((d) => {
         const from = Math.round(d.x0 ?? 0);
         const to = Math.round(d.x1 ?? 0);
-        return `Color intensity ${from}-${to}\nPixel count: ${d.length}`;
+        return `Intensity ${from}-${to}\nCount: ${d.length}`;
       });
 
     // title at the top of the plot.
@@ -211,8 +205,10 @@ export default function GraphHistogram({ title = "Hover for color intensity & pi
       .attr("x", 0)
       .attr("y", -6)
       .attr("fill", "#f8fafc")
+      .style("font-size", "14px")
+      .style("font-weight", "600")
       .text(selectedFilename + " (maximum pixel count is " + maxBin + ").");
-  }, [bins]);
+  }, [bins, hasPixels, width, height]);
 
   return (
    <div className="rounded-xl bg-slate-900/60 h-[350px]">

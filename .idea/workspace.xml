@@ -9,8 +9,6 @@
       <change beforePath="$PROJECT_DIR$/components/GraphForceDirected.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphForceDirected.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/GraphHistogram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphHistogram.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/GraphScatterEntropy.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphScatterEntropy.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/GraphScatterKmeans.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphScatterKmeans.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ImageGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ImageGallery.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

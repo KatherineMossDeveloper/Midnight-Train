@@ -155,7 +155,7 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
       .data(sortedEntropyPoints)
       .enter()
       .append("circle")
-      .attr("cx", (d) => (x(d.filename) ?? 0) + x.bandwidth() / 2) // center points within the band using bandwidth()/2)
+      .attr("cx", (d) => (x(d.filename) ?? 0) + x.bandwidth() / 2) // map file name to pixel position, centering.
       .attr("cy", (d) => y(d.entropy))
       .attr("fill", (d) => colorScale(d.cluster))
       .attr("opacity", 0.85)

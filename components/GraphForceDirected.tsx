@@ -10,6 +10,7 @@
 //
 // type GraphForceDirectedProps
 // export type GraphForceDirectedFunctions
+// const GraphForceDirected = forwardRef
 //
 // There are three useEffect's here.
 // to update the log:  useEffect(() => {log("GraphForceDirected mounted.");}, [log]);
@@ -64,7 +65,7 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
                                        GraphForceDirectedProps >(({ nodes, links }, ref) =>
 {
 
-  // hooks at top level, useRef's to store changes without re-rendering.
+  // hooks
   const containerRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const simulationRef = useRef<d3.Simulation<any, any> | null>(null);
@@ -89,6 +90,7 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
 
   // list the functions that the parent is allowed to call.
   useImperativeHandle(ref, () => ({
+
     copySvg: () => {
        if (!svgRef.current) return;
        copySvgElementToClipboard(svgRef.current);
@@ -121,8 +123,6 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
    // add a background, so that it is copied to clipboard. First-child puts it in the background.
    svg
      .insert("rect", ":first-child")
-     .attr("width", width)
-     .attr("height", height)
      .attr("fill", GRAY_DARK);
 
    // --- ZOOM ROOT ---
@@ -214,7 +214,8 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
 
  // ---> useEffect number two.  Update graph when data changes.
  /////////////////////////////////////////////////////////////
- useEffect(() => { if (!simulationRef.current) return;
+ useEffect(() => {
+   if (!simulationRef.current) return;
 
   const simulation = simulationRef.current;
 
