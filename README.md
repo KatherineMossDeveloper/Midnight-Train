@@ -1,6 +1,6 @@
 ![Hero](images/HeroPolaroids.png)  
 
-[![Live Demo](https://img.shields.io/badge/View%20Live-Midnight%20Train-black?logo=vercel)](https://midnight-train.vercel.app)
+[![Live Demo](https://img.shields.io/badge/View%20Live-Midnight%20Train-black?logo=vercel)](https://midnight-train-explorer.vercel.app/)
 [![Weaviate](https://img.shields.io/badge/Powered%20by-Weaviate-orange?logo=weaviate)](https://github.com/weaviate/weaviate)
 [![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js)]
 [![React](https://img.shields.io/badge/React-20232A?logo=react)]
@@ -22,7 +22,7 @@
 [Contact info](#contact-info)
 
 ## Really quick start. 
-See the Live Demo now by clicking [here](https://midnight-train.vercel.app)
+See the Live Demo now by clicking [here](https://midnight-train-explorer.vercel.app)
 
 ## Quick start. 
 Clone the repository
