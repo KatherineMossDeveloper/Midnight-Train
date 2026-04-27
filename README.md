@@ -29,12 +29,13 @@ Clone the repository
 ```bash
 git clone https://github.com/KatherineMossDeveloper/Midnight-Train.git
 ```
-
+Navigate to the project. 
 cd Midnight-Train 
 
 Open the project in Pycharm and run these commands in a terminal window.
  npm install
  npm run dev
+
 Visit p://localhost:3000 in your browser.
 
 When the app opens, click on the images in the Image Gallery on the left. 
