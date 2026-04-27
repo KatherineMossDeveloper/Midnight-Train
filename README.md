@@ -28,12 +28,13 @@ See the Live Demo now by clicking [here](https://midnight-train.vercel.app)
 Clone the repository
 
 git clone https://github.com/KatherineMossDeveloper/Midnight-Train.git
+
 cd Midnight-Train 
 
 Open the project in Pycharm and run these commands in a terminal window.
  npm install
  npm run dev
- visit p://localhost:3000 in your browser.
+Visit p://localhost:3000 in your browser.
 
 When the app opens, click on the images in the Image Gallery on the left. 
 
