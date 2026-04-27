@@ -29,16 +29,19 @@ Clone the repository
 ```bash
 git clone https://github.com/KatherineMossDeveloper/Midnight-Train.git
 ```
+
 Navigate to the project. 
-cd Midnight-Train 
+```bash
+cd Midnight-Train
+```
 
 Open the project in Pycharm and run these commands in a terminal window.
+```bash
  npm install
  npm run dev
+```
 
-Visit p://localhost:3000 in your browser.
-
-When the app opens, click on the images in the Image Gallery on the left. 
+Visit p://localhost:3000 in your browser.  When the app opens, click on the images in the Image Gallery on the left. 
 
 ## Slow start.  
 This project was inspired by a research paper:  Salami, H., McDonald, M. A., Bommarius, A. S., Rousseau, R. W., & Grover, M. A. (2021). [In Situ Imaging Combined with Deep Learning for Crystallization Process Monitoring: Application to Cephalexin Production](https://doi.org/10.1021/acs.oprd.1c00136). *Organic Process Research & Development*, 25, 1670–1679. 
