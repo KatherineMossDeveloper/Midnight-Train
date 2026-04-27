@@ -28,6 +28,7 @@ See the Live Demo now by clicking [here](https://midnight-train.vercel.app)
 Clone the repository
 ```bash
 git clone https://github.com/KatherineMossDeveloper/Midnight-Train.git
+```
 
 cd Midnight-Train 
 
