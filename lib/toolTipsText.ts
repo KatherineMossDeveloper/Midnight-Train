@@ -25,13 +25,13 @@ export const TOOLTIP_TEXT = {
   `,
 
   force:
-  `The Weaviate vector database can hold vectors, which in this project represent the features of an image learned by a model during training on the OpenCrystalData dataset.  These vectors typically have many more than three dimensions, so they are hard to quantify and visualize.
+  `The data sources for this project (Weaviate database or JSON files) hold vectors, which represent the features of an image learned by a model during training on the OpenCrystalData dataset.  These vectors typically have many more than three dimensions, so they are hard to quantify and visualize.
 
   A nearest neighbor algorithm can quantify the distance between one vector and another.  The nearest neighbor algorithm used in this project is built into the Weaviate database.
 
   A force directed graph is a visualization of nodes (circles) and edges (lines), where life-like properties of attraction and repulsion spread the elements out, so that they are as visible as possible.  Unlike a Cartesian plot, the meaning of a given node is defined by its relationship with the other nodes, as opposed to its X or Y coordinates.
 
-  This force directed graph shows the image vector neighbors stored in the Weaviate database.  Nodes represent images; edges connect nearest neighbors.
+  This force directed graph shows the image vector neighbors.  Nodes represent images.  Edges connect nearest neighbors.
 
   For more on this, visit [Katherine Moss Developer](https://github.com/KatherineMossDeveloper).
   `,
@@ -72,7 +72,9 @@ export const TOOLTIP_TEXT = {
   histogram:
   `The histogram shows the count of pixels of the same color on the (vertical) Y axis and the pixel color (0-255) on the (horizontal) X axis.  Black is 0 and white is 255.  Shades of gray are in between.
 
-  Instead of trying to draw a line in the graph for all 256 colors, the color values are binned at 64.  This means that there are 64 buckets, with 4 pixels per bucket.  The color count for pixels in a given bucket are summed and graph on the Y axis.
+  Instead of trying to draw a line in the graph for all 256 colors, the color values are binned at 64.  This means that there are 64 buckets, with 4 pixels per bucket.  The color count for pixels in a given bucket are summed and graphed on the Y axis.
+
+  Generally, images with histogram shapes that are broader and flatter have higher entropy.  Images with histogram shapes that are narrower, with a simple bell shape, tend to have lower entropy.  In Midnight Train, we have some good examples because the CEX curated images had both the highest and lowest entropy values.  The image CEX (1).png had the lowest entropy value, 5.90.  The image CEX (2).png had the highest entropy value, 7.60.
 
    For more on this, visit [Katherine Moss Developer](https://github.com/KatherineMossDeveloper).
   `,

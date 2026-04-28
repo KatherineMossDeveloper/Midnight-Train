@@ -16,7 +16,7 @@ import { useEffect, useRef } from "react";
 import { forwardRef, useImperativeHandle } from "react";
 
 import * as d3 from "d3";
-import { GRAY_DARK } from "@/lib/graphUtilities";
+import { BLACK_HEX } from "@/lib/graphUtilities";
 import { useLog } from "@/components/LogPanel";
 import { useSelection } from "@/components/SelectionContext";
 import { copySvgElementToClipboard, copyPngElementToClipboard } from "@/lib/exportImages"
@@ -63,7 +63,7 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
     }));
 
     const { selectedFilename, setSelectedFilename } = useSelection();
-    const svgRef = useRef<SVGSVGElement | null>(null);
+    const svgRef = useRef<SVGSVGElement | null>(null);   // get a handle to the DOM graph surface.
     const { log } = useLog();
     useEffect(() => {log("[mount]  GraphScatterKmeans");}, [log]);
 
@@ -72,7 +72,9 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
       return;
     }
 
-    useEffect(() => {
+  // ---> useEffect to create the graph and it elements.
+  /////////////////////////////////////////////////////////////////////
+  useEffect(() => {
       if (!svgRef.current) return;
       const svg = d3.select(svgRef.current);
       svg.selectAll("*").remove();
@@ -81,7 +83,7 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
       svg.append("rect")
         .attr("width", width)
         .attr("height", height)
-        .attr("fill", GRAY_DARK);
+        .attr("fill", BLACK_HEX);
 
       // bottom is 80 to allow room for file names in entropy plot,
       // so that this plot and that plot line up horizontally.

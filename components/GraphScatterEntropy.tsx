@@ -14,8 +14,7 @@ import * as d3 from "d3";
 import { copySvgElementToClipboard, copyPngElementToClipboard } from "@/lib/exportImages"
 import { useLog } from "@/components/LogPanel";
 import { useSelection } from "@/components/SelectionContext";
-import { GRAY_DARK } from "@/lib/graphUtilities";
-
+import { BLACK_HEX } from "@/lib/graphUtilities";
 
 export type GraphScatterEntropyFunctions = {
   copySvg: () => void;
@@ -58,7 +57,7 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
   }));
 
   const { selectedFilename, setSelectedFilename } = useSelection();
-  const svgRef = useRef<SVGSVGElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);   // get a handle to the DOM graph surface.
   const { log } = useLog();
   useEffect(() => {log("[mount]  GraphScatterEntropy");}, [log]);
 
@@ -74,16 +73,17 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
     return;
   }
 
+  // ---> useEffect to create the graph and it elements.
+  /////////////////////////////////////////////////////////////////////
   useEffect(() => {
     if (!svgRef.current) return;
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
 
-    // Add dark screen background
     svg.append("rect")
       .attr("width", width)
       .attr("height", height)
-      .attr("fill", GRAY_DARK);
+      .attr("fill", BLACK_HEX);
 
     // calculate dimensions;  bottom is 80 to allow room for file names.
     const margin = { top: 20, right: 20, bottom: 80, left: 20 };
@@ -172,15 +172,6 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
 
   }, [data]);
 
-  //useEffect(() => {
-  //  if (!svgRef.current) return;
-  
-  // const svg = d3.select(svgRef.current);
-  //  svg.selectAll<SVGCircleElement, EntropyPoint>("circle")
-  //     .attr("r", d => d.filename === selectedFilename ? 10 : 6);
-
-  //  }, [selectedFilename]);
-   
   
   return (
     <svg

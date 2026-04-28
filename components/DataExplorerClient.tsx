@@ -151,7 +151,7 @@ export default function DataExplorerClient({ crystals, error }: {
                     </Tooltip>
 
                  </h2>
-                 <GraphForceDirected nodes={Array.from(graphNodes.values())} links={graphEdges} ref={fdgRef} />
+                 <GraphForceDirected nodes={Array.from(graphNodes.values())} links={graphEdges} width={900} height={400} ref={fdgRef} />
                </section>
 
                {/* Kmeans, PCA scatter plot: spans 2 columns on xl */}
@@ -199,7 +199,7 @@ export default function DataExplorerClient({ crystals, error }: {
 
                {/* Histogram and panel showing selected original image & its CAM */}
                <section className="row-span-1 bg-slate-900/60 text-white rounded-xl p-4">
-                 <h2 className="mb-2 text-lg font-medium">Image histogram
+                 <h2 className="mb-2 text-lg font-medium">Image histogram (hover for data)
                     <Tooltip content={TOOLTIP_TEXT.histogram}>
                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
                     </Tooltip>

@@ -11,6 +11,7 @@
 import type { GraphNode, GraphLink } from "@/types/FDGtypes";
 
 export const GRAY_DARK = "#020617"
+export const BLACK_HEX = "#000000"
 
 export const CLUSTER_HEX  = [
   "#7fc97f",

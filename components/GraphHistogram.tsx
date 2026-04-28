@@ -9,10 +9,12 @@
 
 "use client";
 
-import * as d3 from "d3";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+
+import * as d3 from "d3";
 import { useSelection } from "@/components/SelectionContext";
 import { imageToGrayscalePixels } from "@/lib/imageToGrayscalePixels";
+import { BLACK_HEX } from "@/lib/graphUtilities";
 
 type GraphHistogramProps = {
   title?: string;
@@ -22,13 +24,13 @@ type GraphHistogramProps = {
 };
 
 // ************************************************
-export default function GraphHistogram({title = "Hover for color intensity and pixel count",
+export default function GraphHistogram({title = "",
                                         width = 350, height = 350,
                                         barColor = "#bedbff", // light blue
 }: GraphHistogramProps) {
 
   const { selectedFilename } = useSelection();
-  const svgRef = useRef<SVGSVGElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);   // get a handle to the DOM graph surface.
   const [pixels, setPixels] = useState<number[]>([]);
   const hasPixels = pixels.length > 0;
 
@@ -88,8 +90,8 @@ export default function GraphHistogram({title = "Hover for color intensity and p
     // give the svg a shape.
     const root = svg
       .attr("width", width)
-      .attr("height", height)
-      .attr("viewBox", `0 0 ${width} ${height}`);
+      .attr("height", height);
+
     // create an element 'g' inside the svg & adjust it a bit down and to the right.
     const g = root
       .append("g")
@@ -183,9 +185,9 @@ export default function GraphHistogram({title = "Hover for color intensity and p
       .attr("opacity", 0.9)
       .append("title")
       .text((d) => {
-        const from = Math.round(d.x0 ?? 0);
-        const to = Math.round(d.x1 ?? 0);
-        return `Intensity ${from}-${to}\nCount: ${d.length}`;
+        const from = Math.round(d.x0 ?? 0)+1;
+        const to = Math.round(d.x1 ?? 0)-1;
+        return `Pixel color ${from}-${to}\nPixel count: ${d.length}`;
       });
 
   }, [bins]);
@@ -195,7 +197,7 @@ export default function GraphHistogram({title = "Hover for color intensity and p
     <span>{title}</span>
     <svg
       ref={svgRef}
-      className="w-full h-full"
+      className="w-full h-full bg-black"
       viewBox={`0 0 ${width} ${height}`}
       preserveAspectRatio="xMidYMid meet"
     />
