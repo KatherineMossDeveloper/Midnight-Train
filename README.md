@@ -1,12 +1,17 @@
 ![Hero](images/HeroPolaroids.png)  
 
+[![Live Demo](https://img.shields.io/badge/View%20Live-Midnight%20Train-black?logo=vercel)](https://midnight-train-explorer.vercel.app/)
+[![Weaviate](https://img.shields.io/badge/Powered%20by-Weaviate-orange?logo=weaviate)](https://github.com/weaviate/weaviate)
+[![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js)]
+[![React](https://img.shields.io/badge/React-20232A?logo=react)]
+[![D3.js](https://img.shields.io/badge/D3.js-F9A03C?logo=d3.js)]
 ![Crystallization](https://img.shields.io/badge/domain-Crystallization-white)
 [![](https://img.shields.io/badge/Kaggle-Dataset-teal?logo=kaggle&logoColor=white)](https://www.kaggle.com/datasets/opencrystaldata/cephalexin-reactive-crystallization)
 ![MIT License](https://img.shields.io/badge/License-MIT-green)
 ![PyCharm](https://img.shields.io/badge/PyCharm-2023.2.4-lightorange)
 ![Binary Classification](https://img.shields.io/badge/task-Binary_Classification-yellowgreen)
 ![ResNet](https://img.shields.io/badge/model-ResNet-yellow)
-[![Weaviate](https://img.shields.io/badge/Powered%20by-Weaviate-orange?logo=github)](https://github.com/weaviate/weaviate)
+
 
 ## Content. 
 [Really quick start.](#really-quick-start) • 
@@ -17,18 +22,26 @@
 [Contact info](#contact-info)
 
 ## Really quick start. 
-See the Live Demo now by clicking here....  TBD
+See the Live Demo now by clicking [here](https://midnight-train-explorer.vercel.app)
 
 ## Quick start. 
-Get the code by cloning.
-Open a command window and put in the following commands. 
- git clone https://github.com/KatherineMossDeveloper/MidnightTrain.git
- cd MidnightTrain
+Clone the repository
+```bash
+git clone https://github.com/KatherineMossDeveloper/Midnight-Train.git
+```
+
+Navigate to the project. 
+```bash
+cd Midnight-Train
+```
+
 Open the project in Pycharm and run these commands in a terminal window.
+```bash
  npm install
  npm run dev
-Open http://localhost:3000 in your browser.
-When the app opens, click on the images in the  Image Gallery on the left. 
+```
+
+Visit p://localhost:3000 in your browser.  When the app opens, click on the images in the Image Gallery on the left. 
 
 ## Slow start.  
 This project was inspired by a research paper:  Salami, H., McDonald, M. A., Bommarius, A. S., Rousseau, R. W., & Grover, M. A. (2021). [In Situ Imaging Combined with Deep Learning for Crystallization Process Monitoring: Application to Cephalexin Production](https://doi.org/10.1021/acs.oprd.1c00136). *Organic Process Research & Development*, 25, 1670–1679. 
