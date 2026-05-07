@@ -34,7 +34,7 @@
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors
 </a><br>
 <a href="#Feature-vector-and-Weaviate-database">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors + Weaviate database
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors and the Weaviate database
 </a><br>
 <a href="#PCA">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Principal component analysis
@@ -267,7 +267,7 @@ For more, visit [stackexchange](https://datascience.stackexchange.com/questions/
 
 [back to top](#Features)  
 
-## Feature vector and Weaviate database
+## Features vector and the Weaviate database
 Storing such a vector, with many dimensions, is not a typical storage consideration for a relational database.  A typical SQL database does not have a vector datatype.  This led me to vector databases.  My plan was that such a database would allow me to bridge the gap between the Georgia Project, which produced data, and the Midnight Train Project, which presents data.  Hence, the pun about “Midnight Train to Georgia.” 
 
 For more on Weaviate, visit [Weaviate](https://weaviate.io/).  
