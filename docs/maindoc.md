@@ -7,9 +7,6 @@
 <a href="#React-tailwind-chatGPT-Vercel">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/>  React + Tailwind + chatGPT + Vercel
 </a><br>
-<a href="#Quick-start-instructions">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Quick start instructions
-</a><br>
 <a href="#the-license">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> The license.
 </a><br>
@@ -136,10 +133,6 @@ Another companion of the Midnight Train project has been chatGPT.  I have using 
 For hosting, I am using Vercel.  I created a Vercel free account, then pointed it to the Midnight Train GitHub project.  I then added Vercel analytics to the code in PyCharm.  Everytime that I update my GitHub site from my local development computer, the Vercel site is updated, and visits to the site are tracked.  It was easy to set up.  
 For more, visit [Vercel](https://vercel.com/).   
 
-[back to top](#Overview)  
-
-## Quick start instructions
-TBD**
 [back to top](#Overview)  
 
 ## The license.  
