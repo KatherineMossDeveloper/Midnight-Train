@@ -461,39 +461,15 @@ When the CAM images are generated, I tried two resizing shapes.  The first resiz
 ## Flow
 Main flow:  the application opens, image data is fetched and passed to DataExplorerClient.
 
-page.tsx 	
-	crystalDataSource.getImageObjects 	
-		weaviateQueries.getImageObjectsFromWeaviate
-		   (if the database is down, fallback)
-		jsonQueries.getImageObjectsFromJson
-	DataExplorerClient		 	(main driving code for the app)
-                 <MetaProvider>			(gives all data about the current image selected)
-                    <LogProvider>			(allows all components to write to log on screen)
-                       <SelectionProvider>		(informs components when current image changes)
-							WeaviateStatus		(shows db status on upper right of screen)
-							ImageGallery 		(shows all image on the left of the app)
-							GraphForceDirected	(force directed graph component)
-							GraphHistogram		(histogram of current image)
-							GraphScatterKmeans	(Kmeans/PCA plot of all images)
-							GraphScatterEntropy	(Entropy plot of all images)
-							CamAccordion 		(presents all CAM overlays for CEX images)
-							CamAccordion 		(presents all CAM overlays for PG images)
-							ImageSlider			(shows CAM and original of current image)
-							LogPanel			(shows notes sent by  components) 
+<a href="#">
+  <img src="../images/CodeFlow.png" alt="Midnight Train code flow" style="vertical-align: middle; width:  900px; height: 800px;"/>
+</a><br>
+<p>
+  <em>
+  Figure 19. Midnight Train code overview.  
+  </em>
+</p>
 
-FDG data flow:  pull the nearest neighbors by vector and send it to the force directed graph. 
-
-ImageGallery  (when the current image changes)
-	crystalsClient.getNeighborsClient
-		/api/weaviate/nearest/route
-	crystalDataSource.getNeighbors 	
-				weaviateQueries.getNeighborsFromWeaviate
-				   (if the database is down, fallback)
-				jsonQueries.getNeighborsFromJson
-
-	DataExplorerClient.onAddNeighbors 
-		graphUtilites.mergeGraphData 	(adds new images to the collection)
-		GraphForceDirected 			(gets new graphNodes and graphEdges)
 
 [back to top](#Notes)  
 
