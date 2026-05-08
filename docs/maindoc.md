@@ -464,16 +464,16 @@ Main flow:  the application opens, image data is fetched and passed to DataExplo
 page.tsx 	
 	crystalDataSource.getImageObjects 	
 		weaviateQueries.getImageObjectsFromWeaviate
-		   --if the database is down, fallback --
+		   (if the database is down, fallback)
 		jsonQueries.getImageObjectsFromJson
 	DataExplorerClient		 	(main driving code for the app)
                  <MetaProvider>			(gives all data about the current image selected)
                     <LogProvider>			(allows all components to write to log on screen)
                        <SelectionProvider>		(informs components when current image changes)
 							WeaviateStatus		(shows db status on upper right of screen)
-							ImageGallery 			(shows all image on the left of the app)
-							GraphForceDirected		(force directed graph component)
-                            					 GraphHistogram		(histogram of current image)
+							ImageGallery 		(shows all image on the left of the app)
+							GraphForceDirected	(force directed graph component)
+							GraphHistogram		(histogram of current image)
 							GraphScatterKmeans	(Kmeans/PCA plot of all images)
 							GraphScatterEntropy	(Entropy plot of all images)
 							CamAccordion 		(presents all CAM overlays for CEX images)
@@ -488,7 +488,7 @@ ImageGallery  (when the current image changes)
 		/api/weaviate/nearest/route
 	crystalDataSource.getNeighbors 	
 				weaviateQueries.getNeighborsFromWeaviate
-				   --if the database is down, fallback --
+				   (if the database is down, fallback)
 				jsonQueries.getNeighborsFromJson
 
 	DataExplorerClient.onAddNeighbors 
