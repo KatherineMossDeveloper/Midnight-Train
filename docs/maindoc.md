@@ -459,9 +459,8 @@ When the CAM images are generated, I tried two resizing shapes.  The first resiz
 [back to top](#Notes)  
 
 ## Flow
-(Server-side code is in purple.)
-
 Main flow:  the application opens, image data is fetched and passed to DataExplorerClient.
+
 page.tsx 	
 	crystalDataSource.getImageObjects 	
 		weaviateQueries.getImageObjectsFromWeaviate
@@ -472,7 +471,7 @@ page.tsx
                  <MetaProvider>			(gives all data about the current image selected)
                     <LogProvider>			(allows all components to write to log on screen)
                        <SelectionProvider>		(informs components when current image changes)
-		WeaviateStatus		(shows db status on upper right of screen)
+							WeaviateStatus		(shows db status on upper right of screen)
 		ImageGallery 			(shows all image on the left of the app)
 		GraphForceDirected		(force directed graph component)
                              GraphHistogram		(histogram of current image)
@@ -485,6 +484,7 @@ page.tsx
 
 
 FDG data flow:  pull the nearest neighbors by vector and send it to the force directed graph. 
+
 ImageGallery  (when the current image changes)
 	crystalsClient.getNeighborsClient
 		/api/weaviate/nearest/route
