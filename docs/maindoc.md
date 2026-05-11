@@ -80,7 +80,7 @@
 <a href="#flow">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Flow of the code
 </a><br>
-<a href="#hnsw-notes">
+<a href="#HNSW-notes">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> HNSW
 </a><br>
 <a href="#cam-generation">
@@ -330,7 +330,7 @@ For more on FDG plots, visit [Wikipedia](https://en.wikipedia.org/wiki/Force-dir
 
 [back to top](#Features)  
 
-## HNSW
+## HNSW notes
 The images are represented in the Weaviate database partially by their feature vectors.  These vectors are stored in Weaviate by the Georgia project, then the Midnight Train application queries the database for vectors similar to a given vector using a nearest neighbor algorithm.  The algorithm used to gather nearest neighbor vectors for a given image is the default algorithm built into the Weaviate vector database.  It is HNSW, or Hierarchical Navigable Small World, which is an approximate similarity algorithm, not an exact one.  For more, see HNSW, in the implementation notes.
 
 [back to top](#Features)  
