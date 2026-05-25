@@ -1,4 +1,4 @@
-// GraphScatterKmeans.tsx
+// GraphScatterPCAKmeans.tsx
 // presents a circle for every image in PCA coordinates with
 // kmeans colorization.
 //
@@ -7,47 +7,46 @@
 // type GraphScatterKmeansProps
 // const GraphScatterKmeans = forwardRef
 //
-// See notes in DataExplorerClient about the currently selected image.s
+// See notes in DataExplorerClient about the currently selected image.
 //
 
-"use client";
+"use client"; // D3 uses SVG elements, so this should run in the browser.
 
-import { useEffect, useRef } from "react";
-import { forwardRef, useImperativeHandle } from "react";
+import { useEffect, useRef } from "react";  // useEffect runs code when variable(s) change.
+import { forwardRef, useImperativeHandle } from "react"; // allow the parent to call function here when buttons are pressed in the parent.
 
 import * as d3 from "d3";
 import { BLACK_HEX } from "@/lib/graphUtilities";
-import { useLog } from "@/components/LogPanel";
-import { useSelection } from "@/components/SelectionContext";
+import { useLog } from "@/components/LogPanel";  // useLog is hook into the LogPanel.
+import { useSelection } from "@/components/SelectionContext"; // useSelection will notify when a new image file is selected.
 import { copySvgElementToClipboard, copyPngElementToClipboard } from "@/lib/exportImages"
 
+const height = 300;
+const width = 300;
 
-export type GraphScatterKmeansFunctions = {
+
+export type GraphScatterPCAKmeansFunctions = {
   copySvg: () => void;
   copyPng: () => void;
 };
 
-export type KmeansPoint = {
+export type PCAKmeansPoint = {
   x: number;
   y: number;
   cluster: number;
   filename: string;
 };
 
-type GraphScatterKmeansProps = {
-  data: KmeansPoint[];
-  width?: number;
-  height?: number;
+type GraphScatterPCAKmeansProps = {
+  data: PCAKmeansPoint[];
 };
 
 // ************************************************
-const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
-                                       GraphScatterKmeansProps > (({ data,
-                                                                     width = 300,
-                                                                     height = 300 }, ref) =>
+// { data } 'deconstructs' the props object, so we have just PCAKmeansPoint[] later in this code.
+const GraphScatterKmeans = forwardRef< GraphScatterPCAKmeansFunctions,
+                                       GraphScatterPCAKmeansProps > (( { data }, ref) =>
 {
     // hooks.
-    // list the functions that the parent is allowed to call.
     // copySVG and copyPng allow the user to save graphics to the clipboard.
     useImperativeHandle(ref, () => ({
 
@@ -62,13 +61,17 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
       }
     }));
 
+    // alert when a new image file is selected.
     const { selectedFilename, setSelectedFilename } = useSelection();
-    const svgRef = useRef<SVGSVGElement | null>(null);   // get a handle to the DOM graph surface.
+    // get a handle to the DOM SVG, which might not exist yet.
+    const svgRef = useRef<SVGSVGElement | null>(null);
+    // get the log functionality.
     const { log } = useLog();
+    // use the log by writing to the log component.
     useEffect(() => {log("[mount]  GraphScatterKmeans");}, [log]);
 
     // No points, return.
-    if (!data || data.length === 0) {
+    if (!data ) {
       return;
     }
 
@@ -76,14 +79,6 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
   /////////////////////////////////////////////////////////////////////
   useEffect(() => {
       if (!svgRef.current) return;
-      const svg = d3.select(svgRef.current);
-      svg.selectAll("*").remove();
-
-      // Add dark screen background
-      svg.append("rect")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("fill", BLACK_HEX);
 
       // bottom is 80 to allow room for file names in entropy plot,
       // so that this plot and that plot line up horizontally.
@@ -91,28 +86,46 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
       const innerWidth = width - margin.left - margin.right;
       const innerHeight = height - margin.top - margin.bottom;
 
-      // create a drawing element with a rendering starting point at the margin left and top.
-      const g = svg
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      // STEP 0. Prepare graph area.
+      //         First, D3 creates a handle to the DOM SVG graphic object
+      const svg = d3.select(svgRef.current);
+      svg.selectAll("*").remove();
+
+      // Add a background
+      svg.append("rect")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("fill", BLACK_HEX);
+
+      // make all paths and lines white.
+      svg.selectAll("path, line")
+        .attr("stroke", "white");
+
+      // Create an area on the SVG for the plot with its own coordinates.
+      // Draw on the paper, not on the desk.
+      const g = svg.append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
 
       // Extents:  the min and maximum values in the data set.
-      const xExtent = d3.extent(data, (d) => d.x);
-      const yExtent = d3.extent(data, (d) => d.y);
-      if ( !xExtent || xExtent[0] == null || xExtent[1] == null || !yExtent || yExtent[0] == null || yExtent[1] == null ) {
-        console.warn("Invalid extents:", { xExtent, yExtent });
-        return;
-     }
+      const xExtent = d3.extent(data, d => d.x);
+      const yExtent = d3.extent(data, d => d.y);
+      if ( xExtent[0] === undefined || xExtent[1] === undefined ||
+           yExtent[0] === undefined || yExtent[1] === undefined)
+      {
+          return;
+      }
 
+      // STEP 1. Create the X axis, along the bottom of the plot.  Create the colorScale
+      //         function that will take a number and return the corresponding color,
+      //         like this... 0 → green, 1 → purple, 2 → orange, 3 → yellow.
       // pull kmeans cluster numbers from the data; create unique array of them, then sort.
       const clusterIDs = Array.from(new Set(data.map(d => d.cluster)))
         .filter((x): x is number => x !== undefined && x !== null)
         .sort((a, b) => a - b);
-      // create a function that applies cluster numbers to the color scheme 'd3.schemeAccent'
       const colorScale = d3.scaleOrdinal<number, string>()
         .domain(clusterIDs)
         .range(d3.schemeAccent);
-
 
       // create function that map values to screen coordinates later.
       const xScale = d3.scaleLinear().domain(xExtent).range([0, innerWidth]);
@@ -123,7 +136,9 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
        .selectAll("text")
        .attr("fill", "white");
 
-      // create function that map values to screen coordinates later.
+
+      // STEP 2.  Create the Y axis, along the left side of the plot.  yScale is a function
+      //          that will convert the dimensions of the data to locations on the screen.
       const yScale = d3.scaleLinear().domain(yExtent).range([innerHeight, 0]);
       // create the Y axis
       const yAxisG = g.append("g")
@@ -131,15 +146,12 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
        .selectAll("text")
        .attr("fill", "white");
 
-      // make all paths and lines white.
-      svg.selectAll("path, line")
-        .attr("stroke", "white");
 
-     // creates one circle per data item, positions it, colors it, then attaches a click handler.
-     const sel = g.selectAll("circle")
+      // STEP 3.  Put it all together. Create circles for the data and
+      //          apply the following "attr"-ibutes to the circles.
+     const plottedData = g.selectAll("circle")
         .data(data)
-        .enter()
-        .append("circle")
+        .join("circle")
         .attr("cx", (d) => xScale(d.x))
         .attr("cy", (d) => yScale(d.y))
         .attr("fill", (d) => colorScale(d.cluster))
@@ -149,9 +161,9 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
 
      // transition that animates a redraw over 2 sec., with a slow down (ease).
      // the selected file is drawn larger than the others.
-     sel
+     plottedData
       .transition()
-      .duration(2000)
+      .duration(1000)
       .ease(d3.easeCubicOut)
       .attr("r", d => d.filename === selectedFilename ? 10 : 6)
       .attr("stroke", d => d.filename === selectedFilename ? "#fff" : "none")
@@ -164,10 +176,8 @@ const GraphScatterKmeans = forwardRef< GraphScatterKmeansFunctions,
     if (!svgRef.current) return;
 
     const svg = d3.select(svgRef.current);
-
-    svg.selectAll<SVGCircleElement, KmeansPoint>("circle")
-      .attr("r", d => d.filename === selectedFilename ? 10 : 6)
-
+    svg.selectAll<SVGCircleElement, PCAKmeansPoint>("circle")
+       .attr("r", d => d.filename === selectedFilename ? 10 : 6)
   }, [selectedFilename]);
 
 

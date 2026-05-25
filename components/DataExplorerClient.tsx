@@ -40,7 +40,7 @@ import { toThumb, toKmeansData, toEntropyData } from  "@/lib/dataMapper";
 
 // copy to clipboard buttons
 import type { GraphForceDirectedFunctions } from "@/components/GraphForceDirected";
-import type { GraphScatterKmeansFunctions } from "@/components/GraphScatterKmeans";
+import type { GraphScatterPCAKmeansFunctions } from "@/components/GraphScatterPCAKmeans";
 import type { GraphScatterEntropyFunctions } from "@/components/GraphScatterEntropy";
 
 // UI components.
@@ -48,7 +48,7 @@ import CamAccordion from "@/components/CamAccordion";
 import GraphForceDirected from "@/components/GraphForceDirected";
 import GraphHistogram from "@/components/GraphHistogram";
 import GraphScatterEntropy, { EntropyPoint } from "@/components/GraphScatterEntropy";
-import GraphScatterKmeans, { KmeansPoint } from "@/components/GraphScatterKmeans";
+import GraphScatterPCAKmeans, { PCAKmeansPoint } from "@/components/GraphScatterPCAKmeans";
 import ImageGallery from "@/components/ImageGallery";
 import ImageSlider from "@/components/ImageSlider";
 import WeaviateStatus from "@/components/WeaviateStatus";
@@ -67,7 +67,7 @@ export default function DataExplorerClient({ crystals, error }: {
 
   // hooks for copy-to-clipboard buttons.
   const fdgRef = useRef<GraphForceDirectedFunctions | null>(null);
-  const gskRef = useRef<GraphScatterKmeansFunctions | null>(null);
+  const gskRef = useRef<GraphScatterPCAKmeansFunctions | null>(null);
   const entRef = useRef<GraphScatterEntropyFunctions | null>(null);
 
   // hooks for hiding the log panel and maintaining FDG data.
@@ -77,7 +77,7 @@ export default function DataExplorerClient({ crystals, error }: {
 
   const hasData = !error;
   const imageFiles: ImageThumb[] = hasData ? crystals.map(toThumb) : [];
-  const kmeansData: KmeansPoint[] = hasData ? toKmeansData(crystals) : [];
+  const PCAkmeansData: PCAKmeansPoint[] = hasData ? toKmeansData(crystals) : [];
   const entropyData: EntropyPoint[] = hasData ? toEntropyData(crystals) : [];
   const camImages: string[] = hasData ? crystals.map(c => c.image_id) : [];
 
@@ -164,7 +164,7 @@ export default function DataExplorerClient({ crystals, error }: {
                     <Button onClick={() => gskRef.current?.copyPng()}> Copy bitmap </Button>
                  </h2>
 
-                 <GraphScatterKmeans data={kmeansData} width={300} height={300} ref={gskRef} />
+                 <GraphScatterPCAKmeans data={PCAkmeansData} ref={gskRef} />
                </section>
 
                {/* Entropy scatter plot: spans 2 columns on xl */}
@@ -176,8 +176,7 @@ export default function DataExplorerClient({ crystals, error }: {
                     <Button onClick={() => entRef.current?.copySvg()}> Copy vector </Button>
                     <Button onClick={() => entRef.current?.copyPng()}> Copy bitmap </Button>
                  </h2>
-                 <GraphScatterEntropy data={entropyData} width={300} height={300}
-                                      xTickEvery={1} ref={entRef} />
+                 <GraphScatterEntropy data={entropyData} ref={entRef} />
                </section>
 
                {/* CAM accordions */}
@@ -203,7 +202,7 @@ export default function DataExplorerClient({ crystals, error }: {
                     <Tooltip content={TOOLTIP_TEXT.histogram}>
                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
                     </Tooltip>
-                   <GraphHistogram width={520} height={260} />
+                   <GraphHistogram />
                  </h2>
 
                  <h2 className="mb-2 text-lg font-medium">CAM & original image (drag the bar)

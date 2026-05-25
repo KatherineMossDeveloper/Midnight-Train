@@ -18,13 +18,13 @@
 // to update the FDG:  useEffect(() => { if (!simulationRef.current) return;
 //
 // Notes on the flow.
-// The use effect number one (create) waits for the DOM to exist so the graph can be created.
-// The use effect number two (update) waits for the simulation to exist so it can be updated.
+// useEffect number one (create) waits for the DOM to exist so the graph can be created.
+// useEffect number two (update) waits for the simulation to exist so it can be updated.
 //
 // The order of code flow here is approximately...
 // -useEffect number one (create) is hit, but the svgRef is not current.
 // -useEffect number one (create) is hit, so the d3.simulation is created.
-// -useEffect number two (create) is hit, so the d3.simulation is maintained.
+// -useEffect number two (update) is hit, so the d3.simulation is maintained.
 //
 
 "use client";
@@ -123,31 +123,35 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
    // --- disable dbl-click zoom ---
    svg.on("dblclick.zoom", null);
 
-   // --- Create persistent groups ---
+   // create persistent groups
+   // using links as an example, these objects are...
+   // linkGroup        = D3 selection wrapper; a container that will be given data in the 2nd useEffect.
+   // linkGroup.node() = actual SVG <g> DOM element
+   // linkGroupRef     = React ref holding that DOM element
+
    const linkGroup = zoomGroup.append("g").attr("class", "fdg-links").attr("stroke", "#888").attr("stroke-opacity", 0.6);
    const nodeGroup = zoomGroup.append("g").attr("class", "fdg-nodes").attr("stroke", "#fff").attr("stroke-width", 1.5);
    const labelGroup = zoomGroup.append("g").attr("class", "fdg-labels").attr("font-size", 10).attr("fill", "#ddd");
 
-   // --- Store DOM references, handles, to the edges, nodes, and node labels ---
    linkGroupRef.current = linkGroup.node();
    nodeGroupRef.current = nodeGroup.node();
    labelGroupRef.current = labelGroup.node();
 
-   // --- Create force simulation ---
+   // create an instance of the physics engine from D3.
+   // "links" pulls toward neighbors; connects edges by id field; try to keep them 60 pixels apart (distance).
+   // "charge" is repulsion, so objects do not cover each other, if possible.
+   // "center" pulls all objects to the center, so they don't all off stage while fighting.
+   // "x", "y" pulls individual object to the center.
    const simulation = d3
     .forceSimulation(nodes)
-    .force(
-      "link",
-      d3.forceLink(links)
-        .id((d: any) => d.id)
-        .distance(60)
-     )
-     .force("charge", d3.forceManyBody().strength(-120))
-     .force("center", d3.forceCenter(width / 2, height / 2))
-     .force("x", d3.forceX(width / 2).strength(0.05))
-     .force("y", d3.forceY(height / 2).strength(0.05));
+    .force("link",d3.forceLink(links).id((d: any) => d.id).distance(60))
+    .force("charge", d3.forceManyBody().strength(-120))
+    .force("center", d3.forceCenter(width / 2, height / 2))
+    .force("x", d3.forceX(width / 2).strength(0.05))
+    .force("y", d3.forceY(height / 2).strength(0.05));
 
-    // --- Tick handler ---
+    // tick handler; on every tick, update the SVG positions:
+    // links, circles, and labels move to source/target x/y
     const padding = 20;
     simulation.on("tick", () => {
       nodes.forEach(d => {

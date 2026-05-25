@@ -29,17 +29,12 @@ export type EntropyPoint = {
 
 type GraphScatterEntropyByFilenameProps = {
   data: EntropyPoint[];
-  width?: number;       // svg width
-  height?: number;      // svg height
-  xTickEvery?: number;
 };
 
 // ************************************************
+// { data } 'deconstructs' the props object, so we have just PCAKmeansPoint[] later in this code.
 const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
-                                        GraphScatterEntropyByFilenameProps > (({ data,
-                                                                                 width = 300,
-                                                                                 height = 300,
-                                                                                 xTickEvery = 1 }, ref) =>
+                                        GraphScatterEntropyByFilenameProps > (({ data }, ref) =>
 {
   // hooks.
   // list the functions that the parent is allowed to call.
@@ -60,6 +55,9 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
   const svgRef = useRef<SVGSVGElement | null>(null);   // get a handle to the DOM graph surface.
   const { log } = useLog();
   useEffect(() => {log("[mount]  GraphScatterEntropy");}, [log]);
+
+  const width = 300;
+  const height = 300;
 
   // Sort the data alphabetically for the X axis domain
   const sortedEntropyPoints = useMemo(() => {
@@ -164,7 +162,7 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
 
     sel
       .transition()
-      .duration(2000)
+      .duration(1000)
       .ease(d3.easeCubicOut)
       .attr("r", d => d.filename === selectedFilename ? 10 : 6)
       .attr("stroke", d => d.filename === selectedFilename ? "#fff" : "none")

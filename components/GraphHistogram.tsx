@@ -14,26 +14,19 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import * as d3 from "d3";
 import { useSelection } from "@/components/SelectionContext";
 import { imageToGrayscalePixels } from "@/lib/imageToGrayscalePixels";
-import { BLACK_HEX } from "@/lib/graphUtilities";
-
-type GraphHistogramProps = {
-  title?: string;
-  width?: number;
-  height?: number;
-  barColor?: string;
-};
+import { BLACK_HEX, LIGHTBLUE_HEX } from "@/lib/graphUtilities";
 
 // ************************************************
-export default function GraphHistogram({title = "",
-                                        width = 350, height = 350,
-                                        barColor = "#bedbff", // light blue
-}: GraphHistogramProps) {
+export default function GraphHistogram() {
 
+  // hooks.
   const { selectedFilename } = useSelection();
   const svgRef = useRef<SVGSVGElement | null>(null);   // get a handle to the DOM graph surface.
   const [pixels, setPixels] = useState<number[]>([]);
-  const hasPixels = pixels.length > 0;
 
+  const width = 300;
+  const height = 300;
+  const hasPixels = pixels.length > 0;
 
   // when the currently selected file name changes, gets its pixels.
   useEffect(() => {
@@ -181,20 +174,12 @@ export default function GraphHistogram({title = "",
       })
       .attr("height", (d) => innerHeight - y(d.length))
       .attr("rx", 2)
-      .attr("fill", barColor)
-      .attr("opacity", 0.9)
-      .append("title")
-      .text((d) => {
-        const from = Math.round(d.x0 ?? 0)+1;
-        const to = Math.round(d.x1 ?? 0)-1;
-        return `Pixel color ${from}-${to}\nPixel count: ${d.length}`;
-      });
-
+      .attr("fill", LIGHTBLUE_HEX)
+      .attr("opacity", 0.9);
   }, [bins]);
 
   return (
    <div className="rounded-xl bg-slate-900/60 h-[350px]">
-    <span>{title}</span>
     <svg
       ref={svgRef}
       className="w-full h-full bg-black"
