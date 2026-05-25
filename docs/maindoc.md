@@ -7,9 +7,6 @@
 <a href="#React-tailwind-chatGPT-Vercel">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/>  React + Tailwind + chatGPT + Vercel
 </a><br>
-<a href="#Quick-start-instructions">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Quick start instructions
-</a><br>
 <a href="#the-license">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> The license.
 </a><br>
@@ -36,8 +33,8 @@
 <a href="#Feature-vectors">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors
 </a><br>
-<a href="#Feature-vector-and-Weaviate-database">
-  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors + Weaviate database
+<a href="#Feature-vectors-and-the-Weaviate-database">
+  <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Feature vectors and the Weaviate database
 </a><br>
 <a href="#PCA">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Principal component analysis
@@ -83,7 +80,7 @@
 <a href="#flow">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Flow of the code
 </a><br>
-<a href="#hnsw-notes">
+<a href="#HNSW-notes">
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> HNSW
 </a><br>
 <a href="#cam-generation">
@@ -136,10 +133,6 @@ Another companion of the Midnight Train project has been chatGPT.  I have using 
 For hosting, I am using Vercel.  I created a Vercel free account, then pointed it to the Midnight Train GitHub project.  I then added Vercel analytics to the code in PyCharm.  Everytime that I update my GitHub site from my local development computer, the Vercel site is updated, and visits to the site are tracked.  It was easy to set up.  
 For more, visit [Vercel](https://vercel.com/).   
 
-[back to top](#Overview)  
-
-## Quick start instructions
-TBD**
 [back to top](#Overview)  
 
 ## The license.  
@@ -274,7 +267,7 @@ For more, visit [stackexchange](https://datascience.stackexchange.com/questions/
 
 [back to top](#Features)  
 
-## Feature vector and Weaviate database
+## Feature vectors and the Weaviate database
 Storing such a vector, with many dimensions, is not a typical storage consideration for a relational database.  A typical SQL database does not have a vector datatype.  This led me to vector databases.  My plan was that such a database would allow me to bridge the gap between the Georgia Project, which produced data, and the Midnight Train Project, which presents data.  Hence, the pun about “Midnight Train to Georgia.” 
 
 For more on Weaviate, visit [Weaviate](https://weaviate.io/).  
@@ -337,7 +330,7 @@ For more on FDG plots, visit [Wikipedia](https://en.wikipedia.org/wiki/Force-dir
 
 [back to top](#Features)  
 
-## HNSW
+## HNSW notes
 The images are represented in the Weaviate database partially by their feature vectors.  These vectors are stored in Weaviate by the Georgia project, then the Midnight Train application queries the database for vectors similar to a given vector using a nearest neighbor algorithm.  The algorithm used to gather nearest neighbor vectors for a given image is the default algorithm built into the Weaviate vector database.  It is HNSW, or Hierarchical Navigable Small World, which is an approximate similarity algorithm, not an exact one.  For more, see HNSW, in the implementation notes.
 
 [back to top](#Features)  
@@ -466,43 +459,17 @@ When the CAM images are generated, I tried two resizing shapes.  The first resiz
 [back to top](#Notes)  
 
 ## Flow
-(Server-side code is in purple.)
-
 Main flow:  the application opens, image data is fetched and passed to DataExplorerClient.
-page.tsx 	
-	crystalDataSource.getImageObjects 	
-		weaviateQueries.getImageObjectsFromWeaviate
-		   --if the database is down, fallback --
-		jsonQueries.getImageObjectsFromJson
 
-	DataExplorerClient		 	(main driving code for the app)
-                 <MetaProvider>			(gives all data about the current image selected)
-                    <LogProvider>			(allows all components to write to log on screen)
-                       <SelectionProvider>		(informs components when current image changes)
-		WeaviateStatus		(shows db status on upper right of screen)
-		ImageGallery 			(shows all image on the left of the app)
-		GraphForceDirected		(force directed graph component)
-                             GraphHistogram		(histogram of current image)
-		GraphScatterKmeans	(Kmeans/PCA plot of all images)
-		GraphScatterEntropy	(Entropy plot of all images)
-		CamAccordion 		(presents all CAM overlays for CEX images)
-		CamAccordion 		(presents all CAM overlays for PG images)
-		ImageSlider			(shows CAM and original of current image)
-		LogPanel			(shows notes sent by  components) 
+<a href="#">
+  <img src="../images/CodeFlow.png" alt="Midnight Train code flow" style="vertical-align: middle; width:  900px; height: 800px;"/>
+</a><br>
+<p>
+  <em>
+  Figure 19. Midnight Train code overview.  
+  </em>
+</p>
 
-
-FDG data flow:  pull the nearest neighbors by vector and send it to the force directed graph. 
-ImageGallery  (when the current image changes)
-	crystalsClient.getNeighborsClient
-		/api/weaviate/nearest/route
-crystalDataSource.getNeighbors 	
-				weaviateQueries.getNeighborsFromWeaviate
-				   --if the database is down, fallback --
-				jsonQueries.getNeighborsFromJson
-
-	DataExplorerClient.onAddNeighbors 
-		graphUtilites.mergeGraphData 	(adds new images to the collection)
-		GraphForceDirected 			(gets new graphNodes and graphEdges)
 
 [back to top](#Notes)  
 
