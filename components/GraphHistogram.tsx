@@ -25,7 +25,7 @@ export default function GraphHistogram() {
   const [pixels, setPixels] = useState<number[]>([]);
 
   const width = 300;
-  const height = 300;
+  const height = 340;
   const hasPixels = pixels.length > 0;
 
   // when the currently selected file name changes, gets its pixels.
@@ -70,6 +70,7 @@ export default function GraphHistogram() {
   }, [pixels]);
 
   useEffect(() => {
+    // STEP 0. Prepare graph area.
     // create a handle to the SVG DOM element by wrapping it with d3.
     const svg = d3.select(svgRef.current);
     // dump any existing changes to the svg.
@@ -80,14 +81,10 @@ export default function GraphHistogram() {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    // give the svg a shape.
-    const root = svg
-      .attr("width", width)
-      .attr("height", height);
-
-    // create an element 'g' inside the svg & adjust it a bit down and to the right.
-    const g = root
-      .append("g")
+    // Create an area on the SVG for the plot.  It will have its own
+    // coordinates, so that the upper left corner will be 0,0, with a
+    // margin that creates a border.  Draw on the paper, not on the desk.
+    const g = svg.append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
     // if there is no data to display, put a note in the middle of the plot.
@@ -102,14 +99,19 @@ export default function GraphHistogram() {
       return;
     }
 
-    // scaling x:  mapping the data (0-255) to screen dimensions.
-    const x = d3.scaleLinear().domain([0, 255]).range([0, innerWidth]);
-    // create axes
-    const xAxis = d3.axisBottom(x).ticks(8).tickFormat(d3.format("d"));
-    // draw X axis
+    // STEP 1. Create the X axis and its scale.  The xScale is a function that
+    //         will convert the dimensions of the data to screen locations.
+    //         scaling x:  mapping the data (0-255) to screen dimensions.
+    const xScale = d3.scaleLinear().domain([0, 255]).range([0, innerWidth]);
+
+    // Create the X axis in its DOM container and keep a handle to it.
+    const xAxis = d3.axisBottom(xScale).ticks(8).tickFormat(d3.format("d"));
+
+    // Create the X axis in its DOM container and keep a handle to it.
     const xAxisG = g.append("g")
       .attr("transform", `translate(0,${innerHeight})`)
       .call(xAxis);
+
     // x-axis label
     g.append("text")
       .attr("x", innerWidth / 2).attr("y", innerHeight + 34)
@@ -121,8 +123,8 @@ export default function GraphHistogram() {
     // find out how tall the Y axis should be.
     const yMax = d3.max(bins, (d) => d.length) ?? 0;
     // scaling y:  mapping the data (yMax) to screen dimensions.  (.nice = round tick labels)
-    const y = d3.scaleLinear().domain([0, yMax]).nice().range([innerHeight, 0]);
-    const yAxis = d3.axisLeft(y).ticks(5).tickFormat(d3.format("d"));
+    const yScale = d3.scaleLinear().domain([0, yMax]).nice().range([innerHeight, 0]);
+    const yAxis = d3.axisLeft(yScale).ticks(5).tickFormat(d3.format("d"));
     // draw Y axis
     g.append("g")
       .call(yAxis);
@@ -139,7 +141,7 @@ export default function GraphHistogram() {
     g.append("g")
       .attr("class", "grid")
       .call(
-        d3.axisLeft(y)
+        d3.axisLeft(yScale)
           .ticks(5)
           .tickSize(-innerWidth)
           .tickFormat(() => "")
@@ -153,11 +155,11 @@ export default function GraphHistogram() {
 
     // title at the top of the plot.
     g.append("text")
-      .attr("x", 0)
+      .attr("x", -6)
       .attr("y", -6)
       .attr("fill", "#f8fafc")
-      .style("font-size", "14px")
-      .style("font-weight", "600")
+      .style("font-size", "12px")
+      .style("font-weight", "200")
       .text(selectedFilename + " (maximum pixel count is " + maxBin + ").");
 
     // bars
@@ -166,26 +168,24 @@ export default function GraphHistogram() {
       .enter()
       .append("rect")
       .attr("class", "hist-bar")
-      .attr("x", (d) => x(d.x0 ?? 0) + 1)
-      .attr("y", (d) => y(d.length))
+      .attr("x", (d) => xScale(d.x0 ?? 0) + 1)
+      .attr("y", (d) => yScale(d.length))
       .attr("width", (d) => {
-        const w = x(d.x1 ?? 0) - x(d.x0 ?? 0) - 2;
+        const w = xScale(d.x1 ?? 0) - xScale(d.x0 ?? 0) - 2;
         return Math.max(0, w);
       })
-      .attr("height", (d) => innerHeight - y(d.length))
+      .attr("height", (d) => innerHeight - yScale(d.length))
       .attr("rx", 2)
       .attr("fill", LIGHTBLUE_HEX)
       .attr("opacity", 0.9);
   }, [bins]);
 
   return (
-   <div className="rounded-xl bg-slate-900/60 h-[350px]">
-    <svg
+   <svg
       ref={svgRef}
-      className="w-full h-full bg-black"
+      className="w-full h-full"
       viewBox={`0 0 ${width} ${height}`}
       preserveAspectRatio="xMidYMid meet"
     />
-   </div>
   );
 }

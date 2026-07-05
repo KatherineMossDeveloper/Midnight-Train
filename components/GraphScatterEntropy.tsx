@@ -71,6 +71,7 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
     return;
   }
 
+
   // ---> useEffect to create the graph and it elements.
   /////////////////////////////////////////////////////////////////////
   useEffect(() => {
@@ -105,14 +106,14 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
 
     // prepare the X axis labels. Pull out the filenames
     const xDomainFilenames = sortedEntropyPoints.map((d) => d.filename);
-    const x = d3
+    const xScale = d3
       .scaleBand<string>()       // create a parallel array of screen positions for the discrete string data.
       .domain(xDomainFilenames)  // create a look-up table for positioning
       .range([0, innerWidth])
       .padding(0.2);
 
     // create the X axis, with tick marks for every file name.
-    const xAxis = d3.axisBottom(x);
+    const xAxis = d3.axisBottom(xScale);
 
     // draw the X axis
     const xAxisG = g
@@ -130,14 +131,14 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
 
     // prepare the Y axis numbers:  numeric => scaleLinear
     const yMaxEntropy = d3.max(sortedEntropyPoints, (d) => d.entropy) ?? 0;
-    const y = d3
+    const yScale = d3
       .scaleLinear()            // numeric data is continuous
       .domain([0, yMaxEntropy * 1.05]) // max Y, plus a bit of headroom
       .nice()
       .range([innerHeight, 0]);
 
     // create the Y axis
-    const yAxis = d3.axisLeft(y).ticks(6);
+    const yAxis = d3.axisLeft(yScale).ticks(6);
 
     const yAxisG = g.append("g")
      .call(yAxis)
@@ -153,12 +154,16 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
       .data(sortedEntropyPoints)
       .enter()
       .append("circle")
-      .attr("cx", (d) => (x(d.filename) ?? 0) + x.bandwidth() / 2) // map file name to pixel position, centering.
-      .attr("cy", (d) => y(d.entropy))
+      .attr("cx", (d) => (xScale(d.filename) ?? 0) + xScale.bandwidth() / 2) // map file name to pixel position, centering.
+      .attr("cy", (d) => yScale(d.entropy))
       .attr("fill", (d) => colorScale(d.cluster))
       .attr("opacity", 0.85)
       .style("cursor", "pointer")
       .on("click", (_, d) => setSelectedFilename(d.filename));
+
+    sel
+      .append("title")
+      .text(d => `${d.filename}\nEntropy: ${d.entropy}`);
 
     sel
       .transition()

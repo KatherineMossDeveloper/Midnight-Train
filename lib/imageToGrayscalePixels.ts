@@ -5,46 +5,42 @@
 //
 
 // ************************************************
-export async function imageToGrayscalePixels(src: string): Promise<number[]> {
-  return new Promise((resolve, reject) => {
+export async function imageToGrayscalePixels(
+  src: string
+): Promise<number[]> {
 
-    const img = new Image();
-    img.crossOrigin = "anonymous"; // sending a security request w/o user creds.
+  // 1. Load the image.
+  const img = new Image();
+  img.crossOrigin = "anonymous";
+  img.src = src;
+  await img.decode();
 
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
+  // 2. Draw the image onto a canvas.
+  const canvas = document.createElement("canvas");
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
 
-      const ctx = canvas.getContext("2d");  // get a context to reach tools, like getImageData.
-      if (!ctx) {
-        reject(new Error("Could not get 2D canvas context."));
-        return;
-      }
-      ctx.drawImage(img, 0, 0);  // copy the image onto the surface, to get the pixels.
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    throw new Error("Could not get 2D context.");
+  }
+  ctx.drawImage(img, 0, 0);
 
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imageData.data;  // create an array of RGB values.
-      const grayscalePixels: number[] = []; // place to load the pixel counts.
+  // 3. Extract the RGBA pixels.
+  const imageData = ctx.getImageData(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+  const data = imageData.data;
 
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i];
-        const g = data[i + 1];
-        const b = data[i + 2];
+  const grayscalePixels = [];
 
-        // standard luminance-style grayscale conversion
-        const gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
-        grayscalePixels.push(gray);
-      }
+  // 4. Pull every 4th value, skipping the redundant values and transparency.
+  for (let i = 0; i < data.length; i += 4) {
+    grayscalePixels.push(data[i]);
+  }
 
-      resolve(grayscalePixels);
-    };
-
-    img.onerror = () => {
-      reject(new Error(`Failed to load image: ${src}`));
-    };
-
-    console.log("Loading image, then calling img.onload implicitly  ", src);
-    img.src = src;
-  });
+  return grayscalePixels;
 }

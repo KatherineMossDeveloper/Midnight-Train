@@ -18,6 +18,10 @@ export const TOOLTIP_TEXT = {
   `When the Weaviate database is available, a blue dot will appear.  When it is not up-and-running, a red dot will appear.  In which case, an alternative source of data is used:  JSON files stored in this project.
   `,
 
+  parallelcoordinates:
+  `Multiple linear values placed together using multiple Y axes.  Note the parallel between the divergence of the K-means purple group in both the entropy axis and the confidence axis.
+  `,
+
   gallery:
   `These images are a curated subset from the OpenCrystalData dataset.  They were chosen using the following steps.  After applying kmeans (with PCA and designating 4 clusters), these images were chosen as representatives of the four kmeans groups:  one for CEX (in green) and three PG groups (in orange, purple, and yellow).  The images are in file name order, which happens to be (almost) the kmeans group order.
 

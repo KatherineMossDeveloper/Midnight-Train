@@ -36,12 +36,13 @@ import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
 import type { ImageFileDetails } from "@/types/ImageFileDetails";
 import type { GraphNode, GraphLink } from "@/types/FDGtypes";
 import type { ImageThumb } from "@/types/ImageThumb";
-import { toThumb, toKmeansData, toEntropyData } from  "@/lib/dataMapper";
+import { toThumb, toKmeansData, toEntropyData, toParallelCoordinatesData } from  "@/lib/dataMapper";
 
 // copy to clipboard buttons
 import type { GraphForceDirectedFunctions } from "@/components/GraphForceDirected";
 import type { GraphScatterPCAKmeansFunctions } from "@/components/GraphScatterPCAKmeans";
 import type { GraphScatterEntropyFunctions } from "@/components/GraphScatterEntropy";
+import type { GraphParallelCoordinatesFunctions } from  "@/components/GraphParallelCoordinates";
 
 // UI components.
 import CamAccordion from "@/components/CamAccordion";
@@ -49,6 +50,7 @@ import GraphForceDirected from "@/components/GraphForceDirected";
 import GraphHistogram from "@/components/GraphHistogram";
 import GraphScatterEntropy, { EntropyPoint } from "@/components/GraphScatterEntropy";
 import GraphScatterPCAKmeans, { PCAKmeansPoint } from "@/components/GraphScatterPCAKmeans";
+import GraphParallelCoordinates, { ParallelCoordinatesPoints } from "@/components/GraphParallelCoordinates";
 import ImageGallery from "@/components/ImageGallery";
 import ImageSlider from "@/components/ImageSlider";
 import WeaviateStatus from "@/components/WeaviateStatus";
@@ -56,6 +58,7 @@ import WeaviateStatus from "@/components/WeaviateStatus";
 // extras.
 import Button from "@/components/ui/Button";
 import Tooltip from "@/components/ui/Tooltip";
+import Checkbox from "@/components/ui/Checkbox";
 import { TOOLTIP_TEXT } from "@/lib/toolTipsText";
 import { mergeGraphData } from "@/lib/graphUtilities";
 
@@ -69,16 +72,19 @@ export default function DataExplorerClient({ crystals, error }: {
   const fdgRef = useRef<GraphForceDirectedFunctions | null>(null);
   const gskRef = useRef<GraphScatterPCAKmeansFunctions | null>(null);
   const entRef = useRef<GraphScatterEntropyFunctions | null>(null);
+  const parRef = useRef<GraphParallelCoordinatesFunctions | null>(null);
 
-  // hooks for hiding the log panel and maintaining FDG data.
-  const [isVisible, setIsVisible] = useState(false);
+  // hooks for hiding the log, maintaining FDG data, tracking parallel coordinates checkboxes.
+  const [isVisible, setIsVisible] = useState(true);
   const [graphNodes, setGraphNodes] = useState<Map<string, GraphNode>>(new Map());
   const [graphEdges, setGraphEdges] = useState<GraphLink[]>([]);
+  const [visibleClusters, setVisibleClusters] = useState<number[]>([0, 1, 2, 3]);
 
   const hasData = !error;
   const imageFiles: ImageThumb[] = hasData ? crystals.map(toThumb) : [];
   const PCAkmeansData: PCAKmeansPoint[] = hasData ? toKmeansData(crystals) : [];
   const entropyData: EntropyPoint[] = hasData ? toEntropyData(crystals) : [];
+  const parallelcoordinatesData: ParallelCoordinatesPoints[] = hasData ? toParallelCoordinatesData(crystals) : [];
   const camImages: string[] = hasData ? crystals.map(c => c.image_id) : [];
 
   // clear the FDG when the 'clear FDG' button is pressed.
@@ -89,7 +95,6 @@ export default function DataExplorerClient({ crystals, error }: {
 
   // add nodes and edges to the FDG by calling /lib/graphUtilities.mergeGraphData
   function handleAddNeighbors( center: NeighborCenter, neighbors: NeighborRecord[] ) {
-
     const { newNodes, newEdges } = mergeGraphData(
       graphNodes,
       graphEdges,
@@ -102,9 +107,17 @@ export default function DataExplorerClient({ crystals, error }: {
   }
 
   // State to track visibility of the log message component
-  const toggleVisibility = () => {
-     setIsVisible(prev => !prev);
-  };
+  const toggleVisibility = () => { setIsVisible(prev => !prev); };
+
+  // Parallel Coordinates component checkbox tracking.
+  function toggleCluster(cluster: number) {
+    setVisibleClusters(prev =>
+      prev.includes(cluster)
+        ? prev.filter(c => c !== cluster)
+        : [...prev, cluster]
+    );
+  }
+
 
   return (
     <MetaProvider metas={crystals}>
@@ -179,6 +192,50 @@ export default function DataExplorerClient({ crystals, error }: {
                  <GraphScatterEntropy data={entropyData} ref={entRef} />
                </section>
 
+               {/* Parallel Coordinates plot: spans 2 columns on xl */}
+               <section className="row-span-1 col-span-2 bg-slate-900/60 rounded-xl p-4">
+                 <h2 className="mb-2 text-lg font-medium">Parallel Coordinates plot
+                    <Tooltip content={TOOLTIP_TEXT.parallelcoordinates}>
+                        <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
+                    </Tooltip>
+                    <Button onClick={() => parRef.current?.copySvg()}> Copy vector </Button>
+                    <Button onClick={() => parRef.current?.copyPng()}> Copy bitmap </Button>
+
+                 </h2>
+
+                 {/* loop through the number array and create checkboxes. */}
+                 <div className="mb-3 flex flex-wrap gap-2">
+                    {[0, 1, 2, 3].map(cluster => (
+                       <Checkbox
+                          key={cluster}
+                          label={`Cluster ${cluster}`}
+                          checked={visibleClusters.includes(cluster)}
+                          onChange={() => toggleCluster(cluster)}
+                       />
+                    ))}
+                 </div>
+
+                 <GraphParallelCoordinates data={parallelcoordinatesData} visibleClusters={visibleClusters} ref={parRef} />
+               </section>
+
+               {/* Panel showing log messages:  1 row, 1 col */}
+               <div  className={"bg-slate-900/60 rounded-xl p-4"} > {/* log message div */}
+                 <Button onClick={toggleVisibility} >
+                   {isVisible ? "Hide logs" : "Show logs"}
+                 </Button>
+
+                 {isVisible && (
+                   <>
+                   <h2 className="flex items-center gap-2 mb-2 text-lg font-medium">Message log.
+                      <Tooltip content={TOOLTIP_TEXT.log}>
+                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
+                      </Tooltip>
+                   </h2>
+                   <LogPanel />
+                   </>
+                 )}
+               </div>  {/* log message div */}
+
                {/* CAM accordions */}
                <section className="row-span-1 bg-slate-900/60 text-white rounded-xl p-4">
                  <h2 className="mb-2 text-lg font-medium">CEX CAM accordion (click a image)
@@ -214,23 +271,6 @@ export default function DataExplorerClient({ crystals, error }: {
 
                </section>
 
-               {/* Panel showing log messages:  1 row, 1 col */}
-               <div  className={"bg-slate-900/60 rounded-xl p-4"} > {/* log message div */}
-                 <Button onClick={toggleVisibility} variant="secondary" >
-                   {isVisible ? "Hide logs" : "Show logs"}
-                 </Button>
-
-                 {isVisible && (
-                   <>
-                   <h2 className="flex items-center gap-2 mb-2 text-lg font-medium">Message log.
-                      <Tooltip content={TOOLTIP_TEXT.log}>
-                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
-                      </Tooltip>
-                   </h2>
-                   <LogPanel />
-                   </>
-                 )}
-               </div>  {/* log message div */}
             </div>  {/* outermost div */}
           </main>
         </SelectionProvider>

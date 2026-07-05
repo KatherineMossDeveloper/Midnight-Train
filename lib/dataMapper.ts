@@ -58,3 +58,26 @@ export function toEntropyData(crystals: ImageDatabaseObject[]): EntropyPoint[] {
       filename: c.image_id as string
     }));
 }
+
+// ************************************************
+export function toParallelCoordinatesData(crystals: ImageDatabaseObject[]): ParallelCoordinatesPoints[] {
+  return crystals
+    .filter(
+      (c) =>
+        c.kmeans_pca_cluster !== null &&
+        c.kmeans_pca_y !== null &&
+        c.kmeans_pca_x !== null &&
+        c.image_entropy !== null &&
+        c.confidence !== null &&
+        c.image_id !== null
+    )
+
+    .map((c) => ({
+      cluster: c.kmeans_pca_cluster as number,
+      pca_y: c.kmeans_pca_y as number,
+      pca_x: c.kmeans_pca_x as number,
+      entropy: c.image_entropy as number,
+      confidence: c.confidence as number,
+      filename: c.image_id as string
+    }));
+}

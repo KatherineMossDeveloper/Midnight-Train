@@ -1,8 +1,8 @@
-// CamAccordion.tsx
-// Accordion control that shows the CAM overlays.
+// CamAccordian.tsx
+// Accordian control that shows the CAM overlays.
 //
 // type CamAccordionProps
-// export default function CamAccordion
+// export default function CamAccordian
 //
 // This component is inspired by the D3.js library, but does not use D3.js because
 // at this writing this graph type is not available at d3.js.  There are two states
@@ -19,9 +19,10 @@
 import { useState, useEffect } from "react";
 import { useLog } from "@/components/LogPanel";
 import { useSelection } from "@/components/SelectionContext";
+import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
 
 type CamAccordionProps = {
-  images: string[];        // filenames relative to /public/images_CAM
+  images: string[];      // filenames relative to /public/images_CAM
   folder: string;          // "CEX" or "PG"
   title: string;           // component title
   height?: number;         // px
@@ -43,15 +44,13 @@ export default function CamAccordion({images, folder, title,
   useEffect(() => {log("[mount]  CamAccordion");}, [log]);
 
   // filter for the images that fit the folder (classification label) passed in.
-  const filteredImages = images.filter(name =>
-         name.startsWith(folder)
-  );
+  const filteredImages = images.filter(name => name.startsWith(folder) );
 
   return (
-    <div className="space-y-3">
+    <div>
 
       {/* Slice position control adjusts which vertical slice is shown */}
-      <div className="flex items-center gap-3 text-xs text-slate-400">
+      <div className="flex items-center gap-3 text-md text-slate-400">
         <span>{title}</span>
         <input
           type="range" min={0} max={100}
@@ -64,7 +63,7 @@ export default function CamAccordion({images, folder, title,
 
       {/* Accordion */}
       <div
-        className="flex overflow-hidden border border-slate-600 rounded-md bg-black"
+        className="flex border border-slate-400 rounded-md"
         style={{ height }}
       >
 
@@ -76,8 +75,8 @@ export default function CamAccordion({images, folder, title,
           return (
             <div
               key={filename}
-              className={` relative overflow-hidden cursor-pointer
-                           transition-[flex-basis] duration-300 ease-in-out
+              className={` relative cursor-pointer duration-300 ease-in-out
+                           transition-[flex-basis]
                            ${isExpanded ? "z-10" : "z-0"}
                            ${isSelected ? "border-4 border-blue-400" : ""}
                         `}
@@ -87,15 +86,10 @@ export default function CamAccordion({images, folder, title,
               onClick={() => setSelectedFilename(filename)}   >
 
               <img
+                className={`h-full w-full object-cover`}
                 src={`/images_CAM/${folder}/${filename}`}
                 alt={filename}
-                className={`
-                  h-full w-full object-cover
-                  transition-opacity duration-400
-                `}
-                style={{
-                  objectPosition: `${sliceX}% center`,
-                }}
+                style={{objectPosition: `${sliceX}% center` }}
               />
             </div>
           );

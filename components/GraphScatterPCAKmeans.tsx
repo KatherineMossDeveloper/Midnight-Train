@@ -88,7 +88,8 @@ const GraphScatterKmeans = forwardRef< GraphScatterPCAKmeansFunctions,
 
 
       // STEP 0. Prepare graph area.
-      //         First, D3 creates a handle to the DOM SVG graphic object
+      // svgRef.current is the DOM node.
+      // svg is the D3 handle used to draw into that DOM node.
       const svg = d3.select(svgRef.current);
       svg.selectAll("*").remove();
 
@@ -159,15 +160,19 @@ const GraphScatterKmeans = forwardRef< GraphScatterPCAKmeansFunctions,
         .style("cursor", "pointer")
         .on("click", (_, d) => setSelectedFilename(d.filename));
 
+    plottedData
+       .append("title")
+       .text(d => `${d.filename}`);
+
      // transition that animates a redraw over 2 sec., with a slow down (ease).
      // the selected file is drawn larger than the others.
      plottedData
-      .transition()
-      .duration(1000)
-      .ease(d3.easeCubicOut)
-      .attr("r", d => d.filename === selectedFilename ? 10 : 6)
-      .attr("stroke", d => d.filename === selectedFilename ? "#fff" : "none")
-      .attr("stroke-width", d => d.filename === selectedFilename ? 2 : 0);
+        .transition()
+        .duration(1000)
+        .ease(d3.easeCubicOut)
+        .attr("r", d => d.filename === selectedFilename ? 10 : 6)
+        .attr("stroke", d => d.filename === selectedFilename ? "#fff" : "none")
+        .attr("stroke-width", d => d.filename === selectedFilename ? 2 : 0);
 
 
   }, [data]);
