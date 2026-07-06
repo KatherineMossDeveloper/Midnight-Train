@@ -10,6 +10,7 @@ import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
 import type { ImageThumb } from "@/types/ImageThumb";
 import type { PCAKmeansPoint } from "@/components/GraphScatterPCAKmeans";
 import type { EntropyPoint } from "@/components/GraphScatterEntropy";
+import type { ParallelCoordinatesPoints } from "@/components/GraphParallelCoordinates";
 
 // ************************************************
 export function toThumb(c: ImageDatabaseObject): ImageThumb {

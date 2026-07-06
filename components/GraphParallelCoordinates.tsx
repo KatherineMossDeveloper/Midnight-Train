@@ -63,24 +63,31 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
   const width = 900;
   const height = 450;
   const WHITE_HEX = "#FFFFFF";
-  const BLACK_HEX = "#000000";
   const margin = { top: 30, right: 40, bottom: 50, left: 60 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
-  const fields: (keyof ParallelCoordinatesPoints)[] = [
-    "cluster",
-    "pca_x",
-    "pca_y",
-    "entropy",
-    "confidence"
-  ];
 
+
+type NumericField =
+  | "cluster"
+  | "pca_x"
+  | "pca_y"
+  | "entropy"
+  | "confidence";
+
+const fields: NumericField[] = [
+  "cluster",
+  "pca_x",
+  "pca_y",
+  "entropy",
+  "confidence",
+];
   // No points, return.
   const visibleData = data.filter(d =>
      visibleClusters.includes(d.cluster)
   );
   if (!data || data.length === 0) {
-    return;
+    return null;
   }
 
   const colorScale = d3.scaleOrdinal<number, string>()  // <type, type> is to make Typescript happy.
@@ -136,17 +143,24 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
 
     // STEP 2. Create the Y axis and its scale.
     // Create an empty object that will hold one Y scale for each field.
-    const yScales: Record<string, d3.ScaleLinear<number, number>> = {};
+const yScales: Record<NumericField, d3.ScaleLinear<number, number>> = {} as Record<
+  NumericField,
+  d3.ScaleLinear<number, number>
+>;
 
-    for (const field of fields) {
-      yScales[field] = d3.scaleLinear()               // create a linear scale for this field.
-        .domain(d3.extent(data, d => d[field]))       // find the minimum and maximum value.
-        .range([height - margin.bottom, margin.top]); // map those values to screen coordinates.
-    }
+   for (const field of fields) {
+      const extent = d3.extent(data, d => d[field]);
+      if (extent[0] === undefined || extent[1] === undefined) {
+         continue;
+      }
+      yScales[field] = d3.scaleLinear()
+        .domain(extent)
+        .range([innerHeight, 0]);
+   }
 
     // STEP 3.  put it all together. Create Y axes for the data,
     //          apply the following "attr"-ibutes to them.
-    function linePath(d: ParallelCoordinatesPoint) {
+    function linePath(d: ParallelCoordinatesPoints) {
       return d3.line()(
         fields.map((dim) => [
            xScale(dim) ?? 0,
