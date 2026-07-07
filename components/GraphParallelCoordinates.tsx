@@ -68,27 +68,29 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
   const innerHeight = height - margin.top - margin.bottom;
 
 
-type NumericField =
-  | "cluster"
-  | "pca_x"
-  | "pca_y"
-  | "entropy"
-  | "confidence";
+  type NumericField =
+    | "cluster"
+    | "pca_x"
+    | "pca_y"
+    | "entropy"
+    | "confidence";
 
-const fields: NumericField[] = [
-  "cluster",
-  "pca_x",
-  "pca_y",
-  "entropy",
-  "confidence",
-];
+  const fields: NumericField[] = [
+    "cluster",
+    "pca_x",
+    "pca_y",
+    "entropy",
+    "confidence",
+  ];
+
   // No points, return.
-  const visibleData = data.filter(d =>
-     visibleClusters.includes(d.cluster)
-  );
   if (!data || data.length === 0) {
     return null;
   }
+
+  const visibleData = data.filter(d =>
+     visibleClusters.includes(d.cluster)
+  );
 
   const colorScale = d3.scaleOrdinal<number, string>()  // <type, type> is to make Typescript happy.
     .domain([0, 1, 2, 3])   // 0 green (CEX); 1 purple (PG); 2 orange (PG); 3 yellow (PG)
@@ -115,11 +117,6 @@ const fields: NumericField[] = [
       .attr("height", height)
       .attr("fill", BLACK_HEX);
 
-    // sort data by their kmeans cluster number.
-    const clusterIDs = Array.from(new Set(data.map(d => d.cluster)))
-      .filter((x): x is number => x !== undefined && x !== null)
-      .sort((a, b) => a - b);
-
     // STEP 0. Prepare graph area.
     //         First, D3 creates a handle, or reference, to the DOM SVG graphic object
     // Add a background and color it black.
@@ -143,12 +140,12 @@ const fields: NumericField[] = [
 
     // STEP 2. Create the Y axis and its scale.
     // Create an empty object that will hold one Y scale for each field.
-const yScales: Record<NumericField, d3.ScaleLinear<number, number>> = {} as Record<
-  NumericField,
-  d3.ScaleLinear<number, number>
->;
+    const yScales: Record<NumericField, d3.ScaleLinear<number, number>> = {} as Record<
+      NumericField,
+      d3.ScaleLinear<number, number>
+    >;
 
-   for (const field of fields) {
+    for (const field of fields) {
       const extent = d3.extent(data, d => d[field]);
       if (extent[0] === undefined || extent[1] === undefined) {
          continue;
@@ -156,7 +153,7 @@ const yScales: Record<NumericField, d3.ScaleLinear<number, number>> = {} as Reco
       yScales[field] = d3.scaleLinear()
         .domain(extent)
         .range([innerHeight, 0]);
-   }
+    }
 
     // STEP 3.  put it all together. Create Y axes for the data,
     //          apply the following "attr"-ibutes to them.

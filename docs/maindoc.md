@@ -93,7 +93,7 @@
   <img src="../images/HeroSmall.png" alt="icon" style="vertical-align: middle; width: 20px; height: 20px;"/> Weaviate database
 </a><br>
 
-## The introduction
+## The introduction  
 I am a software developer doing an independent study into using machine learning to identify crystallization in images. I found an interesting dataset and a really good research paper on the topic, so I wrote code to train on the data, and presented the data, using the paper for guidance. I am posting the code and results here in the hope that others will also find it interesting.
 
 I found the crystal image dataset on Kaggle. I decided to work with it because there were enough images to train with, and the images are all high quality. Here is the hyperlink to the [dataset](https://www.kaggle.com/datasets/opencrystaldata/cephalexin-reactive-crystallization).
