@@ -90,12 +90,12 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
       {/* details for currently selected image (passed from parent) */}
       {selectedMeta != null && (
           <div className="text-xs text-black flex-1">
-            <div className="ml-3">image: {selectedMeta.image_id}</div>
-            <div className="ml-3">label: {selectedMeta.class_label}</div>
-            <div className="ml-3">kmeans/pca group: {selectedMeta.kmeans_pca_cluster}</div>
-            <div className="ml-3">confidence: {selectedMeta.confidence.toFixed(3)}</div>
-            <div className="ml-3">entropy: {selectedMeta.image_entropy.toFixed(3)}</div>
-            <div className="ml-3">timestamp: {selectedMeta.image_header}</div>
+            <div className="ml-3">image file name: {selectedMeta.image_id}</div>
+            <div className="ml-3">model's classification: {selectedMeta.class_label}</div>
+            <div className="ml-3">model's confidence: {selectedMeta.confidence.toFixed(1)} %</div>
+            <div className="ml-3">K-means cluster number: {selectedMeta.kmeans_pca_cluster}</div>
+            <div className="ml-3">image Shannon entropy: {selectedMeta.image_entropy.toFixed(2)}</div>
+            <div className="ml-3">image file timestamp: {selectedMeta.image_header}</div>
           </div>
       )}
     </div>

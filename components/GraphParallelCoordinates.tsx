@@ -38,7 +38,8 @@ type GraphParallelCoordinatesByFilenameProps = {
 // ************************************************
 // { data } 'deconstructs' the props object, so we have just an array later in this code.
 const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
-                                        GraphParallelCoordinatesByFilenameProps > (({ data, visibleClusters }, ref) =>
+                                             GraphParallelCoordinatesByFilenameProps >
+        (({ data, visibleClusters }, ref) =>
 {
   // hooks.
   // list the functions that the parent is allowed to call.
@@ -99,7 +100,7 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
   const selectedColorScale = d3.scaleOrdinal<number, string>()
     .domain([0, 1, 2, 3])
     .range([
-      "#1bff77",  // deep green
+      "#1bdd77",  // deep green
       "#6a3d9a",  // deep purple
       "#d95f02",  // deep orange
       "#ffee00"   // deep gold
@@ -111,11 +112,6 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
     if (!svgRef.current) return;
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
-
-    svg.append("rect")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("fill", BLACK_HEX);
 
     // STEP 0. Prepare graph area.
     //         First, D3 creates a handle, or reference, to the DOM SVG graphic object
@@ -138,25 +134,23 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
       .range([0, innerWidth])
       .padding(0.5);
 
-    // STEP 2. Create the Y axis and its scale.
+    // STEP 2. Create the Y axes and their scales.
     // Create an empty object that will hold one Y scale for each field.
     const yScales: Record<NumericField, d3.ScaleLinear<number, number>> = {} as Record<
       NumericField,
       d3.ScaleLinear<number, number>
     >;
-
+    //  loop through the Y axes and fill with min., max. of data (extent) & the min., max. of the screen.
     for (const field of fields) {
-      const extent = d3.extent(data, d => d[field]);
-      if (extent[0] === undefined || extent[1] === undefined) {
+      const extent = d3.extent(data, d => d[field]); // get the min. and max values.
+      if (extent[0] === undefined || extent[1] === undefined) {  // check for lack of data.
          continue;
       }
-      yScales[field] = d3.scaleLinear()
-        .domain(extent)
-        .range([innerHeight, 0]);
+      // make a Y axis scale with min., max. of data (extent) & the min., max. of the screen.
+      yScales[field] = d3.scaleLinear().domain(extent).range([innerHeight, 0]);
     }
 
-    // STEP 3.  put it all together. Create Y axes for the data,
-    //          apply the following "attr"-ibutes to them.
+    // for every image, loop through every field & create a line through the Y axes.
     function linePath(d: ParallelCoordinatesPoints) {
       return d3.line()(
         fields.map((dim) => [
@@ -166,37 +160,55 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
       );
     }
 
+    // STEP 3.  put it all together. Create Y axes for the data,
+    //          apply the following "attr"-ibutes to them.
     const sel = g.selectAll("path.data-line")
       .data(visibleData)
-      .join("path")
-      .attr("class", "data-line")
-      .attr("d", linePath)
+      .join("path")                // make one path element for each image.
+      .attr("class", "data-line")  // make a <path ... /> for every image.
+      .attr("d", linePath)         // compute each image path.
       .attr("fill", "none")
       .attr("stroke", d => colorScale(d.cluster))
       .attr("stroke-width", 5)
       .attr("opacity", 0.75)
       .on("click", (_, d) => setSelectedFilename(d.filename));
 
-    // tell D3 to draw the selected line last so that it is on top and more visible.
-    //sel.filter(d => d.filename === selectedFilename).raise();
+    // draw the details of each vertical Y axis in a loop.
+    fields.forEach((dim) => {
+       const axisGroup = g.append("g")
+          .attr("transform", `translate(${xScale(dim)},0)`)
+          .call(d3.axisLeft(yScales[dim]).ticks(4));  // draw about 4 ticks.
 
-    // Remove old highlight layer before redrawing it.
+       axisGroup.selectAll("path").attr("stroke", WHITE_HEX);  // path = vertical axis line
+       axisGroup.selectAll("line").attr("stroke", WHITE_HEX);  // line = horizontal tick mark
+       axisGroup.selectAll("text").attr("fill", WHITE_HEX);    // text = tick mark label
+
+       // put the Y axis label at the top of the axis.
+       axisGroup.append("text").attr("y", -5).attr("text-anchor", "middle")
+                               .attr("fill", WHITE_HEX).attr("font-size", 14).text(dim);
+    });
+
+    // STEP 4.  If an image is selected, draw it backlit and in a deeper color.
+    // Remove old highlight path, path.selected-glow, before redrawing it.
     g.selectAll("path.selected-glow").remove();
+
+    // Get the currently selected file name, if there is one.
     const selectedDatum = data.find(d => d.filename === selectedFilename);
     if (selectedDatum) {
-      // Backlit / glow line.
+
+      // Draw a backlit/glow line called path.selected-glow.
       g.append("path")
        .datum(selectedDatum)
        .attr("class", "selected-glow")
        .attr("d", linePath)
        .attr("fill", "none")
        .attr("stroke", "#ffd54f").attr("stroke-width", 16)
-       .attr("opacity", 0.75)
+       .attr("opacity", 0.5)
        .attr("stroke-linecap", "round").attr("stroke-linejoin", "round")
-       .style("filter", "blur(5px)")  // tell SVG to add blurred path.
+       .style("filter", "blur(2px)")  // tell SVG to add blurred path.
        .raise();
 
-      // Crisp selected line.
+      // Draw a crisp line in a deeper color, on top of the glowing line.
       g.append("path")
        .datum(selectedDatum)
        .attr("class", "selected-glow")
@@ -208,26 +220,6 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
        .raise();
     }
 
-    // create an animation that makes the currently selected file name prominent.
-    sel
-      .transition()
-      .duration(300)
-      .ease(d3.easeCubicOut)
-      .attr("stroke", d => d.filename === selectedFilename ? "#fff" : colorScale(d.cluster))
-      .attr("stroke-width", d => d.filename === selectedFilename ? 7 : 5)
-      .attr("opacity", d => d.filename === selectedFilename ? 1 : 0.75);
-
-    // draw the details of each axis in a loop.
-    fields.forEach((dim) => {
-       const axisGroup = g.append("g")
-          .attr("transform", `translate(${xScale(dim)},0)`)
-          .call(d3.axisLeft(yScales[dim]).ticks(5));
-       axisGroup.selectAll("path").attr("stroke", WHITE_HEX);
-       axisGroup.selectAll("line").attr("stroke", WHITE_HEX);
-       axisGroup.selectAll("text").attr("fill", WHITE_HEX);
-       axisGroup.append("text").attr("y", -5).attr("text-anchor", "middle")
-                               .attr("fill", WHITE_HEX).attr("font-size", 14).text(dim);
-    });
 
   }, [data]);  // closes forwardRef call
 
