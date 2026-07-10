@@ -7,14 +7,14 @@
 
 "use client";
 
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { forwardRef, useImperativeHandle } from "react";
 
 import * as d3 from "d3";
 import { copySvgElementToClipboard, copyPngElementToClipboard } from "@/lib/exportImages"
 import { useLog } from "@/components/LogPanel";
 import { useSelection } from "@/components/SelectionContext";
-import { BLACK_HEX } from "@/lib/graphUtilities";
+import { BLACK_HEX, WHITE_HEX } from "@/lib/graphUtilities";
 
 export type GraphParallelCoordinatesFunctions = {
   copySvg: () => void;
@@ -63,11 +63,9 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
 
   const width = 900;
   const height = 450;
-  const WHITE_HEX = "#FFFFFF";
   const margin = { top: 30, right: 40, bottom: 50, left: 60 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
-
 
   type NumericField =
     | "cluster"
@@ -135,11 +133,12 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
       .padding(0.5);
 
     // STEP 2. Create the Y axes and their scales.
-    // Create an empty object that will hold one Y scale for each field.
-    const yScales: Record<NumericField, d3.ScaleLinear<number, number>> = {} as Record<
-      NumericField,
-      d3.ScaleLinear<number, number>
-    >;
+    // Create a Typescript type that is effectively a dictionary for field objects.
+    type YScaleMap = Record< NumericField, d3.ScaleLinear<number, number> >;
+
+    // TypeScript is told that the dictionary will eventually become a YScaleMap.
+    const yScales = {} as YScaleMap;
+
     //  loop through the Y axes and fill with min., max. of data (extent) & the min., max. of the screen.
     for (const field of fields) {
       const extent = d3.extent(data, d => d[field]); // get the min. and max values.
