@@ -54,6 +54,26 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
   useEffect(() => {log(`[data]   Images count ${images.length}`); }, [images.length]);
   useEffect(() => {log(`[select] Gallery image ${selectedFilename}`); }, [selectedFilename]);
 
+  const [showFirstImageCue, setShowFirstImageCue] = useState(false);
+
+  useEffect(() => {
+    if (selectedFilename) return;
+    const startTimer = window.setTimeout(() => {
+      if (!selectedFilename) {
+        setShowFirstImageCue(true);
+      }
+    }, 3000);
+
+    const stopTimer = window.setTimeout(() => {
+      setShowFirstImageCue(false);
+    }, 10000);
+
+    return () => {
+      window.clearTimeout(startTimer);
+      window.clearTimeout(stopTimer);
+    };
+  }, [selectedFilename]);
+
   useEffect(() => {
     if (!selectedFilename || !selectedMeta) return;
 
@@ -74,35 +94,44 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
   }, [selectedFilename]);
 
   return (
-  <div>
-    <div className="flex flex-col md:flex-row gap-4 pt-4">
-      {selectedImage ? (
-        <img
-          src={selectedImage.src}
-          className="w-40 h-40 object-contain rounded mb-4 bg-gray-300"
-        />
-      ) : (
-        <div className="w-40 h-40 rounded mb-4 bg-gray-300 flex items-center justify-center text-white">
-          No selection
-        </div>
-      )}
+  <div className="flex h-full min-h-0 flex-col">
+
+    {/* Selected image and metadata          className="flex shrink-0 gap-4"> */}
+    <div className="flex shrink-0 gap-4">
+
+      {/* Selected image */}
+      <div className="shrink-0">
+        {selectedImage ? (
+          <img src={selectedImage.src}
+            className="w-28 h-28 object-contain rounded border-2 border-blue-900 mb-4 " />
+        ) : (
+          <div className="w-28 h-28 rounded mb-4 bg-gray-300 border-2 border-blue-900 flex items-center justify-center text-black">
+            No image selected
+          </div>
+        )}
+      </div>
 
       {/* details for currently selected image (passed from parent) */}
-      {selectedMeta != null && (
-          <div className="text-xs text-black flex-1">
-            <div className="ml-3">image file name: {selectedMeta.image_id}</div>
-            <div className="ml-3">model's classification: {selectedMeta.class_label}</div>
-            <div className="ml-3">model's confidence: {selectedMeta.confidence.toFixed(1)} %</div>
-            <div className="ml-3">K-means cluster number: {selectedMeta.kmeans_pca_cluster}</div>
-            <div className="ml-3">image Shannon entropy: {selectedMeta.image_entropy.toFixed(2)}</div>
-            <div className="ml-3">image file timestamp: {selectedMeta.image_header}</div>
+      <div className="min-w-0 flex-1" >
+        {selectedMeta != null && (
+          <div className="text-base text-black">
+            <div className="ml-3">image file: {selectedMeta.image_id}</div>
+            <div className="ml-3">classification: {selectedMeta.class_label}</div>
+            <div className="ml-3">confidence: {selectedMeta.confidence.toFixed(1)} %</div>
+            <div className="ml-3">K-means no.: {selectedMeta.kmeans_pca_cluster}</div>
+            <div className="ml-3">Shannon entropy: {selectedMeta.image_entropy.toFixed(2)}</div>
+            <div className="ml-3">timestamp: {selectedMeta.image_header}</div>
           </div>
-      )}
+
+        )}
+      </div>
     </div>
 
-    <div className="grid grid-cols-3 gap-1">
-         {images.map((c) => {
-            const clusterIndex = Number(c.kmeans_pca_cluster);
+    {/* Scrollable gallery */}
+    <div className="mt-4 min-h-0 flex-1 overflow-y-auto grid
+                    grid-cols-[repeat(auto-fill,7rem)] auto-rows-[7rem] gap-1 content-start">
+         {images.map((image, index) => {
+            const clusterIndex = Number(image.kmeans_pca_cluster);
             const borderClass =
                   CLUSTER_COLORS[clusterIndex] ?? "border-l-slate-400";  // slate fallback
             const colorHex =
@@ -110,26 +139,27 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
 
             return (
                <button
-                  key={c.filename}
-                  onClick={() => setSelectedFilename(c.filename)}
-                  className={` relative rounded-md overflow-hidden
-                     border-l-0 ${borderClass}  `}
-                  >
-                  <img
-                     src={c.src}
-                     className="block w-full h-full object-cover"
-                  />
+                  key={image.filename}
+                  onClick={() => {setSelectedFilename(image.filename);
+                                  setShowFirstImageCue(false);
+                                 }}
+                  className={`relative h-28 w-28 rounded-md
+                             ${index === 0 && showFirstImageCue
+                                 ? "animate-pulse"
+                                 : ""
+                              }
+                             ${borderClass}`} >
 
-                 {/* cluster badge */}
-                 <span
-                    className=" absolute top-1 right-1
-                                size-4 rounded-full "
-                    style={{ backgroundColor: colorHex }}
-                 />
+                  {/* image */}
+                  <img className="block w-full h-full object-cover p-1" src={image.src} alt={image.filename} />
+
+                  {/* colored circle */}
+                  <span className=" absolute top-2 right-2 size-4 rounded-full "
+                        style={{ backgroundColor: colorHex }} />
               </button>
             );
          })}
-    </div>
+      </div>
   </div>
   );
 }

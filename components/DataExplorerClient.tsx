@@ -136,21 +136,24 @@ export default function DataExplorerClient({ crystals, error }: {
 
             {/* outermost div */}
             <div
-               /* create grid; gap 16px between grid items; min. 1 col. displayed; med. scr. = 2 cols; xl scr. = 4 cols.; min. row height 220  */
-               className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 auto-rows-auto" >
+               /* create grid; show 4 columns; gap 4px between grid items; min. 1 col. displayed; med. scr. = 2 cols; xl scr. = 4 cols.; min. row height 220  */
+               className="grid grid-cols-3 gap-1" >
 
                {/* Image gallery of crystal images */}
-               <section className="row-span-3 bg-white rounded-xl p-3">
-                 <h2 className="text-lg text-black ">Image Gallery (click an image)
-                    <Tooltip content={TOOLTIP_TEXT.gallery}>
-                       <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
-                    </Tooltip>
-                    <ImageGallery images={imageFiles} onAddNeighbors={handleAddNeighbors} />
+               <section className="sticky top-4 col-start-1 row-span-3 h-[calc(100vh-22rem)] min-h-0 rounded-xl bg-white p-3 flex flex-col">
+                 <h2 className="shrink-0 text-lg text-black"> Image Gallery (click an image)
+                   <Tooltip content={TOOLTIP_TEXT.gallery}>
+                     <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
+                   </Tooltip>
                  </h2>
-               </section>
+
+                 <div className="min-h-0 flex-1">
+                   <ImageGallery images={imageFiles} onAddNeighbors={handleAddNeighbors}  />
+                 </div>
+              </section>
 
                {/* Force directed graph showing nearest neighbors for feature vectors from the db. */}
-               <section className="row-span-1 col-span-2 bg-slate-900/60 rounded-xl p-4">
+               <section className="row-span-1 col-start-2 col-span-2 bg-slate-900/60 rounded-xl p-4">
                  <h2 className="flex items-center gap-2 mb-2 text-lg font-medium">Force directed graph (drag points; roll mouse wheel)
                     <Tooltip content={TOOLTIP_TEXT.force}>
                        <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
@@ -164,11 +167,12 @@ export default function DataExplorerClient({ crystals, error }: {
                     </Tooltip>
 
                  </h2>
-                 <GraphForceDirected nodes={Array.from(graphNodes.values())} links={graphEdges} width={900} height={400} ref={fdgRef} />
+                 <GraphForceDirected nodes={Array.from(graphNodes.values())} links={graphEdges}
+                                     width={900} height={400} ref={fdgRef} />
                </section>
 
                {/* Kmeans, PCA scatter plot: spans 2 columns on xl */}
-               <section className="xl:row-span-1 bg-slate-900/60 rounded-xl p-4">
+               <section className="col-start-2 row-span-1 bg-slate-900/60 rounded-xl p-4">
                  <h2 className="mb-2 text-lg font-medium">Kmeans/PCA scatter plot (click a point)
                     <Tooltip content={TOOLTIP_TEXT.kmeans}>
                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
@@ -181,7 +185,7 @@ export default function DataExplorerClient({ crystals, error }: {
                </section>
 
                {/* Entropy scatter plot: spans 2 columns on xl */}
-               <section className="xl:row-span-1 bg-slate-900/60 rounded-xl p-4">
+               <section className="col-start-3 row-span-1 bg-slate-900/60 rounded-xl p-4">
                  <h2 className="mb-2 text-lg font-medium">Entropy scatter plot (click a point)
                     <Tooltip content={TOOLTIP_TEXT.entropy}>
                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
@@ -193,7 +197,7 @@ export default function DataExplorerClient({ crystals, error }: {
                </section>
 
                {/* Parallel Coordinates plot: spans 2 columns on xl */}
-               <section className="row-span-1 col-span-2 bg-slate-900/60 rounded-xl p-4">
+               <section className="col-start-2 col-span-2 row-span-1  bg-slate-900/60 rounded-xl p-4">
                  <h2 className="mb-2 text-lg font-medium">Parallel Coordinates plot
                     <Tooltip content={TOOLTIP_TEXT.parallelcoordinates}>
                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
@@ -218,26 +222,8 @@ export default function DataExplorerClient({ crystals, error }: {
                  <GraphParallelCoordinates data={parallelcoordinatesData} visibleClusters={visibleClusters} ref={parRef} />
                </section>
 
-               {/* Panel showing log messages:  1 row, 1 col */}
-               <div  className={"bg-slate-900/60 rounded-xl p-4"} > {/* log message div */}
-                 <Button onClick={toggleVisibility} >
-                   {isVisible ? "Hide logs" : "Show logs"}
-                 </Button>
-
-                 {isVisible && (
-                   <>
-                   <h2 className="flex items-center gap-2 mb-2 text-lg font-medium">Message log.
-                      <Tooltip content={TOOLTIP_TEXT.log}>
-                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
-                      </Tooltip>
-                   </h2>
-                   <LogPanel />
-                   </>
-                 )}
-               </div>  {/* log message div */}
-
                {/* CAM accordions */}
-               <section className="row-span-1 bg-slate-900/60 text-white rounded-xl p-4">
+               <section className="col-start-2 row-span-1 bg-slate-900/60 text-white rounded-xl p-4">
                  <h2 className="mb-2 text-lg font-medium">CEX CAM accordion (click a image)
                     <Tooltip content={TOOLTIP_TEXT.accordionCEX}>
                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
@@ -254,7 +240,7 @@ export default function DataExplorerClient({ crystals, error }: {
                </section>
 
                {/* Histogram and panel showing selected original image & its CAM */}
-               <section className="row-span-1 bg-slate-900/60 text-white rounded-xl p-4">
+               <section className="col-start-3 row-span-1 bg-slate-900/60 text-white rounded-xl p-4">
                  <h2 className="mb-2 text-lg font-medium">Image histogram (hover for data)
                     <Tooltip content={TOOLTIP_TEXT.histogram}>
                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
@@ -270,6 +256,25 @@ export default function DataExplorerClient({ crystals, error }: {
                  </h2>
 
                </section>
+
+               {/* Panel showing log messages:  bottom row, col 2 */}
+               <div className="col-start-2 col-span-2 bg-slate-900/60 rounded-xl p-4">
+                 <Button
+                     onClick={toggleVisibility} >
+                   {isVisible ? "Hide logs" : "Show logs"}
+                 </Button>
+
+                 {isVisible && (
+                   <>
+                   <h2 className="flex items-center gap-2 mb-2 text-lg font-medium">Message log.
+                      <Tooltip content={TOOLTIP_TEXT.log}>
+                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
+                      </Tooltip>
+                   </h2>
+                   <LogPanel />
+                   </>
+                 )}
+               </div>  {/* log message div */}
 
             </div>  {/* outermost div */}
           </main>

@@ -87,8 +87,6 @@ export function mergeGraphData(
       newEdges.push({
          source: center.id,
          target: n.id,
-         distance: n.distance ?? 0,
-         weight: 1 / ((n.distance ?? 0) + 1e-6),
       });
     }
   }

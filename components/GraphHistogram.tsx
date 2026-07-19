@@ -25,7 +25,7 @@ export default function GraphHistogram() {
   const [pixels, setPixels] = useState<number[]>([]);
 
   const width = 300;
-  const height = 340;
+  const height = 322;
   const hasPixels = pixels.length > 0;
 
   // when the currently selected file name changes, gets its pixels.

@@ -140,8 +140,8 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
    // create an instance of the physics engine from D3.
    // "links" pulls toward neighbors; connects edges by id field; try to keep them 60 pixels apart (distance).
    // "charge" is repulsion, so objects do not cover each other, if possible.
-   // "center" pulls all objects to the center, so they don't all off stage while fighting.
-   // "x", "y" pulls individual object to the center.
+   // "center" centers all objects within the plot.
+   // "x", "y" pulls individual object to the center, so they don't wander off stage.
    const simulation = d3
     .forceSimulation(nodes)
     .force("link",d3.forceLink(links).id((d: any) => d.id).distance(60))
@@ -159,27 +159,26 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
         d.y = Math.max(padding, Math.min(height - padding, d.y ?? 0));
       });
 
-    // update links
-    d3.select(linkGroupRef.current!)
-      .selectAll<SVGLineElement, any>("line")
-      .attr("x1", d => d.source.x)
-      .attr("y1", d => d.source.y)
-      .attr("x2", d => d.target.x)
-      .attr("y2", d => d.target.y);
+      // update links
+      d3.select(linkGroupRef.current!)
+        .selectAll<SVGLineElement, any>("line")
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
 
-    // update nodes
-    d3.select(nodeGroupRef.current!)
-      .selectAll<SVGCircleElement, any>("circle")
-      .attr("cx", d => d.x)
-      .attr("cy", d => d.y);
+      // update nodes
+      d3.select(nodeGroupRef.current!)
+        .selectAll<SVGCircleElement, any>("circle")
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
 
-    // update labels
-    d3.select(labelGroupRef.current!)
-      .selectAll<SVGTextElement, any>("text")
-      .attr("x", d => d.x)
-      .attr("y", d => d.y);
-
-  });
+      // update labels
+      d3.select(labelGroupRef.current!)
+        .selectAll<SVGTextElement, any>("text")
+        .attr("x", d => d.x)
+        .attr("y", d => d.y);
+    });
 
   // --- Store simulation ---
   simulationRef.current = simulation;
@@ -221,7 +220,7 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
 
    nodeSel
      .merge(nodeEnter)
-     .attr("r", d => (d.isCenter ? 10 : 8))
+     .attr("r", d => (d.isCenter ? 13 : 9))
      .attr("fill", d => (d.cluster == null ? "#f00" : colorScale(d.cluster)))
      .attr("stroke", d => (d.isCenter ? "#fff" : "none"))
      .attr("stroke-width", d => (d.isCenter ? 2 : 0))

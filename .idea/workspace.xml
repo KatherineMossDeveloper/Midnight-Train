@@ -6,8 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="bd1584ab-e917-4af0-8e13-a33a80aa0ddc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/GraphParallelCoordinates.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphParallelCoordinates.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DataExplorerClient.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DataExplorerClient.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphForceDirected.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphForceDirected.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GraphHistogram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphHistogram.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ImageGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ImageGallery.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/WeaviateStatus.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/WeaviateStatus.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/graphUtilities.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/graphUtilities.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/FDGtypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/FDGtypes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,15 +33,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/mossr/Desktop/MidnightTrain/MidnightTrainApp/components&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.web.browsers&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/mossr/Desktop/MidnightTrain/MidnightTrainApp/components",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\mossr\Desktop\MidnightTrain\MidnightTrainApp\components" />
