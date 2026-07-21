@@ -48,7 +48,7 @@ export function mergeGraphData(
 
   // Clear previous center flags
   newNodes.forEach(node => {
-     node.isCenter = false;
+     node.isSelectedFilename = false;
   });
 
   // Add center node, mark as the center one.
@@ -56,11 +56,11 @@ export function mergeGraphData(
     newNodes.set(center.id,
         {id: center.id,
          image_id: center.image_id,
-         isCenter: true });
+         isSelectedFilename: true });
   }
   // mark the center one, even if not new. (c)
   const centerNode = newNodes.get(center.id)!;
-  centerNode.isCenter = true;
+  centerNode.isSelectedFilename = true;
   centerNode.image_id = center.image_id;
 
   if (center.kmeans_pca_cluster !== undefined && center.kmeans_pca_cluster !== null) {

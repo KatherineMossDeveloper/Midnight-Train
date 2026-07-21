@@ -154,7 +154,7 @@ export default function DataExplorerClient({ crystals, error }: {
 
                {/* Force directed graph showing nearest neighbors for feature vectors from the db. */}
                <section className="row-span-1 col-start-2 col-span-2 bg-slate-900/60 rounded-xl p-4">
-                 <h2 className="flex items-center gap-2 mb-2 text-lg font-medium">Force directed graph (drag points; roll mouse wheel)
+                 <h2 className="flex items-center gap-2 mb-2 text-lg font-medium">Force directed graph (drag circles)
                     <Tooltip content={TOOLTIP_TEXT.force}>
                        <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
                     </Tooltip>
@@ -173,7 +173,7 @@ export default function DataExplorerClient({ crystals, error }: {
 
                {/* Kmeans, PCA scatter plot: spans 2 columns on xl */}
                <section className="col-start-2 row-span-1 bg-slate-900/60 rounded-xl p-4">
-                 <h2 className="mb-2 text-lg font-medium">Kmeans/PCA scatter plot (click a point)
+                 <h2 className="mb-2 text-lg font-medium">Kmeans/PCA scatter plot (click a circle)
                     <Tooltip content={TOOLTIP_TEXT.kmeans}>
                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
                     </Tooltip>
@@ -186,7 +186,7 @@ export default function DataExplorerClient({ crystals, error }: {
 
                {/* Entropy scatter plot: spans 2 columns on xl */}
                <section className="col-start-3 row-span-1 bg-slate-900/60 rounded-xl p-4">
-                 <h2 className="mb-2 text-lg font-medium">Entropy scatter plot (click a point)
+                 <h2 className="mb-2 text-lg font-medium">Entropy scatter plot (click a circle)
                     <Tooltip content={TOOLTIP_TEXT.entropy}>
                         <span className="text-slate-400 cursor-help select-none"> ℹ️ </span>
                     </Tooltip>

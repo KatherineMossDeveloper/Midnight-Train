@@ -10,7 +10,7 @@
 //  image_id: "CEX (1).png",
 //  cluster: 0,
 //  confidence: 100,
-//  isCenter: false,
+//  isSelectedFilename: false,
 //
 //  index: 0,                       <-- the d3-force SimulationNodeDatum fields
 //  x: 563.1,
@@ -33,10 +33,10 @@ import type { SimulationNodeDatum } from "d3-force";
 import type { SimulationLinkDatum } from "d3-force";
 
 export type GraphNode = SimulationNodeDatum & {
-  id: string;                 // Weaviate UUID
-  image_id?: string;          // filename
-  cluster?: number;           // kmeans cluster
-  isCenter?: boolean;         // last chosen node
+  id: string;                    // Weaviate UUID
+  image_id?: string;             // filename
+  cluster?: number;              // kmeans cluster
+  isSelectedFilename?: boolean;  // last chosen image
 };
 
 export type GraphLink = SimulationLinkDatum<GraphNode> & {

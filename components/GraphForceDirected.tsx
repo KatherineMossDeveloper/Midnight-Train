@@ -1,7 +1,7 @@
 // GraphForceDirected.tsx
 // creates and maintains the force directed graph of image relationships,
 // as calculated by the Weaviate database default nearest neighbor algorithm,
-// or as pulled from the JSON file.  Note that this component is a forward
+// or as pulled from the JSON files.  Note that this component is a forward
 // referenced constant that is exported, rather than an exported function.
 // The parent, DataExplorerClient, owns the buttons, but the child,
 // ForceDirectedGraph, owns the data, so the parent calls the functions in
@@ -13,9 +13,12 @@
 // const GraphForceDirected = forwardRef
 //
 // There are three useEffect's here.
-// to update the log:  useEffect(() => {log("GraphForceDirected mounted.");}, [log]);
-// to create the FDG:  useEffect(() => { if (!svgRef.current) return;
-// to update the FDG:  useEffect(() => { if (!simulationRef.current) return;
+// the log:  useEffect(() => {log("GraphForceDirected mounted.");}, [log]);
+//    puts the 'hello world' message in the log panel.
+// the "create" useEffect:  useEffect(() => { if (!svgRef.current) return;
+//    creates SVG, links, nodes, labels, simulation, and registers tick callback
+// the "update" useEffect:  useEffect(() => { if (!simulationRef.current) return;
+//    sends new nodes, new links, and restarts simulation.
 //
 // Notes on the flow.
 // useEffect number one (create) waits for the DOM to exist so the graph can be created.
@@ -39,12 +42,23 @@ import TooltipFDG from "@/components/ui/TooltipFDG";
 
 // D3
 import * as d3 from "d3";
-import { createZoomBehavior } from "@/lib/d3/createZoom";
-import { createDragBehavior } from "@/lib/d3/createDrag";
+import { createDragBehavior } from "@/lib/d3/createDragBehavior";
 
 // misc.
 import { BLACK_HEX } from "@/lib/graphUtilities";
+import { WHITE_HEX } from "@/lib/graphUtilities";
 import { copySvgElementToClipboard, copyPngElementToClipboard } from "@/lib/exportImages"
+
+// physics engine variables.
+const forceManyBodyStrength = -50;  // how strong the nodes repel each other; a.k.a., "charge".
+const forceLinkDistance = 80;       // preferred length of edges, or lines.
+
+// optional variables to set.
+const forceAlphaDecay = 0.02;       // how fast should the animation resolve?
+const forceVelocityDecay = 0.05;    // velocity decay; a.k.a., friction
+const forceXstrength = 0.05;        // pulls nodes to the center
+const forceYstrength = 0.05;        // pulls nodes to the center
+
 
 export type GraphForceDirectedFunctions = {
   copySvg: () => void;
@@ -89,8 +103,9 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
   const linkGroupRef = useRef<SVGGElement | null>(null);
   const nodeGroupRef = useRef<SVGGElement | null>(null);
   const labelGroupRef = useRef<SVGGElement | null>(null);
-  const zoomGroupRef = useRef<SVGGElement | null>(null);
-  const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, imageSrc: "", label: "", });
+
+  const forceCenterWidth = width/2;   // these keep the whole graph centered in the plot;
+  const forceCenterHeight = height/2; // a.k.a., "center".
 
   // create a function that takes a number (cluster no.) and returns the hex color as a string.
   // the colors are "#7fc97f", green; "#beaed4" purple; "#fdc086" orange; "#ffff99" yellow
@@ -111,27 +126,18 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
      .attr("height", height)
      .attr("fill", BLACK_HEX);
 
-   // --- ZOOM ROOT ---
-   const zoomGroup = svg.append("g");
-   zoomGroupRef.current = zoomGroup.node();
+   const graphGroup = svg.append("g");
 
-   // --- create and attach mouse events, etc. to the SVG ---
-   if (!zoomGroupRef.current) return;
-   const zoomBehavior = createZoomBehavior(zoomGroupRef.current);
-   svg.call(zoomBehavior as any);
-
-   // --- disable dbl-click zoom ---
-   svg.on("dblclick.zoom", null);
-
-   // create persistent groups
+   // Links, nodes, and labels are the pieces that make up the FDG elements.  Putting them
+   // into the graphGroup, together appended to "g", organizes them neatly as one collection.
    // using links as an example, these objects are...
    // linkGroup        = D3 selection wrapper; a container that will be given data in the 2nd useEffect.
    // linkGroup.node() = actual SVG <g> DOM element
    // linkGroupRef     = React ref holding that DOM element
 
-   const linkGroup = zoomGroup.append("g").attr("class", "fdg-links").attr("stroke", "#888").attr("stroke-opacity", 0.6);
-   const nodeGroup = zoomGroup.append("g").attr("class", "fdg-nodes").attr("stroke", "#fff").attr("stroke-width", 1.5);
-   const labelGroup = zoomGroup.append("g").attr("class", "fdg-labels").attr("font-size", 10).attr("fill", "#ddd");
+   const linkGroup = graphGroup.append("g").attr("class", "fdg-links").attr("stroke", WHITE_HEX).attr("stroke-opacity", 0.9);
+   const nodeGroup = graphGroup.append("g").attr("class", "fdg-nodes").attr("stroke", WHITE_HEX).attr("stroke-width", 1.5);
+   const labelGroup = graphGroup.append("g").attr("class", "fdg-labels").attr("font-size", 10).attr("fill", "#ddd");
 
    linkGroupRef.current = linkGroup.node();
    nodeGroupRef.current = nodeGroup.node();
@@ -142,24 +148,30 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
    // "charge" is repulsion, so objects do not cover each other, if possible.
    // "center" centers all objects within the plot.
    // "x", "y" pulls individual object to the center, so they don't wander off stage.
-   const simulation = d3
-    .forceSimulation(nodes)
-    .force("link",d3.forceLink(links).id((d: any) => d.id).distance(60))
-    .force("charge", d3.forceManyBody().strength(-120))
-    .force("center", d3.forceCenter(width / 2, height / 2))
-    .force("x", d3.forceX(width / 2).strength(0.05))
-    .force("y", d3.forceY(height / 2).strength(0.05));
 
-    // tick handler; on every tick, update the SVG positions:
-    // links, circles, and labels move to source/target x/y
-    const padding = 20;
-    simulation.on("tick", () => {
+   // STEP 3.  Create the force directed graph simulation.
+   const simulation = d3
+     .forceSimulation(nodes)
+     .force("link",d3.forceLink(links).id((d: any) => d.id).distance(forceLinkDistance))
+     .force("charge", d3.forceManyBody().strength(forceManyBodyStrength))
+     .force("center", d3.forceCenter(forceCenterWidth, forceCenterHeight))
+     .force("x", d3.forceX(forceCenterWidth).strength(forceXstrength))
+     .force("y", d3.forceY(forceCenterHeight).strength(forceYstrength));
+     //.alphaDecay(forceAlphaDecay)
+     //.velocityDecay(forceVelocityDecay);
+
+
+    // register tick handler; on every tick, update the SVG positions:
+    // links, circles, and labels move to their new positions.
+   const padding = 20;
+   simulation.on("tick", () =>
+   {
       nodes.forEach(d => {
         d.x = Math.max(padding, Math.min(width - padding, d.x ?? 0));
         d.y = Math.max(padding, Math.min(height - padding, d.y ?? 0));
       });
 
-      // update links
+      // links
       d3.select(linkGroupRef.current!)
         .selectAll<SVGLineElement, any>("line")
         .attr("x1", d => d.source.x)
@@ -167,27 +179,27 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
         .attr("x2", d => d.target.x)
         .attr("y2", d => d.target.y);
 
-      // update nodes
+      // nodes
       d3.select(nodeGroupRef.current!)
         .selectAll<SVGCircleElement, any>("circle")
         .attr("cx", d => d.x)
         .attr("cy", d => d.y);
 
-      // update labels
+      // labels
       d3.select(labelGroupRef.current!)
         .selectAll<SVGTextElement, any>("text")
         .attr("x", d => d.x)
         .attr("y", d => d.y);
-    });
+   });
 
-  // --- Store simulation ---
-  simulationRef.current = simulation;
+   // --- Store simulation ---
+   simulationRef.current = simulation;
 
-  // --- Cleanup on unmount ---
-  return () => {
-    simulation.stop();
-  };
- }, []);  // end of 1st useEffect for initialization of the graph.
+   // --- Cleanup on unmount ---
+   return () => {
+     simulation.stop();
+   };
+  }, []);  // end of 1st useEffect for initialization of the graph.
 
 
  // ---> useEffect number two.  Update graph when data changes.
@@ -197,88 +209,60 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
 
    const simulation = simulationRef.current;
 
-  // --- LINKS ---
+   // STEP 0.  Draw the labels.
+   const labelSel = d3
+     .select(labelGroupRef.current!)
+     .selectAll<SVGTextElement, any>("text")
+     .data(nodes, d => d.id)
+     .join("text")
+     .text(d => d.image_id ?? d.id)
+     .attr("fill", WHITE_HEX)
+     .attr("font-size", 14)
+     .attr("dx", 8)
+     .attr("dy", "0.35em");
+
+   // STEP 1.  Draw the links.
    const linkSel = d3
      .select(linkGroupRef.current!)
      .selectAll("line")
-     .data(links, (d: any) => `${d.source}-${d.target}`);
-   linkSel.exit().remove();
-   linkSel
-     .enter()
-     .append("line")
+     .data(links, (d: any) => `${d.source}-${d.target}`)
+     .join("line")
      .attr("stroke-width", 1);
 
-   // --- NODES ---
+   // STEP 2.  Draw the nodes.
    const nodeSel = d3
      .select(nodeGroupRef.current!)
      .selectAll<SVGCircleElement, GraphNode>("circle")
-     .data(nodes, d => d.id);
-   nodeSel.exit().remove();
-   const nodeEnter = nodeSel
-     .enter()
-     .append("circle")
+     .data(nodes, d => d.id)
+     .join("circle")
+     .attr("r", d => (d.isSelectedFilename ? 13 : 9))
+     .attr("fill", d => (d.cluster == null ? BLACK_HEX : colorScale(d.cluster)))
+     .attr("stroke", d => (d.isSelectedFilename ? WHITE_HEX : "none"))
+     .attr("stroke-width", d => (d.isSelectedFilename ? 2 : 0))
+     .call(createDragBehavior(simulationRef.current!));
 
-   nodeSel
-     .merge(nodeEnter)
-     .attr("r", d => (d.isCenter ? 13 : 9))
-     .attr("fill", d => (d.cluster == null ? "#f00" : colorScale(d.cluster)))
-     .attr("stroke", d => (d.isCenter ? "#fff" : "none"))
-     .attr("stroke-width", d => (d.isCenter ? 2 : 0))
-     .call(createDragBehavior(simulationRef.current!))
-     .on("mousedown.zoom", null)  // when mouse is pressed on a node, do not start a zoom.
-     .on("mouseover", (event, d) => {
-       setTooltip({
-         visible: true,
-         x: event.clientX,
-         y: event.clientY,
-         imageSrc: `/images_testing/${d.image_id}`,
-         label: d.image_id ?? "",
-       });
-     })
-     .on("mousemove", (event) => {
-       setTooltip(prev => ({
-         ...prev,
-         x: event.clientX,
-         y: event.clientY,
-       }));
-     })
-     .on("mouseout", () => {
-       setTooltip(prev => ({ ...prev, visible: false }));
-     });
+   // call the D3 physics engine to refresh the UI.
+   // D3 will calculate the new positions and velocities, and
+   // call the tick handler created in the "create" useEffect.
+   simulation.nodes(nodes as any);  // give the updated nodes to the physics engine
+   (simulation.force("link") as any).links(links as any);  // give the link force new links.
+   simulation.alpha(0.7).restart();  // restart the physics engine.
 
-  // --- LABELS ---
-  const labelSel = d3
-    .select(labelGroupRef.current!)
-    .selectAll<SVGTextElement, any>("text")
-    .data(nodes, (d: any) => d.id);
-  labelSel.exit().remove();
-  labelSel
-    .enter()
-    .append("text")
-    .text(d => d.image_id ?? d.id)  // filename preferred
-    .attr("dx", 8)                  // offset from node
-    .attr("dy", "0.35em");
+ }, [nodes, links]);  // end of 2nd useEffect for maintenance of the graph.
 
-  // --- UPDATE SIMULATION ---
-  simulation.nodes(nodes as any);
-  (simulation.force("link") as any).links(links as any);
 
-  simulation.alpha(0.7).restart();
-}, [nodes, links]);  // end of 2nd useEffect for maintenance of the graph.
-
-  // TooltipFDG is a sibling to the SVG; not in D3, hence, its location below.
   return (
-  <div style={{ marginTop: 24 }}>
+   <div style={{ marginTop: 24 }}>
       <svg
          ref={svgRef}
          className="w-full h-full"
          viewBox={`0 0 ${width} ${height}`}
          preserveAspectRatio="xMidYMid meet"
-         />
-      <TooltipFDG {...tooltip} />
-  </div>
-);
+      />
+   </div>
+  );
 
 }); // closes forwardRef call
 
 export default GraphForceDirected;
+
