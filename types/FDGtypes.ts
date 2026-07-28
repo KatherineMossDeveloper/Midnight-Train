@@ -16,7 +16,9 @@
 //  x: 563.1,
 //  y: 289.5,
 //  vx: 0.0004,
-//  vy: 0.0002
+//  vy: 0.0002,
+//  fx: null,
+//  fx: null
 // }
 //
 // Before the simulation begins, D3 "normalizes" the two types, GraphNode and
@@ -39,7 +41,5 @@ export type GraphNode = SimulationNodeDatum & {
   isSelectedFilename?: boolean;  // last chosen image
 };
 
-export type GraphLink = SimulationLinkDatum<GraphNode> & {
-  source: string | GraphNode;
-  target: string | GraphNode;
-};
+export type GraphLink = SimulationLinkDatum<GraphNode>;
+

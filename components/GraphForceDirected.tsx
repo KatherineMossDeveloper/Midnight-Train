@@ -126,18 +126,9 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
      .attr("height", height)
      .attr("fill", BLACK_HEX);
 
-   const graphGroup = svg.append("g");
-
-   // Links, nodes, and labels are the pieces that make up the FDG elements.  Putting them
-   // into the graphGroup, together appended to "g", organizes them neatly as one collection.
-   // using links as an example, these objects are...
-   // linkGroup        = D3 selection wrapper; a container that will be given data in the 2nd useEffect.
-   // linkGroup.node() = actual SVG <g> DOM element
-   // linkGroupRef     = React ref holding that DOM element
-
-   const linkGroup = graphGroup.append("g").attr("class", "fdg-links").attr("stroke", WHITE_HEX).attr("stroke-opacity", 0.9);
-   const nodeGroup = graphGroup.append("g").attr("class", "fdg-nodes").attr("stroke", WHITE_HEX).attr("stroke-width", 1.5);
-   const labelGroup = graphGroup.append("g").attr("class", "fdg-labels").attr("font-size", 10).attr("fill", "#ddd");
+   const linkGroup = svg.append("g").attr("class", "fdg-links").attr("stroke", WHITE_HEX).attr("stroke-opacity", 0.9);
+   const nodeGroup = svg.append("g").attr("class", "fdg-nodes").attr("stroke", WHITE_HEX).attr("stroke-width", 1.5);
+   const labelGroup = svg.append("g").attr("class", "fdg-labels").attr("font-size", 10).attr("fill", "#ddd");
 
    linkGroupRef.current = linkGroup.node();
    nodeGroupRef.current = nodeGroup.node();
@@ -188,8 +179,8 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
       // labels
       d3.select(labelGroupRef.current!)
         .selectAll<SVGTextElement, any>("text")
-        .attr("x", d => d.x)
-        .attr("y", d => d.y);
+        .attr("x", d => d.x + 14)
+        .attr("y", d => d.y + 6);
    });
 
    // --- Store simulation ---
@@ -209,7 +200,7 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
 
    const simulation = simulationRef.current;
 
-   // STEP 0.  Draw the labels.
+   // STEP 0.  update labels in the SVG.
    const labelSel = d3
      .select(labelGroupRef.current!)
      .selectAll<SVGTextElement, any>("text")
@@ -221,7 +212,7 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
      .attr("dx", 8)
      .attr("dy", "0.35em");
 
-   // STEP 1.  Draw the links.
+   // STEP 1.  update links in the SVG.
    const linkSel = d3
      .select(linkGroupRef.current!)
      .selectAll("line")
@@ -229,7 +220,7 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
      .join("line")
      .attr("stroke-width", 1);
 
-   // STEP 2.  Draw the nodes.
+   // STEP 2.  update nodes in the SVG.
    const nodeSel = d3
      .select(nodeGroupRef.current!)
      .selectAll<SVGCircleElement, GraphNode>("circle")
@@ -241,12 +232,12 @@ const GraphForceDirected = forwardRef< GraphForceDirectedFunctions,
      .attr("stroke-width", d => (d.isSelectedFilename ? 2 : 0))
      .call(createDragBehavior(simulationRef.current!));
 
-   // call the D3 physics engine to refresh the UI.
-   // D3 will calculate the new positions and velocities, and
-   // call the tick handler created in the "create" useEffect.
-   simulation.nodes(nodes as any);  // give the updated nodes to the physics engine
-   (simulation.force("link") as any).links(links as any);  // give the link force new links.
-   simulation.alpha(0.7).restart();  // restart the physics engine.
+   // call the D3 physics engine to refresh the UI.  D3 will calculate the new
+   // positions and velocities, and call the tick handler created in the "create"
+   // useEffect.  Since the nodes and links can change, tell the physics engine.
+   simulation.nodes(nodes as any);                         // update nodes in the physics engine.
+   (simulation.force("link") as any).links(links as any);  // update links in the physics engine.
+   simulation.alpha(0.7).restart();                        // restart the physics engine.
 
  }, [nodes, links]);  // end of 2nd useEffect for maintenance of the graph.
 

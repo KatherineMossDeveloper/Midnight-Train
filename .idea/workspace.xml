@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd1584ab-e917-4af0-8e13-a33a80aa0ddc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/d3/createDragBehavior.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/DataExplorerClient.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DataExplorerClient.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/GraphForceDirected.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphForceDirected.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/WeaviateStatus.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/WeaviateStatus.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/d3/createDrag.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/d3/createZoom.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/graphUtilities.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/graphUtilities.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/d3/createDragBehavior.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/d3/createDragBehavior.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/types/FDGtypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/FDGtypes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
