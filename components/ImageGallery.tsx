@@ -27,8 +27,8 @@ import { getNeighborsClient } from "@/lib/api/crystalsClient";
 import { useSelection } from "@/components/SelectionContext";
 import { useMetaByFilename } from "@/components/MetaContext";
 import { useLog } from "@/components/LogPanel";  
-import { image } from "d3";
-import { CLUSTER_HEX, CLUSTER_COLORS } from "@/lib/graphUtilities";
+//import { image } from "d3";
+import { CLUSTER_HEX, WHITE_HEX } from "@/lib/graphUtilities";
 
 type ImageGalleryProps = {
   images: ImageThumb[];
@@ -130,12 +130,11 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
     {/* Scrollable gallery */}
     <div className="mt-4 min-h-0 flex-1 overflow-y-auto grid
                     grid-cols-[repeat(auto-fill,7rem)] auto-rows-[7rem] gap-1 content-start">
+
+         {/* Loop through the images, create buttons with them and add K-means group circles on them. */}
          {images.map((image, index) => {
             const clusterIndex = Number(image.kmeans_pca_cluster);
-            const borderClass =
-                  CLUSTER_COLORS[clusterIndex] ?? "border-l-slate-400";  // slate fallback
-            const colorHex =
-                  CLUSTER_HEX[clusterIndex] ?? "#94a3b8";  // slate fallback
+            const colorHex = CLUSTER_HEX[clusterIndex] ?? WHITE_HEX;
 
             return (
                <button
@@ -145,16 +144,14 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
                                  }}
                   className={`relative h-28 w-28 rounded-md
                              ${index === 0 && showFirstImageCue
-                                 ? "animate-pulse"
-                                 : ""
-                              }
-                             ${borderClass}`} >
+                                 ? "animate-pulse" : "" }
+                             `} >
 
                   {/* image */}
-                  <img className="block w-full h-full object-cover p-1" src={image.src} alt={image.filename} />
-
+                  <img className="block w-full h-full object-cover p-1" src={image.src}
+                                                                        alt={image.filename} />
                   {/* colored circle */}
-                  <span className=" absolute top-2 right-2 size-4 rounded-full "
+                  <span className="absolute top-2 right-2 h-4 w-4 rounded-full"
                         style={{ backgroundColor: colorHex }} />
               </button>
             );
