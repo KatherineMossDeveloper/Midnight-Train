@@ -21,17 +21,17 @@ export type GraphParallelCoordinatesFunctions = {
   copyPng: () => void;
 };
 
-export type ParallelCoordinatesPoints = {
+export type ParallelCoordinatesPoint = {
   cluster: number;
   pca_y: number;
   pca_x: number;
   entropy: number;
   confidence: number;
-  filename: string;
+  image_id: string;
 };
 
 type GraphParallelCoordinatesByFilenameProps = {
-  data: ParallelCoordinatesPoints[];
+  data: ParallelCoordinatesPoint[];
   visibleClusters: number[];
 };
 
@@ -150,7 +150,7 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
     }
 
     // for every image, loop through every field & create a line through the Y axes.
-    function linePath(d: ParallelCoordinatesPoints) {
+    function linePath(d: ParallelCoordinatesPoint) {
       return d3.line()(
         fields.map((dim) => [
            xScale(dim) ?? 0,
@@ -170,7 +170,7 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
       .attr("stroke", d => colorScale(d.cluster))
       .attr("stroke-width", 5)
       .attr("opacity", 0.75)
-      .on("click", (_, d) => setSelectedFilename(d.filename));
+      .on("click", (_, d) => setSelectedFilename(d.image_id));
 
     // draw the details of each vertical Y axis in a loop.
     fields.forEach((dim) => {
@@ -192,7 +192,7 @@ const GraphParallelCoordinates = forwardRef< GraphParallelCoordinatesFunctions,
     g.selectAll("path.selected-glow").remove();
 
     // Get the currently selected file name, if there is one.
-    const selectedDatum = data.find(d => d.filename === selectedFilename);
+    const selectedDatum = data.find(d => d.image_id === selectedFilename);
     if (selectedDatum) {
 
       // Draw a backlit/glow line called path.selected-glow.

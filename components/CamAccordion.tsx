@@ -22,7 +22,7 @@ import { useSelection } from "@/components/SelectionContext";
 import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
 
 type CamAccordionProps = {
-  images: string[];      // filenames relative to /public/images_CAM
+  images: string[];        // filenames relative to /public/images_CAM
   folder: string;          // "CEX" or "PG"
   title: string;           // component title
   height?: number;         // px

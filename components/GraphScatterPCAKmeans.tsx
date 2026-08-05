@@ -34,7 +34,7 @@ export type PCAKmeansPoint = {
   x: number;
   y: number;
   cluster: number;
-  filename: string;
+  image_id: string;
 };
 
 type GraphScatterPCAKmeansProps = {
@@ -158,11 +158,11 @@ const GraphScatterKmeans = forwardRef< GraphScatterPCAKmeansFunctions,
         .attr("fill", (d) => colorScale(d.cluster))
         .attr("opacity", 0.85)
         .style("cursor", "pointer")
-        .on("click", (_, d) => setSelectedFilename(d.filename));
+        .on("click", (_, d) => setSelectedFilename(d.image_id));
 
     plottedData
        .append("title")
-       .text(d => `${d.filename}`);
+       .text(d => `${d.image_id}`);
 
      // transition that animates a redraw over 2 sec., with a slow down (ease).
      // the selected file is drawn larger than the others.
@@ -170,9 +170,9 @@ const GraphScatterKmeans = forwardRef< GraphScatterPCAKmeansFunctions,
         .transition()
         .duration(1000)
         .ease(d3.easeCubicOut)
-        .attr("r", d => d.filename === selectedFilename ? 10 : 6)
-        .attr("stroke", d => d.filename === selectedFilename ? "#fff" : "none")
-        .attr("stroke-width", d => d.filename === selectedFilename ? 2 : 0);
+        .attr("r", d => d.image_id === selectedFilename ? 10 : 6)
+        .attr("stroke", d => d.image_id === selectedFilename ? "#fff" : "none")
+        .attr("stroke-width", d => d.image_id === selectedFilename ? 2 : 0);
 
 
   }, [data]);
@@ -182,7 +182,7 @@ const GraphScatterKmeans = forwardRef< GraphScatterPCAKmeansFunctions,
 
     const svg = d3.select(svgRef.current);
     svg.selectAll<SVGCircleElement, PCAKmeansPoint>("circle")
-       .attr("r", d => d.filename === selectedFilename ? 10 : 6)
+       .attr("r", d => d.image_id === selectedFilename ? 10 : 6)
   }, [selectedFilename]);
 
 

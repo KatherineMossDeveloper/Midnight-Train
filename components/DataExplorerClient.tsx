@@ -9,8 +9,7 @@
 // Notes on context providers.
 // This component sets up context providers.
 // The SelectionContext.SelectionProvider provides the name of the
-// currently selected image.  The MetaContext.MetaProvider gives
-// details about the images.  The LogPanel.LogProvider allows
+// currently selected image.  The LogPanel.LogProvider allows
 // components to log messages for display on the screen.
 //
 // Notes on forwardRef components.
@@ -26,7 +25,6 @@
 import { useEffect, useState, useRef } from "react";
 
 // context providers
-import { MetaProvider } from "@/components/MetaContext";
 import LogPanel, { LogProvider } from "@/components/LogPanel";
 import { SelectionProvider } from "@/components/SelectionContext";
 
@@ -35,7 +33,7 @@ import type { NeighborCenter, NeighborRecord } from "@/lib/data/types";
 import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
 import type { ImageFileDetails } from "@/types/ImageFileDetails";
 import type { GraphNode, GraphLink } from "@/types/FDGtypes";
-import type { ImageThumb } from "@/types/ImageThumb";
+
 import { toThumb, toKmeansData, toEntropyData, toParallelCoordinatesData } from  "@/lib/dataMapper";
 
 // copy to clipboard buttons
@@ -48,10 +46,10 @@ import type { GraphParallelCoordinatesFunctions } from  "@/components/GraphParal
 import CamAccordion from "@/components/CamAccordion";
 import GraphForceDirected from "@/components/GraphForceDirected";
 import GraphHistogram from "@/components/GraphHistogram";
+import ImageGallery, { ImageGalleryPoint } from "@/components/ImageGallery";
 import GraphScatterEntropy, { EntropyPoint } from "@/components/GraphScatterEntropy";
 import GraphScatterPCAKmeans, { PCAKmeansPoint } from "@/components/GraphScatterPCAKmeans";
-import GraphParallelCoordinates, { ParallelCoordinatesPoints } from "@/components/GraphParallelCoordinates";
-import ImageGallery from "@/components/ImageGallery";
+import GraphParallelCoordinates, { ParallelCoordinatesPoint } from "@/components/GraphParallelCoordinates";
 import ImageSlider from "@/components/ImageSlider";
 import WeaviateStatus from "@/components/WeaviateStatus";
 
@@ -81,10 +79,10 @@ export default function DataExplorerClient({ crystals, error }: {
   const [visibleClusters, setVisibleClusters] = useState<number[]>([0, 1, 2, 3]);
 
   const hasData = !error;
-  const imageFiles: ImageThumb[] = hasData ? crystals.map(toThumb) : [];
+  const imageFiles: ImageGalleryPoint[] = hasData ? toThumb(crystals) : [];
   const PCAkmeansData: PCAKmeansPoint[] = hasData ? toKmeansData(crystals) : [];
   const entropyData: EntropyPoint[] = hasData ? toEntropyData(crystals) : [];
-  const parallelcoordinatesData: ParallelCoordinatesPoints[] = hasData ? toParallelCoordinatesData(crystals) : [];
+  const parallelcoordinatesData: ParallelCoordinatesPoint[] = hasData ? toParallelCoordinatesData(crystals) : [];
   const camImages: string[] = hasData ? crystals.map(c => c.image_id) : [];
 
   // clear the FDG when the 'clear FDG' button is pressed.
@@ -120,7 +118,6 @@ export default function DataExplorerClient({ crystals, error }: {
 
 
   return (
-    <MetaProvider metas={crystals}>
       <LogProvider>
         <SelectionProvider>
 
@@ -280,6 +277,6 @@ export default function DataExplorerClient({ crystals, error }: {
           </main>
         </SelectionProvider>
       </LogProvider>
-    </MetaProvider>
+
   );
 }

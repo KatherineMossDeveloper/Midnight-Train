@@ -24,7 +24,7 @@ export type GraphScatterEntropyFunctions = {
 export type EntropyPoint = {
   entropy: number;
   cluster: number;
-  filename: string;
+  image_id: string;
 };
 
 type GraphScatterEntropyByFilenameProps = {
@@ -62,7 +62,7 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
   // Sort the data alphabetically for the X axis domain
   const sortedEntropyPoints = useMemo(() => {
     const copy = [...data];  // ... gets a copy, so we don't change the original.
-    copy.sort((a, b) => a.filename.localeCompare(b.filename));
+    copy.sort((a, b) => a.image_id.localeCompare(b.image_id));
     return copy;
   }, [data]);
 
@@ -105,7 +105,7 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
     // prepare the X axis labels. Pull out the filenames
-    const xDomainFilenames = sortedEntropyPoints.map((d) => d.filename);
+    const xDomainFilenames = sortedEntropyPoints.map((d) => d.image_id);
     const xScale = d3
       .scaleBand<string>()       // create a parallel array of screen positions for the discrete string data.
       .domain(xDomainFilenames)  // create a look-up table for positioning
@@ -149,29 +149,29 @@ const GraphScatterEntropy = forwardRef< GraphScatterEntropyFunctions,
     svg.selectAll("path, line")
        .attr("stroke", "white");
 
-    // create circles for the sortedEntropyPoints data objects, using filename, entropy #, and cluster #.
+    // create circles for the sortedEntropyPoints data objects, using image_id, entropy #, and cluster #.
     const sel = g.selectAll("circle")
       .data(sortedEntropyPoints)
       .enter()
       .append("circle")
-      .attr("cx", (d) => (xScale(d.filename) ?? 0) + xScale.bandwidth() / 2) // map file name to pixel position, centering.
+      .attr("cx", (d) => (xScale(d.image_id) ?? 0) + xScale.bandwidth() / 2) // map file name to pixel position, centering.
       .attr("cy", (d) => yScale(d.entropy))
       .attr("fill", (d) => colorScale(d.cluster))
       .attr("opacity", 0.85)
       .style("cursor", "pointer")
-      .on("click", (_, d) => setSelectedFilename(d.filename));
+      .on("click", (_, d) => setSelectedFilename(d.image_id));
 
     sel
       .append("title")
-      .text(d => `${d.filename}\nEntropy: ${d.entropy}`);
+      .text(d => `${d.image_id}\nEntropy: ${d.entropy}`);
 
     sel
       .transition()
       .duration(1000)
       .ease(d3.easeCubicOut)
-      .attr("r", d => d.filename === selectedFilename ? 10 : 6)
-      .attr("stroke", d => d.filename === selectedFilename ? "#fff" : "none")
-      .attr("stroke-width", d => d.filename === selectedFilename ? 2 : 0);
+      .attr("r", d => d.image_id === selectedFilename ? 10 : 6)
+      .attr("stroke", d => d.image_id === selectedFilename ? "#fff" : "none")
+      .attr("stroke-width", d => d.image_id === selectedFilename ? 2 : 0);
 
   }, [data]);
 

@@ -19,19 +19,27 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";  
-import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
-import type { ImageThumb } from "@/types/ImageThumb";
 import type { NeighborCenter, NeighborRecord } from "@/lib/data/types";
 import { getNeighborsClient } from "@/lib/api/crystalsClient";
 
 import { useSelection } from "@/components/SelectionContext";
-import { useMetaByFilename } from "@/components/MetaContext";
-import { useLog } from "@/components/LogPanel";  
-//import { image } from "d3";
+import { useLog } from "@/components/LogPanel";
 import { CLUSTER_HEX, WHITE_HEX } from "@/lib/graphUtilities";
 
+export type ImageGalleryPoint = {
+  id: string;
+  image_id: string;
+  class_label: string;
+  confidence: number;
+  image_entropy: number;
+  image_header: string;
+  kmeans_pca_cluster: number;
+  //src: `/images_testing/${encodeURIComponent(image_id)}`;
+  //alt: image_id;
+};
+
 type ImageGalleryProps = {
-  images: ImageThumb[];
+  images: ImageGalleryPoint[];
   onAddNeighbors: (center: NeighborCenter, neighbors: NeighborRecord[]) => void;
 };
 
@@ -42,12 +50,15 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
   // listen for changes to the currently selected file name.
   const { selectedFilename, setSelectedFilename } = useSelection();
 
-  // combine the MetaContext with the SelectionContext to get the meta data for the selected image.
-  const metaByFilename = useMetaByFilename();
-  const selectedMeta = selectedFilename != null ? metaByFilename.get(selectedFilename) : null;
+  // get the meta data for the selected image, if one has been selected.
+  const selectedMeta = selectedFilename != null ?
+                       images.find(image => image.image_id === selectedFilename) : null;
 
-  // use the selected image file name to fetch the image from disk.
-  const selectedImage = selectedFilename ? images.find(i => i.filename === selectedFilename) ?? null : null;
+  // use the selected image file name to fetch the image from disk and get its K-means color.
+  const selectedImage = selectedFilename ?
+                        images.find(i => i.image_id === selectedFilename) ?? null : null;
+  const clusterIndex = Number(selectedImage?.kmeans_pca_cluster);
+  const colorHex = CLUSTER_HEX[clusterIndex] ?? WHITE_HEX;
 
   const { log } = useLog();
   useEffect(() => {log(`[mount]  ImageGallery`);}, [log]);
@@ -96,17 +107,24 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
   return (
   <div className="flex h-full min-h-0 flex-col">
 
-    {/* Selected image and metadata          className="flex shrink-0 gap-4"> */}
+    {/* Selected image and metadata  */}
     <div className="flex shrink-0 gap-4">
 
-      {/* Selected image */}
+      {/* Selected image  Tailwind:  relative=img+span; mt/b margin top/bottom   */}
       <div className="shrink-0">
         {selectedImage ? (
-          <img src={selectedImage.src}
-            className="w-28 h-28 object-contain rounded border-2 border-blue-900 mb-4 " />
+           <div className="relative mt-1 mb-3 h-28 w-28">
+             <img className="rounded-md border-3 border-slate-400 h-28 w-28 "
+                 src={`/images_testing/${encodeURIComponent(selectedImage.image_id)}`}
+                 alt={selectedImage.image_id}                                       />
+
+             <span className="absolute top-2 right-2 h-4 w-4 rounded-full"
+               style={{ backgroundColor: colorHex }} />
+          </div>
         ) : (
-          <div className="w-28 h-28 rounded mb-4 bg-gray-300 border-2 border-blue-900 flex items-center justify-center text-black">
-            No image selected
+          <div className="w-28 h-28 rounded mt-1 mb-3 bg-gray-100 border-2
+                          border-blue-900 flex items-center justify-center text-slate-900">
+            Select an image.
           </div>
         )}
       </div>
@@ -138,22 +156,25 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
 
             return (
                <button
-                  key={image.filename}
-                  onClick={() => {setSelectedFilename(image.filename);
+                  key={image.image_id}
+                  onClick={() => {setSelectedFilename(image.image_id);
                                   setShowFirstImageCue(false);
                                  }}
                   className={`relative h-28 w-28 rounded-md
                              ${index === 0 && showFirstImageCue
                                  ? "animate-pulse" : "" }
+                             ${selectedImage?.image_id === image.image_id
+                                 ? "border-3 border-slate-400" : "" }
                              `} >
 
-                  {/* image */}
-                  <img className="block w-full h-full object-cover p-1" src={image.src}
-                                                                        alt={image.filename} />
-                  {/* colored circle */}
+                  {/* image and its kmeans colored circle */}
+                  <img className={'block w-full h-full object-cover p-1 '}
+                     src={`/images_testing/${encodeURIComponent(image.image_id)}`}
+                     alt={image.image_id}   />
+
                   <span className="absolute top-2 right-2 h-4 w-4 rounded-full"
                         style={{ backgroundColor: colorHex }} />
-              </button>
+               </button>
             );
          })}
       </div>
