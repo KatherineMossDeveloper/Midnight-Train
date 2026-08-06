@@ -8,14 +8,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/CamAccordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/CamAccordion.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/DataExplorerClient.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DataExplorerClient.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/GraphParallelCoordinates.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphParallelCoordinates.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/GraphScatterEntropy.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphScatterEntropy.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/GraphScatterPCAKmeans.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/GraphScatterPCAKmeans.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/ImageGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ImageGallery.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/crystalDataSource.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/crystalDataSource.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/MetaContext.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/dataMapper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/dataMapper.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/ImageDatabaseObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/ImageDatabaseObject.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/ImageThumb.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

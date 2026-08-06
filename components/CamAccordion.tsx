@@ -19,7 +19,6 @@
 import { useState, useEffect } from "react";
 import { useLog } from "@/components/LogPanel";
 import { useSelection } from "@/components/SelectionContext";
-import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
 
 type CamAccordionProps = {
   images: string[];        // filenames relative to /public/images_CAM

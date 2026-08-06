@@ -34,7 +34,7 @@ import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
 import type { ImageFileDetails } from "@/types/ImageFileDetails";
 import type { GraphNode, GraphLink } from "@/types/FDGtypes";
 
-import { toThumb, toKmeansData, toEntropyData, toParallelCoordinatesData } from  "@/lib/dataMapper";
+import { toGalleryData, toKmeansData, toEntropyData, toParallelCoordinatesData } from  "@/lib/dataMapper";
 
 // copy to clipboard buttons
 import type { GraphForceDirectedFunctions } from "@/components/GraphForceDirected";
@@ -79,7 +79,7 @@ export default function DataExplorerClient({ crystals, error }: {
   const [visibleClusters, setVisibleClusters] = useState<number[]>([0, 1, 2, 3]);
 
   const hasData = !error;
-  const imageFiles: ImageGalleryPoint[] = hasData ? toThumb(crystals) : [];
+  const imageFiles: ImageGalleryPoint[] = hasData ? toGalleryData(crystals) : [];
   const PCAkmeansData: PCAKmeansPoint[] = hasData ? toKmeansData(crystals) : [];
   const entropyData: EntropyPoint[] = hasData ? toEntropyData(crystals) : [];
   const parallelcoordinatesData: ParallelCoordinatesPoint[] = hasData ? toParallelCoordinatesData(crystals) : [];
@@ -118,7 +118,7 @@ export default function DataExplorerClient({ crystals, error }: {
 
 
   return (
-      <LogProvider>
+     <LogProvider>
         <SelectionProvider>
 
           {/* header section with title and database status. */}
@@ -145,7 +145,7 @@ export default function DataExplorerClient({ crystals, error }: {
                  </h2>
 
                  <div className="min-h-0 flex-1">
-                   <ImageGallery images={imageFiles} onAddNeighbors={handleAddNeighbors}  />
+                   <ImageGallery imageGalleryData={imageFiles} onAddNeighbors={handleAddNeighbors}  />
                  </div>
               </section>
 
@@ -276,7 +276,6 @@ export default function DataExplorerClient({ crystals, error }: {
             </div>  {/* outermost div */}
           </main>
         </SelectionProvider>
-      </LogProvider>
-
+     </LogProvider>
   );
 }

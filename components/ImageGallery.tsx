@@ -3,7 +3,7 @@
 // at the top for metadata about the currently selected image.
 //
 // type ImageGalleryProps
-// export default function ImageGallery({ images, onAddNeighbors...
+// export default function ImageGallery({ imageGalleryData, onAddNeighbors...
 // async function fetchNeighbors()   (fetch nearest neighbors for the selected image)
 //
 // Notes.
@@ -39,30 +39,30 @@ export type ImageGalleryPoint = {
 };
 
 type ImageGalleryProps = {
-  images: ImageGalleryPoint[];
+  imageGalleryData: ImageGalleryPoint[];
   onAddNeighbors: (center: NeighborCenter, neighbors: NeighborRecord[]) => void;
 };
 
 
 // ************************************************
-export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryProps) {
+export default function ImageGallery({ imageGalleryData, onAddNeighbors }: ImageGalleryProps) {
 
   // listen for changes to the currently selected file name.
   const { selectedFilename, setSelectedFilename } = useSelection();
 
   // get the meta data for the selected image, if one has been selected.
-  const selectedMeta = selectedFilename != null ?
-                       images.find(image => image.image_id === selectedFilename) : null;
+  const selectedMeta = selectedFilename ?
+                       imageGalleryData.find(image => image.image_id === selectedFilename) : null;
 
   // use the selected image file name to fetch the image from disk and get its K-means color.
   const selectedImage = selectedFilename ?
-                        images.find(i => i.image_id === selectedFilename) ?? null : null;
+                        imageGalleryData.find(i => i.image_id === selectedFilename) ?? null : null;
   const clusterIndex = Number(selectedImage?.kmeans_pca_cluster);
   const colorHex = CLUSTER_HEX[clusterIndex] ?? WHITE_HEX;
 
   const { log } = useLog();
   useEffect(() => {log(`[mount]  ImageGallery`);}, [log]);
-  useEffect(() => {log(`[data]   Images count ${images.length}`); }, [images.length]);
+  useEffect(() => {log(`[data]   Images count ${imageGalleryData.length}`); }, [imageGalleryData.length]);
   useEffect(() => {log(`[select] Gallery image ${selectedFilename}`); }, [selectedFilename]);
 
   const [showFirstImageCue, setShowFirstImageCue] = useState(false);
@@ -113,8 +113,8 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
       {/* Selected image  Tailwind:  relative=img+span; mt/b margin top/bottom   */}
       <div className="shrink-0">
         {selectedImage ? (
-           <div className="relative mt-1 mb-3 h-28 w-28">
-             <img className="rounded-md border-3 border-slate-400 h-28 w-28 "
+           <div className="relative mt-1 mb-9 h-28 w-28">
+             <img className="rounded-md border-3 border-slate-400 object-contain "
                  src={`/images_testing/${encodeURIComponent(selectedImage.image_id)}`}
                  alt={selectedImage.image_id}                                       />
 
@@ -140,7 +140,6 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
             <div className="ml-3">Shannon entropy: {selectedMeta.image_entropy.toFixed(2)}</div>
             <div className="ml-3">timestamp: {selectedMeta.image_header}</div>
           </div>
-
         )}
       </div>
     </div>
@@ -149,8 +148,8 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
     <div className="mt-4 min-h-0 flex-1 overflow-y-auto grid
                     grid-cols-[repeat(auto-fill,7rem)] auto-rows-[7rem] gap-1 content-start">
 
-         {/* Loop through the images, create buttons with them and add K-means group circles on them. */}
-         {images.map((image, index) => {
+         {/* Loop through the image data, create buttons with it, put K-means group circles on them. */}
+         {imageGalleryData.map((image, index) => {
             const clusterIndex = Number(image.kmeans_pca_cluster);
             const colorHex = CLUSTER_HEX[clusterIndex] ?? WHITE_HEX;
 
@@ -168,7 +167,7 @@ export default function ImageGallery({ images, onAddNeighbors }: ImageGalleryPro
                              `} >
 
                   {/* image and its kmeans colored circle */}
-                  <img className={'block w-full h-full object-cover p-1 '}
+                  <img className={'block w-full h-full object-contain p-1 '}
                      src={`/images_testing/${encodeURIComponent(image.image_id)}`}
                      alt={image.image_id}   />
 
