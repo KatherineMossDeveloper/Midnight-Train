@@ -20,7 +20,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";  
 import type { NeighborCenter, NeighborRecord } from "@/lib/data/types";
-import { getNeighborsClient } from "@/lib/api/crystalsClient";
+
 
 import { useSelection } from "@/components/SelectionContext";
 import { useLog } from "@/components/LogPanel";
@@ -40,12 +40,12 @@ export type ImageGalleryPoint = {
 
 type ImageGalleryProps = {
   imageGalleryData: ImageGalleryPoint[];
-  onAddNeighbors: (center: NeighborCenter, neighbors: NeighborRecord[]) => void;
+  onHandleAddNeighbors: (selectedId: string, selectedFile: string) => void;
 };
 
 
 // ************************************************
-export default function ImageGallery({ imageGalleryData, onAddNeighbors }: ImageGalleryProps) {
+export default function ImageGallery({ imageGalleryData, onHandleAddNeighbors}: ImageGalleryProps) {
 
   // listen for changes to the currently selected file name.
   const { selectedFilename, setSelectedFilename } = useSelection();
@@ -54,10 +54,7 @@ export default function ImageGallery({ imageGalleryData, onAddNeighbors }: Image
   const selectedMeta = selectedFilename ?
                        imageGalleryData.find(image => image.image_id === selectedFilename) : null;
 
-  // use the selected image file name to fetch the image from disk and get its K-means color.
-  const selectedImage = selectedFilename ?
-                        imageGalleryData.find(i => i.image_id === selectedFilename) ?? null : null;
-  const clusterIndex = Number(selectedImage?.kmeans_pca_cluster);
+  const clusterIndex = Number(selectedMeta?.kmeans_pca_cluster);
   const colorHex = CLUSTER_HEX[clusterIndex] ?? WHITE_HEX;
 
   const { log } = useLog();
@@ -91,12 +88,8 @@ export default function ImageGallery({ imageGalleryData, onAddNeighbors }: Image
     async function fetchNeighbors() {
       try {
         if (!selectedFilename || !selectedMeta) return;
-        const result = await getNeighborsClient({ id: selectedMeta.id,
-                                                  imageId: selectedFilename,
-                                                  k: 5 });
-        onAddNeighbors(result.center, result.neighbors);
-        console.log("--->Inside ImageGallery, after onAddNeighbors call.");
-
+        onHandleAddNeighbors(selectedMeta.id, selectedFilename);
+        console.log("--->Inside ImageGallery, after onHandleAddNeighbors call.");
       } catch (err) {
         console.error("Inside ImageGallery, failed to fetch neighbors:", err);
       }
@@ -112,11 +105,11 @@ export default function ImageGallery({ imageGalleryData, onAddNeighbors }: Image
 
       {/* Selected image  Tailwind:  relative=img+span; mt/b margin top/bottom   */}
       <div className="shrink-0">
-        {selectedImage ? (
+        {selectedMeta ? (
            <div className="relative mt-1 mb-9 h-28 w-28">
              <img className="rounded-md border-3 border-slate-400 object-contain "
-                 src={`/images_testing/${encodeURIComponent(selectedImage.image_id)}`}
-                 alt={selectedImage.image_id}                                       />
+                 src={`/images_testing/${encodeURIComponent(selectedMeta.image_id)}`}
+                 alt={selectedMeta.image_id}                                       />
 
              <span className="absolute top-2 right-2 h-4 w-4 rounded-full"
                style={{ backgroundColor: colorHex }} />
@@ -162,7 +155,7 @@ export default function ImageGallery({ imageGalleryData, onAddNeighbors }: Image
                   className={`relative h-28 w-28 rounded-md
                              ${index === 0 && showFirstImageCue
                                  ? "animate-pulse" : "" }
-                             ${selectedImage?.image_id === image.image_id
+                             ${selectedMeta?.image_id === image.image_id
                                  ? "border-3 border-slate-400" : "" }
                              `} >
 

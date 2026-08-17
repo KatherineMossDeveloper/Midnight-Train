@@ -31,9 +31,8 @@ import { SelectionProvider } from "@/components/SelectionContext";
 // data
 import type { NeighborCenter, NeighborRecord } from "@/lib/data/types";
 import type { ImageDatabaseObject } from "@/types/ImageDatabaseObject";
-import type { ImageFileDetails } from "@/types/ImageFileDetails";
 import type { GraphNode, GraphLink } from "@/types/FDGtypes";
-
+import { getNeighborsClient } from "@/lib/api/crystalsClient";
 import { toGalleryData, toKmeansData, toEntropyData, toParallelCoordinatesData } from  "@/lib/dataMapper";
 
 // copy to clipboard buttons
@@ -54,17 +53,17 @@ import ImageSlider from "@/components/ImageSlider";
 import WeaviateStatus from "@/components/WeaviateStatus";
 
 // extras.
-import Button from "@/components/ui/Button";
-import Tooltip from "@/components/ui/Tooltip";
-import Checkbox from "@/components/ui/Checkbox";
 import { TOOLTIP_TEXT } from "@/lib/toolTipsText";
 import { mergeGraphData } from "@/lib/graphUtilities";
+import Tooltip from "@/components/ui/Tooltip";
+import Button from "@/components/ui/Button";
+import Checkbox from "@/components/ui/Checkbox";
 
 
 // ************************************************
 export default function DataExplorerClient({ crystals, error }: {
-     crystals: ImageDatabaseObject[];
-     error: string | null; }) {
+                                             crystals: ImageDatabaseObject[];
+                                             error: string | null; }) {
 
   // hooks for copy-to-clipboard buttons.
   const fdgRef = useRef<GraphForceDirectedFunctions | null>(null);
@@ -92,13 +91,13 @@ export default function DataExplorerClient({ crystals, error }: {
   }
 
   // add nodes and edges to the FDG by calling /lib/graphUtilities.mergeGraphData
-  function handleAddNeighbors( center: NeighborCenter, neighbors: NeighborRecord[] ) {
-    const { newNodes, newEdges } = mergeGraphData(
-      graphNodes,
-      graphEdges,
-      center,
-      neighbors
-    );
+  async function handleAddNeighbors(selectedId: string, selectedFile: string ) {
+
+    const result = await getNeighborsClient({ id: selectedId,
+                                              imageId: selectedFile });
+
+    const { newNodes, newEdges } = mergeGraphData( graphNodes, graphEdges,
+                                                   result.center, result.neighbors);
 
     setGraphNodes(newNodes);
     setGraphEdges(newEdges);

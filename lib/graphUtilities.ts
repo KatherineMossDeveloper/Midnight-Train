@@ -4,7 +4,7 @@
 // is selected by the user.
 //
 // export function mergeGraphData(...)
-// export const CLUSTER_COLORS_HEX
+// export const CLUSTER_HEX
 // export const CLUSTER_COLORS_HEX_TAILWIND to color the image circles on the ImageGallery images.
 //
 
@@ -20,27 +20,14 @@ export const CLUSTER_HEX  = [
   "#ffff99",
 ];
 
-export const CLUSTER_COLORS = [
-  "border-l-[#7fc97f]",
-  "border-l-[#beaed4]",
-  "border-l-[#fdc086]",
-  "border-l-[#ffff99]",
-];
 
 // ************************************************
-export function mergeGraphData(
-  prevNodes: Map<string, GraphNode>,
-  prevEdges: GraphLink[],
-  center: {
-  id: string;
-  image_id?: string;
-  kmeans_pca_cluster?: number;
-  },
-  neighbors: Array<{
-    id: string;
-    image_id?: string;
-    kmeans_pca_cluster?: number;
-    distance?: number;
+export function mergeGraphData( prevNodes: Map<string, GraphNode>, prevEdges: GraphLink[],
+                                center: { id: string; image_id?: string; kmeans_pca_cluster?: number; },
+                                neighbors: Array<{ id: string;
+                                                   image_id?: string;
+                                                   kmeans_pca_cluster?: number;
+                                                   distance?: number;
   }>
 ) {
   const newNodes = new Map(prevNodes);
