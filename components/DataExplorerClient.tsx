@@ -144,7 +144,7 @@ export default function DataExplorerClient({ crystals, error }: {
                  </h2>
 
                  <div className="min-h-0 flex-1">
-                   <ImageGallery imageGalleryData={imageFiles} onAddNeighbors={handleAddNeighbors}  />
+                   <ImageGallery imageGalleryData={imageFiles} onHandleAddNeighbors={handleAddNeighbors}  />
                  </div>
               </section>
 
