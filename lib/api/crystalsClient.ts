@@ -12,6 +12,7 @@ import type { ImageObjectsResult, GetNeighborsResult } from "@/lib/data/types";
 export async function getNeighborsClient(params: {
   id: string,
   imageId: string;
+  k: number;
 }): Promise<GetNeighborsResult> {
 
   const { id, imageId, k = 5 } = params;
