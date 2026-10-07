@@ -91,10 +91,11 @@ export default function DataExplorerClient({ crystals, error }: {
   }
 
   // add nodes and edges to the FDG by calling /lib/graphUtilities.mergeGraphData
-  async function handleAddNeighbors(selectedId: string, selectedFile: string ) {
+  async function handleAddNeighbors(selectedId: string, selectedFile: string, k_limit: number ) {
 
     const result = await getNeighborsClient({ id: selectedId,
-                                              imageId: selectedFile });
+                                              imageId: selectedFile
+                                              k: k_limit});
 
     const { newNodes, newEdges } = mergeGraphData( graphNodes, graphEdges,
                                                    result.center, result.neighbors);
