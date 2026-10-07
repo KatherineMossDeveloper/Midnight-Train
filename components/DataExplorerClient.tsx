@@ -3,7 +3,7 @@
 // as the main driver for Midnight Train.
 //
 // function handleClearGraph
-// function handleAddNeighbors(center, neighbors)
+// function handleAddNeighbors(center, neighbors, k_limit)
 // export default function DataExplorerClient
 //
 // Notes on context providers.
