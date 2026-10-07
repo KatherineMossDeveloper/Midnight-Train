@@ -94,7 +94,7 @@ export default function DataExplorerClient({ crystals, error }: {
   async function handleAddNeighbors(selectedId: string, selectedFile: string, k_limit: number ) {
 
     const result = await getNeighborsClient({ id: selectedId,
-                                              imageId: selectedFile
+                                              imageId: selectedFile,
                                               k: k_limit});
 
     const { newNodes, newEdges } = mergeGraphData( graphNodes, graphEdges,
