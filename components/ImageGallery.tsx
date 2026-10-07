@@ -41,11 +41,12 @@ export type ImageGalleryPoint = {
 type ImageGalleryProps = {
   imageGalleryData: ImageGalleryPoint[];
   onHandleAddNeighbors: (selectedId: string, selectedFile: string) => void;
+  k_limit: number;
 };
 
 
 // ************************************************
-export default function ImageGallery({ imageGalleryData, onHandleAddNeighbors}: ImageGalleryProps) {
+export default function ImageGallery({ imageGalleryData, onHandleAddNeighbors, k_limit}: ImageGalleryProps) {
 
   // listen for changes to the currently selected file name.
   const { selectedFilename, setSelectedFilename } = useSelection();
@@ -88,7 +89,7 @@ export default function ImageGallery({ imageGalleryData, onHandleAddNeighbors}: 
     async function fetchNeighbors() {
       try {
         if (!selectedFilename || !selectedMeta) return;
-        onHandleAddNeighbors(selectedMeta.id, selectedFilename);
+        onHandleAddNeighbors(selectedMeta.id, selectedFilename, k_limit);
         console.log("--->Inside ImageGallery, after onHandleAddNeighbors call.");
       } catch (err) {
         console.error("Inside ImageGallery, failed to fetch neighbors:", err);
