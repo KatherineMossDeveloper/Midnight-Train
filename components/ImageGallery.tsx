@@ -40,7 +40,7 @@ export type ImageGalleryPoint = {
 
 type ImageGalleryProps = {
   imageGalleryData: ImageGalleryPoint[];
-  onHandleAddNeighbors: (selectedId: string, selectedFile: string) => void;
+  onHandleAddNeighbors: (selectedId: string, selectedFile: string, k_limit: number) => void;
   k_limit: number;
 };
 
