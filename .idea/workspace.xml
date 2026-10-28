@@ -8,9 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/DataExplorerClient.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DataExplorerClient.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/ImageGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ImageGallery.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/WeaviateStatus.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/WeaviateStatus.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/api/crystalsClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/crystalsClient.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/graphUtilities.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/graphUtilities.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/FDGtypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/FDGtypes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
